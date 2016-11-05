@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.visualizer;
 
-import com.mazes.model.dungeon.generator.CellularAutomatonRoomGeneration;
+import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,42 +10,42 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
-
-/**
- * Created by sergii.tsyban on 10/26/2016.
- */
 public class DungeonVisualizerFX extends Application{
 
     public static final int CELL_SIDE = 8;
 
-    private CellularAutomatonRoomGeneration carg;
+    public static final int CAVE_WIDTH = 150;
+    public static final int CAVE_HEIGHT = 100;
+
+    private CellularAutomatonCaveGeneration carg;
     private Group root = new Group();
-    private Canvas canvas = new Canvas();
+    private Canvas canvas;
+    private Label label;
 
     public static void main(String[] args) {
         DungeonVisualizerFX.launch(args);
     }
 
     public void start(Stage primaryStage) throws Exception {
-        int width = 100;
-        int height = 100;
+        canvas = new Canvas(CAVE_WIDTH * CELL_SIDE, CAVE_HEIGHT * CELL_SIDE);
         Scene scene = new Scene(root, Color.WHITE);
+        label = new Label("");
+
+        addCanvasMouseHandler();
 
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10, 7, 10, 7));
         vbox.setSpacing(10);
-        vbox.getChildren().addAll(createControlPanel(), canvas);
+        vbox.getChildren().addAll(createControlPanel(), canvas, label);
 
-        carg = new CellularAutomatonRoomGeneration(width, height);
-        carg.initWithRandom();
-        carg.makeGenerationStep();
+        carg = new CellularAutomatonCaveGeneration(CAVE_WIDTH, CAVE_HEIGHT);
 
         draw(canvas.getGraphicsContext2D());
         
@@ -54,38 +54,40 @@ public class DungeonVisualizerFX extends Application{
         primaryStage.show();
     }
 
+    private void addCanvasMouseHandler(){
+        canvas.setOnMouseClicked(event -> {
+            System.out.println("?: x=" + event.getX() + ", y=" + event.getY());
+//                carg.fill((int) Math.floor(event.getY()/CELL_SIDE), (int) Math.floor(event.getX()/CELL_SIDE));
+            draw(canvas.getGraphicsContext2D());
+        });
+    }
+
     private HBox createControlPanel(){
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 7, 10, 7));
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: #336699;");
-        Button generateButton = new Button("Re-Generate");
-        generateButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                carg.initWithRandom();
-                draw(canvas.getGraphicsContext2D());
-            }
+        Button generateCave = new Button("Generate Cave");
+        generateCave.setOnAction(event -> {
+            label.setText("Status: processing");
+            long millisBefore = System.currentTimeMillis();
+            carg.addRoom(0,0,CAVE_WIDTH, CAVE_HEIGHT);
+            carg.generateRooms();
+            long generationTime = System.currentTimeMillis() - millisBefore;
+            draw(canvas.getGraphicsContext2D());
+            label.setText(String.format("Generated in %d millis",  generationTime));
         });
-        Button addGeneration = new Button("Add Generation");
-        addGeneration.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                carg.makeGenerationStep();
-                draw(canvas.getGraphicsContext2D());
-            }
-        });
-        hbox.getChildren().addAll(generateButton, addGeneration);
+        hbox.getChildren().addAll(generateCave);
         return hbox;
     }
 
     private void draw(GraphicsContext gc){
-//        List<Rectangle> rectangles = new ArrayList<Rectangle>();
         int x = 0;
         int y = 0;
-        for (int[] row : carg.getRoom()) {
+        for (int[] row : carg.getCave()) {
             for (int cell : row) {
-                gc.setFill(cell == CellularAutomatonRoomGeneration.WALL ? Color.BROWN : Color.WHITE);
+                gc.setFill(cell == CellularAutomatonCaveGeneration.WALL ? Color.BROWN : Color.WHITE);
                 gc.fillRect(x,y, CELL_SIDE, CELL_SIDE);
-//                rectangles.add(r);
                 x += CELL_SIDE;
             }
             x = 0;
