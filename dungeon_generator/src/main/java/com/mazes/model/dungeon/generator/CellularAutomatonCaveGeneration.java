@@ -1,17 +1,19 @@
 package com.mazes.model.dungeon.generator;
 
+import com.mazes.model.dungeon.utils.CellUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static com.mazes.model.dungeon.common.TilesIds.*;
 
 public class CellularAutomatonCaveGeneration {
 
     public static final int GRID_STEP = 4;
 
     public static final int MARK = 5;
-    public static final int WALL = 1;
-    public static final int FLOOR = 0;
 
     private int minimumOpenPercentage = 35;
     private int initWallBirthProb = 51;
@@ -84,7 +86,7 @@ public class CellularAutomatonCaveGeneration {
                     if(i == 0 || j == 0 || i == room.length - 1 || j == room[i].length - 1){
                         room[i][j] = 1;
                     } else {
-                        room[i][j] = r.nextInt(100) <= initWallBirthProb ? WALL : FLOOR;
+                        room[i][j] = r.nextInt(100) <= initWallBirthProb ? WALL_SOLID : FLOOR;
                     }
                 }
             }
@@ -126,7 +128,7 @@ public class CellularAutomatonCaveGeneration {
                         openCellsCount++;
                         room[i][j] = FLOOR;
                     } else {
-                        room[i][j] = WALL;
+                        room[i][j] = WALL_SOLID;
                     }
                 }
             }
@@ -147,19 +149,19 @@ public class CellularAutomatonCaveGeneration {
             int[][] newRoom = new int[oldRoom.length][oldRoom[0].length];
             for (int y = 0; y < oldRoom.length; y++) {
                 for (int x = 0; x < oldRoom[y].length; x++) {
-                    int aliveNbrs = countAlive(oldRoom, y, x);
+                    int aliveNbrs = CellUtils.countWallsAround(oldRoom, y, x);
 
-                    boolean isWall = oldRoom[y][x] == WALL;
+                    boolean isWall = oldRoom[y][x] == WALL_SOLID;
                     if(isWall){
                         if(aliveNbrs < deathLimit){
                             newRoom[y][x] = FLOOR;
                         }
                         else {
-                            newRoom[y][x] = WALL;
+                            newRoom[y][x] = WALL_SOLID;
                         }
                     } else {
                         if(aliveNbrs > birthLimit){
-                            newRoom[y][x] = WALL;
+                            newRoom[y][x] = WALL_SOLID;
                         } else {
                             newRoom[y][x] = FLOOR;
                         }
@@ -167,28 +169,6 @@ public class CellularAutomatonCaveGeneration {
                 }
             }
             return newRoom;
-        }
-
-        private int countAlive(int[][] oldRoom, int y, int x) {
-            int count = 0;
-            for(int i = -1; i<2; i++){
-                for(int j=-1; j<2; j++){
-                    int neighbour_x = x + i;
-                    int neighbour_y = y + j;
-                    if(i == 0 && j == 0){
-                        continue;
-                    }
-                    //In case the index we're looking at it off the edge of the map
-                    if(neighbour_x < 0 || neighbour_y < 0 || neighbour_y >= oldRoom.length || neighbour_x >= oldRoom[0].length){
-                        count++;
-                    }
-                    //Otherwise, a normal check of the neighbour
-                    else if(oldRoom[neighbour_y][neighbour_x] == WALL){
-                        count++;
-                    }
-                }
-            }
-            return count;
         }
 
         public int[][] getRoom() {
