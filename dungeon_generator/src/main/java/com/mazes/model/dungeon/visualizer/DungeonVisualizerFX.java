@@ -1,9 +1,8 @@
 package com.mazes.model.dungeon.visualizer;
 
+import com.mazes.model.dungeon.allocator.TileIdAllocator;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,20 +10,25 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
+import static com.mazes.model.dungeon.common.TilesIds.WALL_SOLID;
 
 public class DungeonVisualizerFX extends Application{
 
-    public static final int CELL_SIDE = 8;
+    public static final int CELL_SIDE = 16;
 
-    public static final int CAVE_WIDTH = 150;
-    public static final int CAVE_HEIGHT = 100;
+    public static final int CAVE_WIDTH = 50;
+    public static final int CAVE_HEIGHT = 50;
 
     private CellularAutomatonCaveGeneration carg;
+    private TileIdAllocator allocator;
+
     private Group root = new Group();
     private Canvas canvas;
     private Label label;
@@ -35,6 +39,8 @@ public class DungeonVisualizerFX extends Application{
 
     public void start(Stage primaryStage) throws Exception {
         canvas = new Canvas(CAVE_WIDTH * CELL_SIDE, CAVE_HEIGHT * CELL_SIDE);
+        allocator = new TileIdAllocator();
+
         Scene scene = new Scene(root, Color.WHITE);
         label = new Label("");
 
@@ -47,7 +53,10 @@ public class DungeonVisualizerFX extends Application{
 
         carg = new CellularAutomatonCaveGeneration(CAVE_WIDTH, CAVE_HEIGHT);
 
-        draw(canvas.getGraphicsContext2D());
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFont(new Font("Verdana", 10));
+
+        draw(gc);
         
         root.getChildren().add(vbox);
         primaryStage.setScene(scene);
@@ -77,7 +86,16 @@ public class DungeonVisualizerFX extends Application{
             draw(canvas.getGraphicsContext2D());
             label.setText(String.format("Generated in %d millis",  generationTime));
         });
-        hbox.getChildren().addAll(generateCave);
+        Button allocateIds = new Button("Allocate Ids");
+        allocateIds.setOnAction(event -> {
+            label.setText("Status: processing");
+            long millisBefore = System.currentTimeMillis();
+            allocator.allocateIds(carg.getCave());
+            long generationTime = System.currentTimeMillis() - millisBefore;
+            draw(canvas.getGraphicsContext2D());
+            label.setText(String.format("Allocated in in %d millis",  generationTime));
+        });
+        hbox.getChildren().addAll(generateCave, allocateIds);
         return hbox;
     }
 
@@ -86,8 +104,14 @@ public class DungeonVisualizerFX extends Application{
         int y = 0;
         for (int[] row : carg.getCave()) {
             for (int cell : row) {
-                gc.setFill(cell == CellularAutomatonCaveGeneration.WALL ? Color.BROWN : Color.WHITE);
+                gc.setFill(cell == FLOOR ? Color.WHITE: Color.BROWN);
                 gc.fillRect(x,y, CELL_SIDE, CELL_SIDE);
+                gc.setFill(cell == FLOOR ? Color.BROWN: Color.WHITE);
+                if(cell > 10){
+                    gc.fillText(""+cell, x, y + 10);
+                } else {
+                    gc.fillText(""+cell, x + 6, y + 10);
+                }
                 x += CELL_SIDE;
             }
             x = 0;
