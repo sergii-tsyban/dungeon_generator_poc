@@ -1,5 +1,6 @@
 package com.mazes.model.dungeon.visualizer;
 
+import com.mazes.model.dungeon.common.TilesIds;
 import com.mazes.model.dungeon.generator.BSPTree;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;
@@ -97,7 +98,7 @@ public class BSPTreeVisualizerFX extends Application{
         int y = 0;
         for (int[] row : cacg.getCave()) {
             for (int cell : row) {
-                gc.setFill(cell == CellularAutomatonCaveGeneration.WALL ? Color.BROWN : Color.WHITE);
+                gc.setFill(cell == TilesIds.WALL_SOLID ? Color.BROWN : Color.WHITE);
                 gc.fillRect(x,y, CELL_SIDE, CELL_SIDE);
                 x += CELL_SIDE;
             }
