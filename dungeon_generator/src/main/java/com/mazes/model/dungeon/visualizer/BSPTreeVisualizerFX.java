@@ -4,6 +4,8 @@ import com.mazes.model.dungeon.common.TilesIds;
 import com.mazes.model.dungeon.generator.BSPTree;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -61,18 +63,24 @@ public class BSPTreeVisualizerFX extends Application{
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: #336699;");
         final Button generateButton = new Button("Generate BSP");
-        generateButton.setOnAction(event -> {
-            bspTreeCave.generateLeafs();
-            cacg.clear();
-            drawLeafs(canvas.getGraphicsContext2D());
+        generateButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bspTreeCave.generateLeafs();
+                cacg.clear();
+                drawLeafs(canvas.getGraphicsContext2D());
+            }
         });
         final Button automatonButton = new Button("Launch cellular automaton");
-        automatonButton.setOnAction(event -> {
-            bspTreeCave.getLeafs().stream().forEach(node ->{
-                cacg.addRoom(node.getI(), node.getJ(), node.getWidth(), node.getHeight());
-            });
-            cacg.generateRooms();
-            draw(canvas.getGraphicsContext2D());
+        automatonButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                for(BSPTree.Node node: bspTreeCave.getLeafs()){
+                    cacg.addRoom(node.getI(), node.getJ(), node.getWidth(), node.getHeight());
+                }
+                cacg.generateRooms();
+                draw(canvas.getGraphicsContext2D());
+            }
         });
         hbox.getChildren().addAll(generateButton, automatonButton);
         return hbox;
@@ -81,7 +89,7 @@ public class BSPTreeVisualizerFX extends Application{
     private void drawLeafs(GraphicsContext gc){
         Random r = new Random();
         List<BSPTree.Node> leafs = bspTreeCave.getLeafs();
-        leafs.stream().forEach(leaf -> {
+        for(BSPTree.Node leaf: leafs){
             int w = leaf.getWidth();
             int h = leaf.getHeight();
             int x = leaf.getJ();
@@ -89,7 +97,7 @@ public class BSPTreeVisualizerFX extends Application{
             Color c = Color.rgb(r.nextInt(255), r.nextInt(255), r.nextInt(255));
             gc.setFill(c);
             gc.fillRect(x*CELL_SIDE, y*CELL_SIDE, w*CELL_SIDE, h*CELL_SIDE);
-        });
+        }
         label.setText(String.format("Status: %d leafs generated", leafs.size()));
     }
 

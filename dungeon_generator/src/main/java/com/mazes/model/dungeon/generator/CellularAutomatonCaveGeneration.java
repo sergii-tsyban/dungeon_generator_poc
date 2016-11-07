@@ -25,7 +25,7 @@ public class CellularAutomatonCaveGeneration {
 
     public CellularAutomatonCaveGeneration(int width, int height) {
         this.cave = new int[height][width];
-        this.rooms = new ArrayList<>();
+        this.rooms = new ArrayList<Room>();
     }
 
     public void addRoom(int i, int j, int w, int h){
@@ -37,7 +37,7 @@ public class CellularAutomatonCaveGeneration {
     }
 
     public void generateRooms(){
-        rooms.stream().forEach(r -> {
+        for(Room r: rooms){
             r.generateCave();
             int[][] room = r.getRoom();
             for (int i = 0; i < room.length; i++) {
@@ -45,7 +45,7 @@ public class CellularAutomatonCaveGeneration {
                     cave[r.getI() + i][r.getJ() + j] = room[i][j];
                 }
             }
-        });
+        }
     }
 
     private class Room {

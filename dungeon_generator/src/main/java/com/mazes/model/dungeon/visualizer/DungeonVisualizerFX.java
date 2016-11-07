@@ -3,6 +3,8 @@ package com.mazes.model.dungeon.visualizer;
 import com.mazes.model.dungeon.allocator.TileIdAllocator;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -44,8 +46,6 @@ public class DungeonVisualizerFX extends Application{
         Scene scene = new Scene(root, Color.WHITE);
         label = new Label("");
 
-        addCanvasMouseHandler();
-
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10, 7, 10, 7));
         vbox.setSpacing(10);
@@ -63,37 +63,35 @@ public class DungeonVisualizerFX extends Application{
         primaryStage.show();
     }
 
-    private void addCanvasMouseHandler(){
-        canvas.setOnMouseClicked(event -> {
-            System.out.println("?: x=" + event.getX() + ", y=" + event.getY());
-//                carg.fill((int) Math.floor(event.getY()/CELL_SIDE), (int) Math.floor(event.getX()/CELL_SIDE));
-            draw(canvas.getGraphicsContext2D());
-        });
-    }
-
     private HBox createControlPanel(){
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 7, 10, 7));
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: #336699;");
         Button generateCave = new Button("Generate Cave");
-        generateCave.setOnAction(event -> {
-            label.setText("Status: processing");
-            long millisBefore = System.currentTimeMillis();
-            carg.addRoom(0,0,CAVE_WIDTH, CAVE_HEIGHT);
-            carg.generateRooms();
-            long generationTime = System.currentTimeMillis() - millisBefore;
-            draw(canvas.getGraphicsContext2D());
-            label.setText(String.format("Generated in %d millis",  generationTime));
+        generateCave.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                label.setText("Status: processing");
+                long millisBefore = System.currentTimeMillis();
+                carg.addRoom(0,0,CAVE_WIDTH, CAVE_HEIGHT);
+                carg.generateRooms();
+                long generationTime = System.currentTimeMillis() - millisBefore;
+                draw(canvas.getGraphicsContext2D());
+                label.setText(String.format("Generated in %d millis",  generationTime));
+            }
         });
         Button allocateIds = new Button("Allocate Ids");
-        allocateIds.setOnAction(event -> {
-            label.setText("Status: processing");
-            long millisBefore = System.currentTimeMillis();
-            allocator.allocateIds(carg.getCave());
-            long generationTime = System.currentTimeMillis() - millisBefore;
-            draw(canvas.getGraphicsContext2D());
-            label.setText(String.format("Allocated in in %d millis",  generationTime));
+        allocateIds.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                label.setText("Status: processing");
+                long millisBefore = System.currentTimeMillis();
+                allocator.allocateIds(carg.getCave());
+                long generationTime = System.currentTimeMillis() - millisBefore;
+                draw(canvas.getGraphicsContext2D());
+                label.setText(String.format("Allocated in in %d millis",  generationTime));
+            }
         });
         hbox.getChildren().addAll(generateCave, allocateIds);
         return hbox;

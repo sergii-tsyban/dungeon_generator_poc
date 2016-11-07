@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TileIdAllocator {
 
-    private List<CellMatcherElement> matchersChain = new ArrayList<>();
+    private List<CellMatcherElement> matchersChain = new ArrayList<CellMatcherElement>();
 
     {
         matchersChain.add(new SolidWall());
