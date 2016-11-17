@@ -1,6 +1,7 @@
 package com.mazes.model.dungeon.visualizer;
 
 import com.mazes.model.dungeon.allocator.TileIdAllocator;
+import com.mazes.model.dungeon.cell.Cell;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -25,8 +26,8 @@ public class DungeonVisualizerFX extends Application{
 
     public static final int CELL_SIDE = 16;
 
-    public static final int CAVE_WIDTH = 50;
-    public static final int CAVE_HEIGHT = 50;
+    public static final int CAVE_WIDTH = 65;
+    public static final int CAVE_HEIGHT = 65    ;
 
     private CellularAutomatonCaveGeneration carg;
     private TileIdAllocator allocator;
@@ -87,9 +88,10 @@ public class DungeonVisualizerFX extends Application{
             public void handle(ActionEvent event) {
                 label.setText("Status: processing");
                 long millisBefore = System.currentTimeMillis();
-                allocator.allocateIds(carg.getCave());
+                Cell[][] cells = allocator.allocateIds(carg.getCave());
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
+                drawCells(canvas.getGraphicsContext2D(), cells);
                 label.setText(String.format("Allocated in in %d millis",  generationTime));
             }
         });
@@ -97,19 +99,41 @@ public class DungeonVisualizerFX extends Application{
         return hbox;
     }
 
+    private HBox createInputPanel(){
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(10, 7, 10, 7));
+        hbox.setSpacing(10);
+        hbox.setStyle("-fx-background-color: #336699;");
+        return hbox;
+    }
+
+    private void drawCells(GraphicsContext gc, Cell[][] cells){
+        int x = 0;
+        int y = 0;
+        gc.setFill(Color.BLACK);
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                int[] tiles = cell.getTileLayers();
+                String str = "";
+                for (int tile : tiles) {
+                    str += " "+tile;
+                }
+                gc.fillText(str, x, y + 15);
+                x += CELL_SIDE;
+            }
+            x = 0;
+            y += CELL_SIDE;
+        }
+    }
+
     private void draw(GraphicsContext gc){
         int x = 0;
         int y = 0;
+
         for (int[] row : carg.getCave()) {
             for (int cell : row) {
                 gc.setFill(cell == FLOOR ? Color.WHITE: Color.BROWN);
                 gc.fillRect(x,y, CELL_SIDE, CELL_SIDE);
-                gc.setFill(cell == FLOOR ? Color.BROWN: Color.WHITE);
-                if(cell > 10){
-                    gc.fillText(""+cell, x, y + 10);
-                } else {
-                    gc.fillText(""+cell, x + 6, y + 10);
-                }
                 x += CELL_SIDE;
             }
             x = 0;

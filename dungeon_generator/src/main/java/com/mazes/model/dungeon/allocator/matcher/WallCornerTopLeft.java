@@ -9,8 +9,8 @@ public class WallCornerTopLeft extends CellMatcherElement {
 
 
     @Override
-    public int getId() {
-        return CORNER_TL;
+    public int[] getIds() {
+        return new int[]{FLOOR, CORNER_TL};
     }
 
     @Override

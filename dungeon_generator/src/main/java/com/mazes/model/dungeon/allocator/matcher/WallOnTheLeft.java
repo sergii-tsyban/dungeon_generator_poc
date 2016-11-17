@@ -8,8 +8,8 @@ import static com.mazes.model.dungeon.common.TilesIds.WALL_L;
 public class WallOnTheLeft extends CellMatcherElement {
 
     @Override
-    public int getId() {
-        return WALL_L;
+    public int[] getIds() {
+        return new int[]{FLOOR, WALL_L};
     }
 
     @Override

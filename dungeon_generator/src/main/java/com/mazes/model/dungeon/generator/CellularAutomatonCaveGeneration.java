@@ -16,7 +16,7 @@ public class CellularAutomatonCaveGeneration {
     public static final int MARK = 5;
 
     private int minimumOpenPercentage = 35;
-    private int initWallBirthProb = 51;
+    private int initWallBirthProb = 52;
     private int birthLimit = 4;
     private int deathLimit = 4;
     private int[][] cave;

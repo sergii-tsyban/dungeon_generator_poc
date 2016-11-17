@@ -2,7 +2,6 @@ package com.mazes.model.dungeon.generator;
 
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BSPTree {
 
@@ -38,7 +37,13 @@ public class BSPTree {
     }
 
     public List<Node> getLeafs() {
-        return nodes.stream().filter(node -> node.leftChild == null && node.rightChild == null).collect(Collectors.toList());
+        List<Node> leafs = new ArrayList<Node>();
+        for(Node node: nodes){
+            if(node.leftChild == null && node.rightChild == null){
+                leafs.add(node);
+            }
+        }
+        return leafs;
     }
 
     public static class Node {

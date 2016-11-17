@@ -1,16 +1,18 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
+import com.mazes.model.dungeon.cell.Cell;
+
 public abstract class CellMatcherElement {
 
-    public boolean assignOnMatch(int[][] cave, int i, int j){
+    public Cell assignOnMatch(int[][] cave, int i, int j){
         boolean matched = matched(cave, i, j);
         if(matched){
-            cave[i][j] = getId();
+            return new Cell(j, i, getIds());
         }
-        return matched;
+        return null;
     }
 
-    public abstract int getId();
+    public abstract int[] getIds();
 
     public abstract boolean matched(int[][] cave, int i, int j);
 

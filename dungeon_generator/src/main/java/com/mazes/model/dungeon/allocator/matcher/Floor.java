@@ -7,13 +7,13 @@ import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
 public class Floor extends CellMatcherElement {
 
     @Override
-    public int getId() {
-        return FLOOR;
+    public int[] getIds() {
+        return new int[]{FLOOR};
     }
 
     @Override
     public boolean matched(int[][] cave, int i, int j) {
-        return CellUtils.countWallsAround(cave, i, j) == 0;
+        return cave[i][j] == FLOOR;
     }
 
 }
