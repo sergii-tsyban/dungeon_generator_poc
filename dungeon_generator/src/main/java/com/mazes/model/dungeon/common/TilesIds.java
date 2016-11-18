@@ -5,7 +5,7 @@ package com.mazes.model.dungeon.common;
  */
 public class TilesIds {
 
-    public static final int DARK = -1;
+    public static final int NO_TILE = -1;
 
     public static final int WALL_SOLID = 1;
     public static final int FLOOR = 0;

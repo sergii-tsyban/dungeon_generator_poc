@@ -5,7 +5,7 @@ import com.mazes.model.dungeon.utils.CellUtils;
 import static com.mazes.model.dungeon.common.TilesIds.CORNER_BL;
 import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
 
-public class WallCornerBottomLeft extends CellMatcherElement {
+public class WallCornerBottomLeft extends CellMatcher {
 
     @Override
     public int[] getIds() {

@@ -211,4 +211,23 @@ public class CellularAutomatonCaveGeneration {
         this.deathLimit = deathLimit;
     }
 
+    public void setMinimumOpenPercentage(int minimumOpenPercentage) {
+        this.minimumOpenPercentage = minimumOpenPercentage;
+    }
+
+    public int getMinimumOpenPercentage() {
+        return minimumOpenPercentage;
+    }
+
+    public int getInitWallBirthProb() {
+        return initWallBirthProb;
+    }
+
+    public int getBirthLimit() {
+        return birthLimit;
+    }
+
+    public int getDeathLimit() {
+        return deathLimit;
+    }
 }

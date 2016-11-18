@@ -1,10 +1,8 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.utils.CellUtils;
-
 import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
 
-public class Floor extends CellMatcherElement {
+public class Floor extends CellMatcher {
 
     @Override
     public int[] getIds() {
