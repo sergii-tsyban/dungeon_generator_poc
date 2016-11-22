@@ -26,10 +26,10 @@ public class TileMasks {
      1 0 0    1 0 0    0 0 0    0 0 0
      */
     public static final int[] CORNER_TL = {
-            0b110_110_000,
-            0b111_110_000,
-            0b111_110_100,
-            0b110_110_100,
+            CellMasls.W_111_1X0_100,
+            CellMasls.W_110_1X0_000,
+            CellMasls.W_111_1X0_000,
+            CellMasls.W_110_1X0_100,
     };
 
     /**
@@ -39,10 +39,10 @@ public class TileMasks {
      0 0 1    0 0 1    0 0 0    0 0 0
      */
     public static final int[] CORNER_TR = {
-            0b111_011_001,
-            0b111_011_000,
-            0b011_011_000,
-            0b011_011_001,
+            CellMasls.W_111_0X1_001,
+            CellMasls.W_011_0X1_001,
+            CellMasls.W_111_0X1_000,
+            CellMasls.W_011_0X1_000,
     };
 
     /**
@@ -79,10 +79,10 @@ public class TileMasks {
     1 X 1    1 X 1    1 X 1
     1 0 0    0 0 0    0 0 1
      */
-    public static final int[] WALL_T = {
-            0b111_111_000,
-            0b111_111_001,
-            0b111_111_100
+    public static final int[] WALL_FRONT_BOTTOM = {
+            CellMasls.W_111_1X1_000,
+            CellMasls.W_111_1X1_001,
+            CellMasls.W_111_1X1_100
     };
 
     /**

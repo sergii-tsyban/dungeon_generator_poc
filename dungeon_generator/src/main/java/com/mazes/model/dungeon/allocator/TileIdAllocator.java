@@ -12,15 +12,15 @@ public class TileIdAllocator {
 
     {
         matchersChain.add(new NoTileMatcher());
+        matchersChain.add(new WallFrontBottomMatcher());
+        matchersChain.add(new WallCornerTopLeftMatcher());
+        matchersChain.add(new WallCornerTopRightMatcher());
 //        matchersChain.add(new Floor());
 //        matchersChain.add(new WallCornerTopLeft());
 //        matchersChain.add(new WallCornerTopRight());
-//        matchersChain.add(new WallCornerBottomRight());
-//        matchersChain.add(new WallCornerBottomLeft());
 //        matchersChain.add(new WallOnTheBottom());
 //        matchersChain.add(new WallOnTheLeft());
 //        matchersChain.add(new WallOnTheRight());
-//        matchersChain.add(new WallOnTheTop());
     }
 
     public Cell[][] allocateIds(int[][] cave){

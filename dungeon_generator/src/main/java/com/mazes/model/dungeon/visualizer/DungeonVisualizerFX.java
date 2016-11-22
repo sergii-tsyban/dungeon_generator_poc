@@ -26,8 +26,7 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
-import static com.mazes.model.dungeon.common.TilesIds.WALL_SOLID;
+import static com.mazes.model.dungeon.common.TilesIds.*;
 
 public class DungeonVisualizerFX extends Application{
 
@@ -36,6 +35,9 @@ public class DungeonVisualizerFX extends Application{
     static {
         tileIdToColor.put(WALL_SOLID, Color.BROWN);
         tileIdToColor.put(FLOOR, Color.WHITE);
+        tileIdToColor.put(WALL_T, Color.AQUA);
+        tileIdToColor.put(CORNER_TR, Color.CORAL);
+        tileIdToColor.put(CORNER_TL, Color.CORAL);
 
         tileIdToColor.put(TilesIds.NO_TILE, Color.BLACK);
     }
