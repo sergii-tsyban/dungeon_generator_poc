@@ -40,7 +40,7 @@ public class DungeonVisualizerFX extends Application{
         tileIdToColor.put(TilesIds.NO_TILE, Color.BLACK);
     }
 
-    public static final int CELL_SIDE_PIXELS = 8;
+    public static final int CELL_SIDE_PIXELS = 32;
 
     public static final int CAVE_WIDTH = 100;
     public static final int CAVE_HEIGHT = 100;

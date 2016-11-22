@@ -34,20 +34,12 @@ public class TileIdAllocator {
     }
 
     private Cell assignIdForCell(int[][] cave, int i, int j) {
-        Cell cell = null;
         for (CellMatcher cellMatcher : matchersChain) {
             if(cellMatcher.matched(cave, i, j)){
-                cell = new Cell(j, i, cellMatcher.getIds());
-                break;
+                return new Cell(j, i, cellMatcher.getIds());
             }
         }
-        if(cell == null){
-            cell = new Cell(j, i, new int[] {cave[i][j]});
-//            System.out.println(String.format("%d %d %d", cave[i - 1][j - 1], cave[i - 1][j], cave[i - 1][j + 1]));
-//            System.out.println(String.format("%d %d %d", cave[i][j - 1], cave[i][j], cave[i][j + 1]));
-//            System.out.println(String.format("%d %d %d", cave[i + 1][j - 1], cave[i + 1][j], cave[i + 1][j + 1]));
-        }
-        return cell;
+        return new Cell(j, i, new int[] {cave[i][j]});
     }
 
 }

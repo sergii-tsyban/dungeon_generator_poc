@@ -38,18 +38,12 @@ public class CellUtils {
                 int neighbour_y = cell_y + y;
                 if(neighbour_x < 0 || neighbour_y < 0 || neighbour_y >= room.length || neighbour_x >= room[0].length){
                     m |= 1;
-                    System.out.print("x ");
                 } else {
-                    m |= room[cell_y][cell_x];
-                    System.out.print(room[cell_y][cell_x] + " ");
+                    m |= room[neighbour_y][neighbour_x];
                 }
                 m <<= 1;
             }
-            System.out.println();
         }
-        int m2 = m;
-        System.out.println(" -> " + (m2 >> 1));
-        System.out.println("-----------");
         return m >> 1;
     }
 

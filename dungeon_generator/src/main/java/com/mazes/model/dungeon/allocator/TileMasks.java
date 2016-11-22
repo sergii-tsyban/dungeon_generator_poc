@@ -4,14 +4,17 @@ public class TileMasks {
 
     /**
      No tile
-     1 0 0    1 1 1    0 0 1
-     1 X 1    1 X 1    1 X 1
-     1 1 1    1 1 1    1 1 1
+     1 0 0    1 1 1    0 0 1    1 1 0    0 1 1
+     1 X 1    1 X 1    1 X 1    1 X 1    1 X 1
+     1 1 1    1 1 1    1 1 1    1 1 1    1 1 1
      */
     public static final int[] NO_TILE = {
-            0b111_111_111,
-            0b001_111_111,
-            0b100_111_111
+            CellMasls.W_111_1X1_111,
+            CellMasls.W_001_1X1_111,
+            CellMasls.W_100_1X1_111,
+            CellMasls.W_110_1X1_111,
+            CellMasls.W_011_1X1_111,
+            CellMasls.W_000_1X1_111
     };
 
     //----------------------------------------
