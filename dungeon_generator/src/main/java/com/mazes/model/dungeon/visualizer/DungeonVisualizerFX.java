@@ -4,6 +4,8 @@ import com.mazes.model.dungeon.allocator.TileIdAllocator;
 import com.mazes.model.dungeon.cell.Cell;
 import com.mazes.model.dungeon.common.TilesIds;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
+import com.mazes.model.dungeon.topology.TopologyAdjuster;
+import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,7 +42,7 @@ public class DungeonVisualizerFX extends Application{
         tileIdToColor.put(TilesIds.NO_TILE, Color.BLACK);
     }
 
-    public static final int CELL_SIDE_PIXELS = 32;
+    public static final int CELL_SIDE_PIXELS = 8;
 
     public static final int CAVE_WIDTH = 100;
     public static final int CAVE_HEIGHT = 100;
@@ -53,6 +55,7 @@ public class DungeonVisualizerFX extends Application{
 
     private CellularAutomatonCaveGeneration carg;
     private TileIdAllocator allocator;
+    private TopologyManager topologyAdjuster;
 
     private Group root;
     private Canvas canvas;
@@ -82,6 +85,7 @@ public class DungeonVisualizerFX extends Application{
 
         allocator = new TileIdAllocator();
         carg = new CellularAutomatonCaveGeneration(CAVE_WIDTH, CAVE_HEIGHT);
+        topologyAdjuster = new TopologyManager();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFont(TILE_ID_FONT);
@@ -145,7 +149,20 @@ public class DungeonVisualizerFX extends Application{
             }
         });
 
-        hbox.getChildren().addAll(generateCave, allocateIds);
+        Button adjustTopology = new Button("Adjust topology");
+        adjustTopology.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                statusLabel.setText("Status: processing");
+                long millisBefore = System.currentTimeMillis();
+                topologyAdjuster.adjustCaveTopology(carg.getCave());
+                long generationTime = System.currentTimeMillis() - millisBefore;
+                draw(canvas.getGraphicsContext2D());
+                statusLabel.setText(String.format("Adjusted in in %d millis",  generationTime));
+            }
+        });
+
+        hbox.getChildren().addAll(generateCave, allocateIds, adjustTopology);
         return hbox;
     }
 
