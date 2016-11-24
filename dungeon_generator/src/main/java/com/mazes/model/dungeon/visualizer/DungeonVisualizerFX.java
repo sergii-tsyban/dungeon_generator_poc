@@ -2,10 +2,7 @@ package com.mazes.model.dungeon.visualizer;
 
 import com.mazes.model.dungeon.allocator.TileIdAllocator;
 import com.mazes.model.dungeon.cell.Cell;
-import com.mazes.model.dungeon.common.TilesIds;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
-import com.mazes.model.dungeon.topology.TopologyAdjuster;
-import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,23 +26,48 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
-import static com.mazes.model.dungeon.common.TilesIds.WALL_SOLID;
+import static com.mazes.model.dungeon.common.TilesIds.*;
 
 public class DungeonVisualizerFX extends Application{
 
-    private static Map<Integer, Color> tileIdToColor = new HashMap<>();
+    private Map<Integer, Image> tileIdToImage = new HashMap<>();
 
-    static {
-        tileIdToColor.put(WALL_SOLID, Color.BROWN);
-        tileIdToColor.put(FLOOR, Color.WHITE);
+    {
+        tileIdToImage.put(NO_TILE, new Image("terrain/empty.png"));
+        tileIdToImage.put(FLOOR, new Image("terrain/floor.png"));
+        tileIdToImage.put(WALL_FRONT_BOTTOM, new Image("terrain/wall_front_bottom.png"));
 
-        tileIdToColor.put(TilesIds.NO_TILE, Color.BLACK);
+        tileIdToImage.put(SIDE_LEFT, new Image("terrain/side_left.png"));
+        tileIdToImage.put(SIDE_RIGHT, new Image("terrain/side_right.png"));
+        tileIdToImage.put(CONNECTOR_BR_INSIDE, new Image("terrain/connector_br_inside.png"));
+        tileIdToImage.put(CONNECTOR_BL_INSIDE, new Image("terrain/connector_bl_inside.png"));
+
+        tileIdToImage.put(CORNER_TR, new Image("terrain/wall_corner_tr.png"));
+        tileIdToImage.put(CORNER_TL, new Image("terrain/wall_corner_tl.png"));
+
+        tileIdToImage.put(CONNECTOR_BL, new Image("terrain/connector_bl.png"));
+        tileIdToImage.put(CONNECTOR_BR, new Image("terrain/connector_br.png"));
+
+        tileIdToImage.put(SIDE_BOTTOM, new Image("terrain/side_bottom.png"));
+        tileIdToImage.put(WALL_FRONT_TOP, new Image("terrain/wall_front_top.png"));
+
+        tileIdToImage.put(WALL_TOP_LEFT, new Image("terrain/wall_top_left.png"));
+        tileIdToImage.put(WALL_TOP_RIGHT, new Image("terrain/wall_top_right.png"));
+
+        tileIdToImage.put(WALL_TOP_LEFT_SIDE, new Image("terrain/wall_top_left_side.png"));
+        tileIdToImage.put(WALL_TOP_RIGHT_SIDE, new Image("terrain/wall_top_right_side.png"));
+
+        tileIdToImage.put(SIDE_LEFT_WITH_WALL, new Image("terrain/side_left_wirh_wall.png"));
+        tileIdToImage.put(SIDE_RIGHT_WITH_WALL, new Image("terrain/side_right_with_wall.png"));
+
+        tileIdToImage.put(CONNECTOR_TL, new Image("terrain/connector_tl.png"));
+        tileIdToImage.put(CONNECTOR_TR, new Image("terrain/connector_tr.png"));
+
     }
 
-    public static final int CELL_SIDE_PIXELS = 8;
+    public static final int CELL_SIDE_PIXELS = 16;
 
-    public static final int CAVE_WIDTH = 100;
+    public static final int CAVE_WIDTH = 200;
     public static final int CAVE_HEIGHT = 100;
 
     private static final Font LABEL_FONT = new Font("Verdana", 15);
@@ -55,7 +78,6 @@ public class DungeonVisualizerFX extends Application{
 
     private CellularAutomatonCaveGeneration carg;
     private TileIdAllocator allocator;
-    private TopologyManager topologyAdjuster;
 
     private Group root;
     private Canvas canvas;
@@ -78,14 +100,13 @@ public class DungeonVisualizerFX extends Application{
         Scene scene = new Scene(root, Color.WHITE);
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(300, 600);
+        scrollPane.setPrefSize(1500, 600);
         scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
         allocator = new TileIdAllocator();
         carg = new CellularAutomatonCaveGeneration(CAVE_WIDTH, CAVE_HEIGHT);
-        topologyAdjuster = new TopologyManager();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFont(TILE_ID_FONT);
@@ -149,20 +170,7 @@ public class DungeonVisualizerFX extends Application{
             }
         });
 
-        Button adjustTopology = new Button("Adjust topology");
-        adjustTopology.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                statusLabel.setText("Status: processing");
-                long millisBefore = System.currentTimeMillis();
-                topologyAdjuster.adjustCaveTopology(carg.getCave());
-                long generationTime = System.currentTimeMillis() - millisBefore;
-                draw(canvas.getGraphicsContext2D());
-                statusLabel.setText(String.format("Adjusted in in %d millis",  generationTime));
-            }
-        });
-
-        hbox.getChildren().addAll(generateCave, allocateIds, adjustTopology);
+        hbox.getChildren().addAll(generateCave, allocateIds);
         return hbox;
     }
 
@@ -208,12 +216,14 @@ public class DungeonVisualizerFX extends Application{
         for (Cell[] row : cells) {
             for (Cell cell : row) {
                 int[] tiles = cell.getTileLayers();
-                Color c = tileIdToColor.get(tiles[0]);
-                if(c == null){
-                    c = Color.RED;
+                Image i = tileIdToImage.get(tiles[0]);
+                if(i != null){
+                    gc.drawImage(i, x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+                } else {
+                    gc.setFill(Color.RED);
+                    gc.fillRect(x,y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
                 }
-                gc.setFill(c);
-                gc.fillRect(x,y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+
                 x += CELL_SIDE_PIXELS;
             }
             x = 0;
