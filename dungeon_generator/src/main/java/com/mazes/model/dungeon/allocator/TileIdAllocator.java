@@ -11,16 +11,31 @@ public class TileIdAllocator {
     private List<CellMatcher> matchersChain = new ArrayList<CellMatcher>();
 
     {
-        matchersChain.add(new NoTileMatcher());
+//        matchersChain.add(new Floor());
         matchersChain.add(new WallFrontBottomMatcher());
+        matchersChain.add(new WallFrontTopMatcher());
         matchersChain.add(new WallCornerTopLeftMatcher());
         matchersChain.add(new WallCornerTopRightMatcher());
-//        matchersChain.add(new Floor());
-//        matchersChain.add(new WallCornerTopLeft());
-//        matchersChain.add(new WallCornerTopRight());
-//        matchersChain.add(new WallOnTheBottom());
-//        matchersChain.add(new WallOnTheLeft());
-//        matchersChain.add(new WallOnTheRight());
+        matchersChain.add(new WallTopLeftMatcher());
+        matchersChain.add(new WallTopRightMatcher());
+        matchersChain.add(new WallTopRighSidetMatcher());
+        matchersChain.add(new WallTopLefSidetMatcher());
+        matchersChain.add(new WallConnectorTopLeftMatcher());
+        matchersChain.add(new WallConnectorTopRightMatcher());
+        matchersChain.add(new SideLeftMatcher());
+        matchersChain.add(new SideRightMatcher());
+        matchersChain.add(new SideBottomMatcher());
+
+        matchersChain.add(new ConnectorBottomRightMatcher());
+        matchersChain.add(new ConnectorBottomLeftMatcher());
+
+        matchersChain.add(new WallConnectorBottomLeftMatcher());
+        matchersChain.add(new WallConnectorBottomRightMatcher());
+
+        matchersChain.add(new SideRightWithWallMatcher());
+        matchersChain.add(new SideLeftWithWallMatcher());
+
+        matchersChain.add(new NoTileMatcher());
     }
 
     public Cell[][] allocateIds(int[][] cave){

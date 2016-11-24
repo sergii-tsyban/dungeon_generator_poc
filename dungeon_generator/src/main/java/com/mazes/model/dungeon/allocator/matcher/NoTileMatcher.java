@@ -15,7 +15,7 @@ public class NoTileMatcher extends CellMatcher {
     @Override
     public boolean matched(int[][] cave, int i, int j) {
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TileMasks.NO_TILE, mask);
+        boolean hasMask = CellUtils.hasMask(TileMasks.NO_TILE_MASKS, mask);
         return hasMask;
     }
 

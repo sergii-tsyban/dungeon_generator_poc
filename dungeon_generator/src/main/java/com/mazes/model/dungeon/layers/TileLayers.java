@@ -19,14 +19,14 @@ public class TileLayers {
                 TilesIds.FLOOR,
                 TilesIds.CORNER_TL,
                 TilesIds.CORNER_TR,
-                TilesIds.WALL_T);
+                TilesIds.WALL_FRONT_BOTTOM);
 
         addLayer(TerrainLayersNames.WALLS_ON_TOP,
                 TilesIds.CORNER_BL,
                 TilesIds.CORNER_BR,
-                TilesIds.WALL_B,
-                TilesIds.WALL_L,
-                TilesIds.WALL_R);
+                TilesIds.SIDE_BOTTOM,
+                TilesIds.SIDE_LEFT,
+                TilesIds.SIDE_RIGHT);
     }
 
     public static void addLayer(String name, Integer ... tileIds){
