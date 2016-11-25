@@ -24,7 +24,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.mazes.model.dungeon.common.TilesIds.*;
@@ -36,34 +38,33 @@ public class DungeonVisualizerFX extends Application{
     {
         tileIdToImage.put(NO_TILE, new Image("terrain/empty.png"));
         tileIdToImage.put(FLOOR, new Image("terrain/floor.png"));
-        tileIdToImage.put(WALL_FRONT_BOTTOM, new Image("terrain/wall_front_bottom.png"));
 
+        tileIdToImage.put(WALL_FRONT_BOTTOM, new Image("terrain/wall_front_bottom.png"));
+        tileIdToImage.put(WALL_FRONT_TOP, new Image("terrain/wall_front_top.png"));
+        tileIdToImage.put(WALL_SIDE_RIGHT, new Image("terrain/wall_side_right.png"));
+        tileIdToImage.put(WALL_SIDE_LEFT, new Image("terrain/wall_side_left.png"));
+        tileIdToImage.put(WALL_CORNER_TR, new Image("terrain/wall_corner_tr.png"));
+        tileIdToImage.put(WALL_CORNER_TL, new Image("terrain/wall_corner_tl.png"));
+
+        tileIdToImage.put(WALL_TOP_WALL_SIDE_RIGHT, new Image("terrain/wall_top_wall_side_right.png"));
+        tileIdToImage.put(WALL_TOP_WALL_SIDE_LEFT, new Image("terrain/wall_top_wall_side_left.png"));
+
+        tileIdToImage.put(WALL_TOP_SIDE_LEFT, new Image("terrain/wall_top_left_side.png"));
+        tileIdToImage.put(WALL_TOP_SIDE_RIGHT, new Image("terrain/wall_top_right_side.png"));
+
+        tileIdToImage.put(WALL_CONNECTOR_BOTTOM_TO_RIGHT, new Image("terrain/wall_connector_bottom_to_right.png"));
+        tileIdToImage.put(WALL_CONNECTOR_BOTTOM_TO_LEFT, new Image("terrain/wall_connector_bottom_to_left.png"));
         tileIdToImage.put(SIDE_LEFT, new Image("terrain/side_left.png"));
         tileIdToImage.put(SIDE_RIGHT, new Image("terrain/side_right.png"));
-        tileIdToImage.put(CONNECTOR_BR_INSIDE, new Image("terrain/connector_br_inside.png"));
-        tileIdToImage.put(CONNECTOR_BL_INSIDE, new Image("terrain/connector_bl_inside.png"));
-
-        tileIdToImage.put(CORNER_TR, new Image("terrain/wall_corner_tr.png"));
-        tileIdToImage.put(CORNER_TL, new Image("terrain/wall_corner_tl.png"));
-
-        tileIdToImage.put(CONNECTOR_BL, new Image("terrain/connector_bl.png"));
-        tileIdToImage.put(CONNECTOR_BR, new Image("terrain/connector_br.png"));
-
+        tileIdToImage.put(SIDE_CONNECTOR_TOP_TO_LEFT, new Image("terrain/side_connector_top_to_left.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TOP_TO_RIGHT, new Image("terrain/side_connector_top_to_right.png"));
         tileIdToImage.put(SIDE_BOTTOM, new Image("terrain/side_bottom.png"));
-        tileIdToImage.put(WALL_FRONT_TOP, new Image("terrain/wall_front_top.png"));
-
-        tileIdToImage.put(WALL_TOP_LEFT, new Image("terrain/wall_top_left.png"));
-        tileIdToImage.put(WALL_TOP_RIGHT, new Image("terrain/wall_top_right.png"));
-
-        tileIdToImage.put(WALL_TOP_LEFT_SIDE, new Image("terrain/wall_top_left_side.png"));
-        tileIdToImage.put(WALL_TOP_RIGHT_SIDE, new Image("terrain/wall_top_right_side.png"));
-
-        tileIdToImage.put(SIDE_LEFT_WITH_WALL, new Image("terrain/side_left_wirh_wall.png"));
-        tileIdToImage.put(SIDE_RIGHT_WITH_WALL, new Image("terrain/side_right_with_wall.png"));
-
-        tileIdToImage.put(CONNECTOR_TL, new Image("terrain/connector_tl.png"));
-        tileIdToImage.put(CONNECTOR_TR, new Image("terrain/connector_tr.png"));
-
+        tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_LEFT, new Image("terrain/side_connector_bottom_to_left.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_RIGHT, new Image("terrain/side_connector_bottom_to_right.png"));
+        tileIdToImage.put(SIDE_LEFT_WITH_WALL_CONNECTOR, new Image("terrain/side_left_with_wall_connector.png"));
+        tileIdToImage.put(SIDE_RIGHT_WITH_WALL_CONNECTOR, new Image("terrain/side_right_with_wall_connector.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_CONN, new Image("terrain/side_connector_tr_with_wall_conn.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_CONN, new Image("terrain/side_connector_tl_with_wall_conn.png"));
     }
 
     public static final int CELL_SIDE_PIXELS = 16;
@@ -100,7 +101,7 @@ public class DungeonVisualizerFX extends Application{
 
         Scene scene = new Scene(root, Color.WHITE);
 
-        addCanvasMouseListener();
+
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(1500, 600);
@@ -114,6 +115,7 @@ public class DungeonVisualizerFX extends Application{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFont(TILE_ID_FONT);
 
+        addCanvasMouseListener(gc);
         draw(gc);
 
         scrollPane.setContent(canvas);
@@ -185,7 +187,9 @@ public class DungeonVisualizerFX extends Application{
         }
     }
 
-    private void addCanvasMouseListener(){
+    private List<Integer> ids = new ArrayList<>();
+
+    private void addCanvasMouseListener(final GraphicsContext gc){
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     @Override
@@ -193,6 +197,14 @@ public class DungeonVisualizerFX extends Application{
                         int i = (int) (e.getY() / CELL_SIDE_PIXELS);
                         int j = (int) (e.getX() / CELL_SIDE_PIXELS);
                         allocator.chooseMatcher(carg.getCave(), i, j);
+                        gc.setFill(Color.BLUE);
+                        gc.strokeRect(j* CELL_SIDE_PIXELS ,i* CELL_SIDE_PIXELS, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+                        ids.add(carg.getCave()[i][j]);
+                        if(ids.size() == 9){
+                            String out = "%d %d %d\n%d %d %d\n%d %d %d";
+                            System.out.println(String.format(out, ids.get(0), ids.get(1), ids.get(2), ids.get(3), ids.get(4), ids.get(5), ids.get(6), ids.get(7), ids.get(8)));
+                            ids.clear();
+                        }
                     }
                 });
     }
@@ -236,7 +248,7 @@ public class DungeonVisualizerFX extends Application{
                     gc.drawImage(i, x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
                 } else {
                     gc.setFill(Color.RED);
-                    gc.fillRect(x,y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+                    gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
                 }
 
                 x += CELL_SIDE_PIXELS;

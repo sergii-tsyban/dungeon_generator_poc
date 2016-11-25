@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import static com.mazes.model.dungeon.common.TilesIds.SIDE_RIGHT_WITH_WALL;
+import static com.mazes.model.dungeon.common.TilesIds.WALL_SIDE_LEFT;
 
 /**
  * Created by sergii.tsyban on 11/23/2016.
@@ -12,7 +12,7 @@ public class SideRightWithWallMatcher extends CellMatcher {
 
     @Override
     public int[] getIds() {
-        return new int[]{SIDE_RIGHT_WITH_WALL};
+        return new int[]{WALL_SIDE_LEFT};
     }
 
     @Override

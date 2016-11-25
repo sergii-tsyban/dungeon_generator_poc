@@ -9,7 +9,7 @@ public class WallConnectorBottomRightMatcher extends CellMatcher {
 
     @Override
     public int[] getIds() {
-        return new int[]{CONNECTOR_BR_INSIDE};
+        return new int[]{SIDE_CONNECTOR_TOP_TO_LEFT};
     }
 
     @Override

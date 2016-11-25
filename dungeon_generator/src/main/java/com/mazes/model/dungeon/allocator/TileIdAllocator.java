@@ -18,10 +18,13 @@ public class TileIdAllocator {
         matchersChain.add(new WallCornerTopRightMatcher());
         matchersChain.add(new WallTopLeftMatcher());
         matchersChain.add(new WallTopRightMatcher());
-        matchersChain.add(new WallTopRighSidetMatcher());
+        matchersChain.add(new WallTopRightSideMatcher());
         matchersChain.add(new WallTopLefSidetMatcher());
+        matchersChain.add(new SideConnectorTopRightWithWallConn());
+        matchersChain.add(new SideConnectorTopLeftWithWallConn());
         matchersChain.add(new WallConnectorTopLeftMatcher());
         matchersChain.add(new WallConnectorTopRightMatcher());
+
         matchersChain.add(new SideLeftMatcher());
         matchersChain.add(new SideRightMatcher());
         matchersChain.add(new SideBottomMatcher());

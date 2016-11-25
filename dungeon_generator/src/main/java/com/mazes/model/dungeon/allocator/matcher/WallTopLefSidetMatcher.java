@@ -11,7 +11,7 @@ public class WallTopLefSidetMatcher extends CellMatcher {
 
     @Override
     public int[] getIds() {
-        return new int[]{WALL_TOP_LEFT_SIDE};
+        return new int[]{WALL_TOP_SIDE_LEFT};
     }
 
     @Override

@@ -304,6 +304,22 @@ public class CellMasks {
     //----------------------------------------------------
 
     /**
+     0 0 0
+     0 X 1
+     0 1 1
+     */
+    public static final int W_000_0X1_011 = 0b000_011_011;
+
+    /**
+     0 0 0
+     1 X 0
+     1 1 0
+     */
+    public static final int W_000_1X0_110 = 0b000_110_110;
+
+    //----------------------------------------------------
+
+    /**
      1 0 0
      1 X 0
      1 1 0
@@ -396,4 +412,16 @@ public class CellMasks {
     public static final int E_001_0X0_110 = 0b001_000_110;
     public static final int E_110_0X0_110 = 0b110_000_110;
     public static final int E_100_0X0_110 = 0b100_000_110;
+
+    public static final int W_111_1X0_111 = 0b111_110_111;
+
+    public static final int W_111_0X1_111 = 0b111_011_111;
+
+    public static final int E_110_1X0_110 = 0b110_100_110;
+
+    public static final int E_011_0X1_011 = 0b110_100_110;
+
+    public static final int E_001_1X0_110 = 0b001_100_110;
+
+    public static final int E_100_0X1_011 = 0b100_001_011;
 }

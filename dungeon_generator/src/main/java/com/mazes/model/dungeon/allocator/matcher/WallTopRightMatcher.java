@@ -2,7 +2,7 @@ package com.mazes.model.dungeon.allocator.matcher;
 
 
 import static com.mazes.model.dungeon.common.TilesIds.WALL_SOLID;
-import static com.mazes.model.dungeon.common.TilesIds.WALL_TOP_RIGHT;
+import static com.mazes.model.dungeon.common.TilesIds.WALL_TOP_WALL_SIDE_LEFT;
 
 /**
  * Created by sergii.tsyban on 11/23/2016.
@@ -13,12 +13,12 @@ public class WallTopRightMatcher extends CellMatcher {
 
     @Override
     public int[] getIds() {
-        return new int[]{WALL_TOP_RIGHT};
+        return new int[]{WALL_TOP_WALL_SIDE_LEFT};
     }
 
     @Override
     public boolean matched(int[][] cave, int i, int j) {
-        if(i == cave.length - 1 || j == cave.length - 1){
+        if(i == cave.length - 1 || j == cave[0].length - 1){
             return false;
         }
         return bottomMatcher.matched(cave, i + 1, j) && cave[i][j + 1] == WALL_SOLID;

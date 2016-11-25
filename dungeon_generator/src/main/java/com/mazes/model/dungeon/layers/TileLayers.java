@@ -17,8 +17,8 @@ public class TileLayers {
     static {
         addLayer(TerrainLayersNames.FLOOR_LAYER,
                 TilesIds.FLOOR,
-                TilesIds.CORNER_TL,
-                TilesIds.CORNER_TR,
+                TilesIds.WALL_CORNER_TL,
+                TilesIds.WALL_CORNER_TR,
                 TilesIds.WALL_FRONT_BOTTOM);
 
         addLayer(TerrainLayersNames.WALLS_ON_TOP,

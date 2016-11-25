@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import static com.mazes.model.dungeon.common.TilesIds.CONNECTOR_TL;
+import static com.mazes.model.dungeon.common.TilesIds.WALL_CONNECTOR_BOTTOM_TO_RIGHT;
 
 /**
  * Created by sergii.tsyban on 11/23/2016.
@@ -12,7 +12,7 @@ public class WallConnectorTopLeftMatcher extends CellMatcher {
 
     @Override
     public int[] getIds() {
-        return new int[]{CONNECTOR_TL};
+        return new int[]{WALL_CONNECTOR_BOTTOM_TO_RIGHT};
     }
 
     @Override
