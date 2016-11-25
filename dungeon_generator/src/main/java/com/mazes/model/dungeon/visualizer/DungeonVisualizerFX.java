@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -99,6 +100,8 @@ public class DungeonVisualizerFX extends Application{
 
         Scene scene = new Scene(root, Color.WHITE);
 
+        addCanvasMouseListener();
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(1500, 600);
         scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -180,6 +183,18 @@ public class DungeonVisualizerFX extends Application{
         } catch (Exception e){
             return def;
         }
+    }
+
+    private void addCanvasMouseListener(){
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        int i = (int) (e.getY() / CELL_SIDE_PIXELS);
+                        int j = (int) (e.getX() / CELL_SIDE_PIXELS);
+                        allocator.chooseMatcher(carg.getCave(), i, j);
+                    }
+                });
     }
 
     private GridPane createInputPanel(){

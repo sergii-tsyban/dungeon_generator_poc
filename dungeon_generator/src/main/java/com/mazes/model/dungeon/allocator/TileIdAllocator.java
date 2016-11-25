@@ -48,6 +48,16 @@ public class TileIdAllocator {
         return cells;
     }
 
+    public void chooseMatcher(int[][] cave, int i, int j){
+        for (CellMatcher cellMatcher : matchersChain) {
+            if(cellMatcher.matched(cave, i, j)){
+                System.out.println(cellMatcher.getClass().getSimpleName());
+                return;
+            }
+        }
+        System.out.println("No Matcher found !");
+    }
+
     private Cell assignIdForCell(int[][] cave, int i, int j) {
         for (CellMatcher cellMatcher : matchersChain) {
             if(cellMatcher.matched(cave, i, j)){
