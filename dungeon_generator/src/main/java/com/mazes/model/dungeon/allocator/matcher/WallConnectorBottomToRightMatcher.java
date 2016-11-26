@@ -5,10 +5,10 @@ import static com.mazes.model.dungeon.common.TilesIds.WALL_CONNECTOR_BOTTOM_TO_R
 /**
  * Created by sergii.tsyban on 11/23/2016.
  */
-public class WallConnectorTopLeftMatcher extends CellMatcher {
+public class WallConnectorBottomToRightMatcher extends CellMatcher {
 
-    private SideLeftWithWallMatcher sideLeftWithWallMatcher = new SideLeftWithWallMatcher();
-    private WallTopRightMatcher wallTopRightMatcher = new WallTopRightMatcher();
+    private WallSideRight wallSideRight = new WallSideRight();
+    private WallTopWallSideLeftMatcher wallTopWallSideLeftMatcher = new WallTopWallSideLeftMatcher();
 
     @Override
     public int[] getIds() {
@@ -20,8 +20,8 @@ public class WallConnectorTopLeftMatcher extends CellMatcher {
         if(i == cave.length - 1){
             return false;
         }
-        return sideLeftWithWallMatcher.matched(cave, i + 1, j) ||
-                wallTopRightMatcher.matched(cave, i + 1, j);
+        return wallSideRight.matched(cave, i + 1, j) ||
+                wallTopWallSideLeftMatcher.matched(cave, i + 1, j);
     }
 
 }

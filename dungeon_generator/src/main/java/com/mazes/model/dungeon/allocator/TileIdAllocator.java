@@ -16,27 +16,27 @@ public class TileIdAllocator {
         matchersChain.add(new WallFrontTopMatcher());
         matchersChain.add(new WallCornerTopLeftMatcher());
         matchersChain.add(new WallCornerTopRightMatcher());
-        matchersChain.add(new WallTopLeftMatcher());
-        matchersChain.add(new WallTopRightMatcher());
-        matchersChain.add(new WallTopRightSideMatcher());
-        matchersChain.add(new WallTopLefSidetMatcher());
+        matchersChain.add(new WallTopWallSideRightMatcher());
+        matchersChain.add(new WallTopWallSideLeftMatcher());
+        matchersChain.add(new WallTopSideRightMatcher());
+        matchersChain.add(new WallTopSideLeftMatcher());
         matchersChain.add(new SideConnectorTopRightWithWallConn());
         matchersChain.add(new SideConnectorTopLeftWithWallConn());
-        matchersChain.add(new WallConnectorTopLeftMatcher());
-        matchersChain.add(new WallConnectorTopRightMatcher());
+        matchersChain.add(new WallConnectorBottomToRightMatcher());
+        matchersChain.add(new WallConnectorBottomToLeftMatcher());
 
         matchersChain.add(new SideLeftMatcher());
         matchersChain.add(new SideRightMatcher());
         matchersChain.add(new SideBottomMatcher());
 
-        matchersChain.add(new ConnectorBottomRightMatcher());
-        matchersChain.add(new ConnectorBottomLeftMatcher());
+        matchersChain.add(new SideConnectorBottomToRightMatcher());
+        matchersChain.add(new SideConnectorBottomToLeftMatcher());
 
-        matchersChain.add(new WallConnectorBottomLeftMatcher());
-        matchersChain.add(new WallConnectorBottomRightMatcher());
+        matchersChain.add(new SideConnectorTopToRight());
+        matchersChain.add(new SideConnectorTopToLeft());
 
-        matchersChain.add(new SideRightWithWallMatcher());
-        matchersChain.add(new SideLeftWithWallMatcher());
+        matchersChain.add(new WallSideLeft());
+        matchersChain.add(new WallSideRight());
 
         matchersChain.add(new NoTileMatcher());
     }

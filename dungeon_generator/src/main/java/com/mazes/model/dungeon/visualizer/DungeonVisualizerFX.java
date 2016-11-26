@@ -44,8 +44,8 @@ public class DungeonVisualizerFX extends Application{
         tileIdToImage.put(WALL_FRONT_TOP, new Image("terrain/wall_front_top.png"));
         tileIdToImage.put(WALL_SIDE_RIGHT, new Image("terrain/wall_side_right.png"));
         tileIdToImage.put(WALL_SIDE_LEFT, new Image("terrain/wall_side_left.png"));
-        tileIdToImage.put(WALL_CORNER_TR, new Image("terrain/wall_corner_tr.png"));
-        tileIdToImage.put(WALL_CORNER_TL, new Image("terrain/wall_corner_tl.png"));
+        tileIdToImage.put(WALL_CORNER_TOP_RIGHT, new Image("terrain/wall_corner_tr.png"));
+        tileIdToImage.put(WALL_CORNER_TOP_LEFT, new Image("terrain/wall_corner_tl.png"));
 
         tileIdToImage.put(WALL_TOP_WALL_SIDE_RIGHT, new Image("terrain/wall_top_wall_side_right.png"));
         tileIdToImage.put(WALL_TOP_WALL_SIDE_LEFT, new Image("terrain/wall_top_wall_side_left.png"));

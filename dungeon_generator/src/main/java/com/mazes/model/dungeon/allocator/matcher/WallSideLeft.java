@@ -5,7 +5,7 @@ import static com.mazes.model.dungeon.common.TilesIds.WALL_SIDE_LEFT;
 /**
  * Created by sergii.tsyban on 11/23/2016.
  */
-public class SideRightWithWallMatcher extends CellMatcher {
+public class WallSideLeft extends CellMatcher {
 
     private WallFrontBottomMatcher bottomMatcher = new WallFrontBottomMatcher();
     private WallCornerTopRightMatcher cornerMatcher = new WallCornerTopRightMatcher ();

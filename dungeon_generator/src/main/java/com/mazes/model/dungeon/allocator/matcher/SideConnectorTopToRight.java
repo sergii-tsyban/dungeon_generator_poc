@@ -5,7 +5,7 @@ import com.mazes.model.dungeon.utils.CellUtils;
 
 import static com.mazes.model.dungeon.common.TilesIds.*;
 
-public class WallConnectorBottomLeftMatcher extends CellMatcher {
+public class SideConnectorTopToRight extends CellMatcher {
 
     @Override
     public int[] getIds() {
