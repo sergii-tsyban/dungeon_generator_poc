@@ -424,4 +424,122 @@ public class CellMasks {
     public static final int E_001_1X0_110 = 0b001_100_110;
 
     public static final int E_100_0X1_011 = 0b100_001_011;
+
+    //------------------------------------------------------
+
+    /**
+     1 0 0
+     1 X 0
+     1 0 0
+     */
+    public static final int W_100_1X0_100 = 0b100_110_100;
+
+    /**
+     1 0 1
+     1 X 0
+     1 0 0
+     */
+    public static final int W_101_1X0_100 = 0b101_110_100;
+
+    /**
+     1 0 0
+     1 X 0
+     1 0 1
+     */
+    public static final int W_100_1X0_101 = 0b100_110_101;
+
+    /**
+     1 0 1
+     1 X 0
+     1 0 1
+     */
+    public static final int W_101_1X0_101 = 0b101_110_101;
+
+    /**
+     0 0 1
+     0 X 1
+     0 0 1
+     */
+    public static final int W_001_0X1_001 = 0b001_011_001;
+
+    /**
+     1 0 1
+     0 X 1
+     0 0 1
+     */
+    public static final int W_101_0X1_001 = 0b101_011_001;
+
+    /**
+     0 0 1
+     0 X 1
+     1 0 1
+     */
+    public static final int W_001_0X1_101 = 0b001_011_101;
+
+    /**
+     1 0 1
+     0 X 1
+     1 0 1
+     */
+    public static final int W_101_0X1_101 = 0b101_011_101;
+
+    /**
+     1 0 1
+     0 X 0
+     1 1 1
+     */
+    public static final int W_101_0X0_111 = 0b101_010_111;
+
+    /**
+     1 0 0
+     0 X 0
+     1 1 1
+     */
+    public static final int W_100_0X0_111 = 0b100_010_111;
+
+    /**
+     0 0 1
+     0 X 0
+     1 1 1
+     */
+    public static final int W_001_0X0_111 = 0b001_010_111;
+
+    /**
+     0 0 0
+     0 X 0
+     1 1 1
+     */
+    public static final int W_000_0X0_111 = 0b000_010_111;
+
+    //-----------------------------------------------------
+
+    /**
+     1 1 1
+     0 X 0
+     1 0 0
+     */
+    public static final int W_111_0X0_100 = 0b111_010_100;
+
+    /**
+     1 1 1
+     0 X 0
+     0 0 1
+     */
+    public static final int W_111_0X0_001 = 0b111_010_001;
+
+    /**
+     1 1 1
+     0 X 0
+     1 0 1
+     */
+    public static final int W_111_0X0_101 = 0b111_010_101;
+
+    /**
+     1 1 1
+     0 X 0
+     0 0 0
+     */
+    public static final int W_111_0X0_000 = 0b111_010_000;
+    public static final int W_011_1X0_110 = 0b011_110_110;
+    public static final int W_100_011_011 = 0b100_011_011;
 }

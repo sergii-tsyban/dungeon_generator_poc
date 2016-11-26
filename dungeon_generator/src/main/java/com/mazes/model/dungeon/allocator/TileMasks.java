@@ -54,27 +54,29 @@ public class TileMasks {
     };
 
     /**
-    1 1 0    1 1 1    1 0 0    0 0 0
-    1 X 0    1 X 0    1 X 0    1 X 0
-    1 1 0    1 1 0    1 1 0    1 1 0
+    1 1 0    1 1 1    1 0 0    0 0 0    0 1 1
+    1 X 0    1 X 0    1 X 0    1 X 0    1 1 0
+    1 1 0    1 1 0    1 1 0    1 1 0    1 1 0
      */
     public static final int[] SIDE_L_MASKS = {
             CellMasks.W_110_1X0_110,
             CellMasks.W_111_1X0_110,
             CellMasks.W_100_1X0_110,
-            CellMasks.W_000_1X0_110
+            CellMasks.W_000_1X0_110,
+            CellMasks.W_011_1X0_110
     };
 
     /**
-    0 1 1    1 1 1    0 0 1    0 0 0
-    0 X 1    0 X 1    0 X 1    0 X 1
-    0 1 1    0 1 1    0 1 1    0 1 1
+    0 1 1    1 1 1    0 0 1    0 0 0    1 0 0
+    0 X 1    0 X 1    0 X 1    0 X 1    0 1 1
+    0 1 1    0 1 1    0 1 1    0 1 1    0 1 1
      */
     public static final int[] SIDE_R_MASKS = {
             CellMasks.W_011_0X1_011,
             CellMasks.W_111_0X1_011,
             CellMasks.W_001_0X1_011,
-            CellMasks.W_000_0X1_011
+            CellMasks.W_000_0X1_011,
+            CellMasks.W_100_011_011
     };
 
     //----------------------------------------

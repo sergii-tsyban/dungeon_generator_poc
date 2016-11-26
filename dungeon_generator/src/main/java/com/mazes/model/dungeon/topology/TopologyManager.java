@@ -11,7 +11,8 @@ public class TopologyManager {
     private List<TopologyAdjuster> adjusters = new ArrayList<>();
 
     {
-        registerTopologyAdjuster(StairsAdjuster.class);
+//        registerTopologyAdjuster(StairsAdjuster.class);
+        registerTopologyAdjuster(TeethAdjuster.class);
     }
 
     public <T extends TopologyAdjuster> void registerTopologyAdjuster(Class<T> adjusterClass){

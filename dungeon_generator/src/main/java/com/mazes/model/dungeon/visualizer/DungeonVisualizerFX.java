@@ -3,6 +3,7 @@ package com.mazes.model.dungeon.visualizer;
 import com.mazes.model.dungeon.allocator.TileIdAllocator;
 import com.mazes.model.dungeon.cell.Cell;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
+import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -80,6 +81,7 @@ public class DungeonVisualizerFX extends Application{
 
     private CellularAutomatonCaveGeneration carg;
     private TileIdAllocator allocator;
+    private TopologyManager topologyManager;
 
     private Group root;
     private Canvas canvas;
@@ -101,8 +103,6 @@ public class DungeonVisualizerFX extends Application{
 
         Scene scene = new Scene(root, Color.WHITE);
 
-
-
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(1500, 600);
         scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -111,6 +111,7 @@ public class DungeonVisualizerFX extends Application{
 
         allocator = new TileIdAllocator();
         carg = new CellularAutomatonCaveGeneration(CAVE_WIDTH, CAVE_HEIGHT);
+        topologyManager = new TopologyManager();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFont(TILE_ID_FONT);
@@ -175,7 +176,16 @@ public class DungeonVisualizerFX extends Application{
             }
         });
 
-        hbox.getChildren().addAll(generateCave, allocateIds);
+        Button adjustTopology = new Button("Adjust Topology");
+        adjustTopology.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                topologyManager.adjustCaveTopology(carg.getCave());
+                draw(canvas.getGraphicsContext2D());
+            }
+        });
+
+        hbox.getChildren().addAll(generateCave, allocateIds, adjustTopology);
         return hbox;
     }
 
