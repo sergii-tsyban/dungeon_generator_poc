@@ -1,7 +1,6 @@
 package com.mazes.model.dungeon.allocator;
 
 import com.mazes.model.dungeon.allocator.matcher.*;
-import com.mazes.model.dungeon.cell.Cell;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,8 @@ public class TileIdAllocator {
         matchersChain.add(new NoTileMatcher());
     }
 
-    public Cell[][] allocateIds(int[][] cave){
-        Cell[][] cells = new Cell[cave.length][cave[0].length];
+    public TileType[][][] allocateIds(int[][] cave){
+        TileType[][][] cells = new TileType[cave.length][cave[0].length][];
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 cells[i][j] = assignIdForCell(cave, i, j);
@@ -61,13 +60,14 @@ public class TileIdAllocator {
         System.out.println("No Matcher found !");
     }
 
-    private Cell assignIdForCell(int[][] cave, int i, int j) {
+    private TileType[] assignIdForCell(int[][] cave, int i, int j) {
         for (CellMatcher cellMatcher : matchersChain) {
             if(cellMatcher.matched(cave, i, j)){
-                return new Cell(j, i, cellMatcher.getIds());
+                return cellMatcher.getTiles();
             }
         }
-        return new Cell(j, i, new int[] {cave[i][j]});
+//        return new Cell(j, i, new int[] {cave[i][j]});
+        return TileType.arr(TileType.NO_TILE);
     }
 
 }

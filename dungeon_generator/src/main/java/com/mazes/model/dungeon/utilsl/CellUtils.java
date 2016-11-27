@@ -1,6 +1,6 @@
-package com.mazes.model.dungeon.utils;
+package com.mazes.model.dungeon.utilsl;
 
-import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
+import static com.mazes.model.dungeon.allocator.TilesIds.FLOOR;
 
 public class CellUtils {
 

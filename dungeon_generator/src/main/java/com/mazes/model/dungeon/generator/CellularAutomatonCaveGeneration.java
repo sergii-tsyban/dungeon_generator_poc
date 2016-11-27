@@ -1,13 +1,13 @@
 package com.mazes.model.dungeon.generator;
 
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static com.mazes.model.dungeon.common.TilesIds.*;
+import static com.mazes.model.dungeon.allocator.TilesIds.*;
 
 public class CellularAutomatonCaveGeneration {
 

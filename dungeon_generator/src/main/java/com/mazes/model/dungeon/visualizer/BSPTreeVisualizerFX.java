@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.visualizer;
 
-import com.mazes.model.dungeon.common.TilesIds;
+import com.mazes.model.dungeon.allocator.TilesIds;
 import com.mazes.model.dungeon.generator.BSPTree;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import javafx.application.Application;

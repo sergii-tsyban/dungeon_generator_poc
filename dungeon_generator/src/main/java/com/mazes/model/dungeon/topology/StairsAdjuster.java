@@ -1,8 +1,8 @@
 package com.mazes.model.dungeon.topology;
 
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
-import static com.mazes.model.dungeon.common.TilesIds.FLOOR;
+import static com.mazes.model.dungeon.allocator.TilesIds.FLOOR;
 
 /**
  * Created by serg on 22/11/2016.

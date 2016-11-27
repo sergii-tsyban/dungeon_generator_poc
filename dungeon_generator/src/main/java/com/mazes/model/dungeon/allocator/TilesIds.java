@@ -1,4 +1,4 @@
-package com.mazes.model.dungeon.common;
+package com.mazes.model.dungeon.allocator;
 
 /**
  * Created by serg on 06/11/2016.

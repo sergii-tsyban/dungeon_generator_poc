@@ -1,7 +1,6 @@
 package com.mazes.model.dungeon.topology;
 
-import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
 import static com.mazes.model.dungeon.allocator.CellMasks.*;
 

@@ -1,15 +1,16 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
 import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.allocator.TileType;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
-import static com.mazes.model.dungeon.common.TilesIds.NO_TILE;
+import static com.mazes.model.dungeon.allocator.TileType.*;
 
 public class NoTileMatcher extends CellMatcher {
 
     @Override
-    public int[] getIds() {
-        return new int[]{NO_TILE};
+    public TileType[] getTiles() {
+        return arr(NO_TILE);
     }
 
     @Override

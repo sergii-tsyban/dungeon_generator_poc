@@ -1,9 +1,10 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
 import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.allocator.TileType;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
-import static com.mazes.model.dungeon.common.TilesIds.SIDE_BOTTOM;
+import static com.mazes.model.dungeon.allocator.TileType.*;
 
 /**
  * Created by sergii.tsyban on 11/23/2016.
@@ -11,8 +12,8 @@ import static com.mazes.model.dungeon.common.TilesIds.SIDE_BOTTOM;
 public class SideBottomMatcher extends CellMatcher {
 
     @Override
-    public int[] getIds() {
-        return new int[]{SIDE_BOTTOM};
+    public TileType[] getTiles() {
+        return arr(SIDE_BOTTOM);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.layers;
 
-import com.mazes.model.dungeon.common.TilesIds;
+import com.mazes.model.dungeon.allocator.TilesIds;
 
 import java.util.Arrays;
 import java.util.HashMap;

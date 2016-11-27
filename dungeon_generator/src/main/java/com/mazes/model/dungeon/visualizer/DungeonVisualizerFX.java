@@ -1,7 +1,7 @@
 package com.mazes.model.dungeon.visualizer;
 
 import com.mazes.model.dungeon.allocator.TileIdAllocator;
-import com.mazes.model.dungeon.cell.Cell;
+import com.mazes.model.dungeon.allocator.TileType;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mazes.model.dungeon.common.TilesIds.*;
+import static com.mazes.model.dungeon.allocator.TilesIds.*;
 
 public class DungeonVisualizerFX extends Application{
 
@@ -168,7 +168,7 @@ public class DungeonVisualizerFX extends Application{
             public void handle(ActionEvent event) {
                 statusLabel.setText("Status: processing");
                 long millisBefore = System.currentTimeMillis();
-                Cell[][] cells = allocator.allocateIds(carg.getCave());
+                TileType[][][] cells = allocator.allocateIds(carg.getCave());
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
                 drawCells(canvas.getGraphicsContext2D(), cells);
@@ -247,13 +247,12 @@ public class DungeonVisualizerFX extends Application{
         return grid;
     }
 
-    private void drawCells(GraphicsContext gc, Cell[][] cells){
+    private void drawCells(GraphicsContext gc, TileType[][][] cells){
         int x = 0;
         int y = 0;
-        for (Cell[] row : cells) {
-            for (Cell cell : row) {
-                int[] tiles = cell.getTileLayers();
-                Image i = tileIdToImage.get(tiles[0]);
+        for (TileType[][] row : cells) {
+            for (TileType[] tiles : row) {
+                Image i = tileIdToImage.get(tiles[0].getId());
                 if(i != null){
                     gc.drawImage(i, x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
                 } else {

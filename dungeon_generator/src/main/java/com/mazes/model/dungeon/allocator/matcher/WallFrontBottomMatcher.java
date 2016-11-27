@@ -1,15 +1,16 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
 import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.allocator.TileType;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
-import static com.mazes.model.dungeon.common.TilesIds.WALL_FRONT_BOTTOM;
+import static com.mazes.model.dungeon.allocator.TileType.*;
 
 public class WallFrontBottomMatcher extends CellMatcher {
 
     @Override
-    public int[] getIds() {
-        return new int[]{WALL_FRONT_BOTTOM};
+    public TileType[] getTiles() {
+        return arr(WALL_FRONT_BOTTOM);
     }
 
     @Override

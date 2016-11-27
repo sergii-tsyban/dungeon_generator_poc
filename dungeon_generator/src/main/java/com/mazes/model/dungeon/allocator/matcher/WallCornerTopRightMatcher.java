@@ -1,16 +1,17 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
 import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.utils.CellUtils;
+import com.mazes.model.dungeon.allocator.TileType;
+import com.mazes.model.dungeon.utilsl.CellUtils;
 
-import static com.mazes.model.dungeon.common.TilesIds.WALL_CORNER_TOP_RIGHT;
+import static com.mazes.model.dungeon.allocator.TileType.*;
 
 public class WallCornerTopRightMatcher extends CellMatcher {
 
     @Override
-    public int[] getIds() {
+    public TileType[] getTiles() {
 //        return new int[]{FLOOR, CORNER_TR_MASKS};
-        return new int[]{WALL_CORNER_TOP_RIGHT};
+        return arr(WALL_CORNER_TOP_RIGHT);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import static com.mazes.model.dungeon.common.TilesIds.WALL_SIDE_LEFT;
+import com.mazes.model.dungeon.allocator.TileType;
+
+import static com.mazes.model.dungeon.allocator.TileType.*;
 
 /**
  * Created by sergii.tsyban on 11/23/2016.
@@ -11,8 +13,8 @@ public class WallSideLeft extends CellMatcher {
     private WallCornerTopRightMatcher cornerMatcher = new WallCornerTopRightMatcher ();
 
     @Override
-    public int[] getIds() {
-        return new int[]{WALL_SIDE_LEFT};
+    public TileType[] getTiles() {
+        return arr(WALL_SIDE_LEFT);
     }
 
     @Override
