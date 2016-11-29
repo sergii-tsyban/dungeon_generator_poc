@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -62,10 +63,15 @@ public class DungeonVisualizerFX extends Application{
         tileIdToImage.put(SIDE_BOTTOM, new Image("terrain/side_bottom.png"));
         tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_LEFT, new Image("terrain/side_connector_bottom_to_left.png"));
         tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_RIGHT, new Image("terrain/side_connector_bottom_to_right.png"));
-        tileIdToImage.put(SIDE_LEFT_WITH_WALL_CONNECTOR, new Image("terrain/side_left_with_wall_connector.png"));
-        tileIdToImage.put(SIDE_RIGHT_WITH_WALL_CONNECTOR, new Image("terrain/side_right_with_wall_connector.png"));
+
+        tileIdToImage.put(SIDE_LEFT_WITH_WALL_CONNECTOR, new Image("terrain/side_right_with_wall_connector.png"));
+        tileIdToImage.put(SIDE_RIGHT_WITH_WALL_CONNECTOR, new Image("terrain/side_left_with_wall_connector.png"));
+
         tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_CONN, new Image("terrain/side_connector_tr_with_wall_conn.png"));
         tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_CONN, new Image("terrain/side_connector_tl_with_wall_conn.png"));
+
+        tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT, new Image("terrain/side_connector_tl_with_wall_side_right.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT, new Image("terrain/side_connector_tr_with_wall_side_left.png"));
     }
 
     public static final int CELL_SIDE_PIXELS = 16;
@@ -180,7 +186,9 @@ public class DungeonVisualizerFX extends Application{
         adjustTopology.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                topologyManager.adjustCaveTopology(carg.getCave());
+//                topologyManager.executeAdjustmentStep(carg.getCave());
+                int steps = topologyManager.adjustTopology(carg.getCave());
+                statusLabel.setText(String.format("Adjusted steps made %d",  steps));
                 draw(canvas.getGraphicsContext2D());
             }
         });
@@ -204,17 +212,30 @@ public class DungeonVisualizerFX extends Application{
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
+                        MouseButton mouseButton = e.getButton();
                         int i = (int) (e.getY() / CELL_SIDE_PIXELS);
                         int j = (int) (e.getX() / CELL_SIDE_PIXELS);
-                        allocator.chooseMatcher(carg.getCave(), i, j);
-                        gc.setFill(Color.BLUE);
-                        gc.strokeRect(j* CELL_SIDE_PIXELS ,i* CELL_SIDE_PIXELS, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
-                        ids.add(carg.getCave()[i][j]);
-                        if(ids.size() == 9){
-                            String out = "%d %d %d\n%d %d %d\n%d %d %d";
-                            System.out.println(String.format(out, ids.get(0), ids.get(1), ids.get(2), ids.get(3), ids.get(4), ids.get(5), ids.get(6), ids.get(7), ids.get(8)));
-                            ids.clear();
+                        switch(mouseButton){
+                            case PRIMARY:
+                                carg.getCave()[i][j] = 1;
+                                draw(gc);
+                                break;
+                            case SECONDARY:
+                                carg.getCave()[i][j] = 0;
+                                draw(gc);
+                                break;
+                            case MIDDLE:
+                                allocator.chooseMatcher(carg.getCave(), i, j);
+                                gc.setFill(Color.BLUE);
+                                gc.strokeRect(j* CELL_SIDE_PIXELS ,i* CELL_SIDE_PIXELS, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+                                ids.add(carg.getCave()[i][j]);
+                                if(ids.size() == 9){
+                                    String out = "%d %d %d\n%d %d %d\n%d %d %d";
+                                    System.out.println(String.format(out, ids.get(0), ids.get(1), ids.get(2), ids.get(3), ids.get(4), ids.get(5), ids.get(6), ids.get(7), ids.get(8)));
+                                    ids.clear();
+                                }
                         }
+
                     }
                 });
     }
@@ -265,6 +286,7 @@ public class DungeonVisualizerFX extends Application{
             x = 0;
             y += CELL_SIDE_PIXELS;
         }
+//        gc.getCanvas().snapshot()
     }
 
     private void draw(GraphicsContext gc){

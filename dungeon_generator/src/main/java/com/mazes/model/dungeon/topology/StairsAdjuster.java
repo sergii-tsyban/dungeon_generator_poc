@@ -12,14 +12,16 @@ public class StairsAdjuster implements TopologyAdjuster {
     private double removeStepProb = 0.3f;
 
     @Override
-    public void adjust(int[][] cave) {
+    public boolean adjust(int[][] cave) {
+        boolean wasAdjusted = false;
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 if(isStair(cave, i, j)){
-                    tryMakeEmpty(cave, i, j);
+                    wasAdjusted = tryMakeEmpty(cave, i, j);
                 }
             }
         }
+        return wasAdjusted;
     }
 
     private boolean isStair(int[][] cave, int i, int j){
@@ -32,9 +34,11 @@ public class StairsAdjuster implements TopologyAdjuster {
         },mask);
     }
 
-    private void tryMakeEmpty(int[][] cave, int i, int j){
+    private boolean tryMakeEmpty(int[][] cave, int i, int j){
         if(Math.random() < removeStepProb){
             cave[i][j] = FLOOR;
+            return true;
         }
+        return false;
     }
 }

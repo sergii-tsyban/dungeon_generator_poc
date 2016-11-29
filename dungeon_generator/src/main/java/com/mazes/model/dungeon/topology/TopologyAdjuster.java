@@ -5,6 +5,6 @@ package com.mazes.model.dungeon.topology;
  */
 public interface TopologyAdjuster {
 
-    void adjust(int[][] cave);
+    boolean adjust(int[][] cave);
 
 }

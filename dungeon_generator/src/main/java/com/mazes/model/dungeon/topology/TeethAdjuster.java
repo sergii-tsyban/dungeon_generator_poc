@@ -25,18 +25,29 @@ public class TeethAdjuster implements TopologyAdjuster {
             W_111_0X0_100,
             W_111_0X0_001,
             W_111_0X0_101,
-            W_111_0X0_000
+            W_111_0X0_000,
+            W_000_1X0_100,
+            W_000_0X1_001,
+            W_110_0X0_000,
+            W_011_0X0_000,
+            W_100_1X0_000,
+            W_001_0X1_000,
+            W_000_0X0_110,
+            W_000_0X0_011
     };
 
     @Override
-    public void adjust(int[][] cave) {
+    public boolean adjust(int[][] cave) {
+        boolean wasAdjusted = false;
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 int mask = CellUtils.toMask(cave, i, j);
                 if(CellUtils.hasMask(TEETH_MASKS, mask)){
                     cave[i][j] = 0;
+                    wasAdjusted = true;
                 }
             }
         }
+        return wasAdjusted;
     }
 }

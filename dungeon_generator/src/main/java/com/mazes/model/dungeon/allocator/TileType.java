@@ -32,7 +32,9 @@ public enum TileType {
     WALL_CORNER_TOP_RIGHT(31),
     WALL_CORNER_TOP_LEFT(32),
     CORNER_BR(33),
-    CORNER_BL(34);
+    CORNER_BL(34),
+    SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT(35),
+    SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT(36);
 
     private int id;
 
@@ -46,5 +48,13 @@ public enum TileType {
 
     public static TileType[] arr(TileType... tiles){
         return tiles;
+    }
+
+    public static TileType fromId(int id){
+        for(TileType type: TileType.values()){
+            if(type.getId() == id)
+                return type;
+        }
+        throw new IllegalArgumentException();
     }
 }

@@ -54,29 +54,31 @@ public class TileMasks {
     };
 
     /**
-    1 1 0    1 1 1    1 0 0    0 0 0    0 1 1
-    1 X 0    1 X 0    1 X 0    1 X 0    1 1 0
-    1 1 0    1 1 0    1 1 0    1 1 0    1 1 0
+    1 1 0    1 1 1    1 0 0    0 0 0    0 1 1    0 0 1
+    1 X 0    1 X 0    1 X 0    1 X 0    1 1 0    1 1 0
+    1 1 0    1 1 0    1 1 0    1 1 0    1 1 0    1 1 0
      */
     public static final int[] SIDE_L_MASKS = {
             CellMasks.W_110_1X0_110,
             CellMasks.W_111_1X0_110,
             CellMasks.W_100_1X0_110,
             CellMasks.W_000_1X0_110,
-            CellMasks.W_011_1X0_110
+            CellMasks.W_011_1X0_110,
+            CellMasks.W_001_1X0_110
     };
 
     /**
-    0 1 1    1 1 1    0 0 1    0 0 0    1 0 0
-    0 X 1    0 X 1    0 X 1    0 X 1    0 1 1
-    0 1 1    0 1 1    0 1 1    0 1 1    0 1 1
+    0 1 1    1 1 1    0 0 1    0 0 0    1 0 0    1 1 0
+    0 X 1    0 X 1    0 X 1    0 X 1    0 1 1    0 1 1
+    0 1 1    0 1 1    0 1 1    0 1 1    0 1 1    0 1 1
      */
     public static final int[] SIDE_R_MASKS = {
             CellMasks.W_011_0X1_011,
             CellMasks.W_111_0X1_011,
             CellMasks.W_001_0X1_011,
             CellMasks.W_000_0X1_011,
-            CellMasks.W_100_011_011
+            CellMasks.W_100_0X1_011,
+            CellMasks.W_110_0X1_011
     };
 
     //----------------------------------------
@@ -174,5 +176,29 @@ public class TileMasks {
             CellMasks.W_011_0X1_111,
             CellMasks.W_001_0X1_111,
             CellMasks.W_000_0X1_111
+    };
+
+    public static int[] SIDE_LEFT_WITH_WALL_CONN = {
+            CellMasks.W_011_0X1_011,
+            CellMasks.W_001_0X1_011,
+            CellMasks.W_000_0X1_011,
+            CellMasks.W_111_0X1_011
+    };
+
+    public static int[] SIDE_RIGHT_WITH_WALL_CONN = {
+            CellMasks.W_100_1X0_110,
+            CellMasks.W_000_1X0_110,
+            CellMasks.W_110_1X0_110,
+            CellMasks.W_111_1X0_110
+    };
+
+    //--------------------------------------------
+
+    public static int[] SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT_MASKS = {
+            CellMasks.W_011_0X1_110
+    };
+
+    public static int[] SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT_MASKS = {
+            CellMasks.W_110_1X0_011
     };
 }

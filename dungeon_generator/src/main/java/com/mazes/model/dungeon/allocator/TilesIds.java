@@ -38,4 +38,7 @@ public class TilesIds {
     public static final int WALL_CORNER_TOP_LEFT = 32;
     public static final int CORNER_BR = 33;
     public static final int CORNER_BL = 34;
+
+    public static final int SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT = 35;
+    public static final int SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT = 36;
 }

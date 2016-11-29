@@ -19,6 +19,10 @@ public class TileIdAllocator {
         matchersChain.add(new WallTopWallSideLeftMatcher());
         matchersChain.add(new WallTopSideRightMatcher());
         matchersChain.add(new WallTopSideLeftMatcher());
+        matchersChain.add(new SideConnectorTRWithWallSideLeftMatcher());
+        matchersChain.add(new SideConnectorTLWithWallSideRightMatcher());
+        matchersChain.add(new SideRightWithWallConnMatcher());
+        matchersChain.add(new SideLeftWithWallConnMatcher());
         matchersChain.add(new SideConnectorTopRightWithWallConn());
         matchersChain.add(new SideConnectorTopLeftWithWallConn());
         matchersChain.add(new WallConnectorBottomToRightMatcher());
@@ -66,8 +70,7 @@ public class TileIdAllocator {
                 return cellMatcher.getTiles();
             }
         }
-//        return new Cell(j, i, new int[] {cave[i][j]});
-        return TileType.arr(TileType.NO_TILE);
+        return TileType.arr(TileType.fromId(cave[i][j]));
     }
 
 }
