@@ -17,7 +17,9 @@ public class TopologyManager {
     {
 //        registerTopologyAdjuster(StairsAdjuster.class);
         registerTopologyAdjuster(SolidZBreakerAdjuster.class);
+        registerTopologyAdjuster(MBreakerAdjuster.class);
         registerTopologyAdjuster(ZBreakerAdjuster.class);
+        registerTopologyAdjuster(XBreakerAdjuster.class);
         registerTopologyAdjuster(DotsCleanerAdjuster.class);
         registerTopologyAdjuster(TeethAdjuster.class);
         registerTopologyAdjuster(HolesAdjuster.class);
@@ -42,7 +44,7 @@ public class TopologyManager {
     }
 
     public int adjustTopology(int[][] cave){
-        int stepsMade = 0;
+        int stepsMade = 1;
         while(executeAdjustmentStep(cave) && stepsMade <= maxAdjustmentSteps){
             stepsMade++;
         }

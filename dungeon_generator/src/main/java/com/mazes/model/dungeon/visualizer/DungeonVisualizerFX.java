@@ -5,11 +5,13 @@ import com.mazes.model.dungeon.allocator.TileType;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
 import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -17,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -26,10 +29,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 import static com.mazes.model.dungeon.allocator.TilesIds.*;
 
@@ -193,8 +196,47 @@ public class DungeonVisualizerFX extends Application{
             }
         });
 
-        hbox.getChildren().addAll(generateCave, allocateIds, adjustTopology);
+        Button generateImages = new Button("Generate Images");
+        generateImages.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                List<WritableImage> images = generateImages();
+                writeImages(images);
+            }
+        });
+
+        hbox.getChildren().addAll(generateCave, allocateIds, adjustTopology, generateImages);
         return hbox;
+    }
+
+    private List<WritableImage> generateImages(){
+        List<WritableImage> images = new ArrayList<>();
+        int iter = 0;
+        while(iter < 20){
+            carg.addRoom(0,0,CAVE_WIDTH, CAVE_HEIGHT);
+            carg.generateRooms();
+            topologyManager.adjustTopology(carg.getCave());
+            TileType[][][] cells = allocator.allocateIds(carg.getCave());
+            drawCells(canvas.getGraphicsContext2D(), cells);
+
+            WritableImage wi = new WritableImage(CAVE_WIDTH * CELL_SIDE_PIXELS, CAVE_HEIGHT * CELL_SIDE_PIXELS);
+            images.add(canvas.snapshot(new SnapshotParameters(), wi));
+            iter++;
+            System.out.println("Image created: " + iter);
+        }
+        return images;
+    }
+
+    private void writeImages(List<WritableImage> imagesToSave){
+        int iter = 0;
+        for (WritableImage writableImage : imagesToSave) {
+            File output = new File("D:\\workspaces\\out\\" + iter++ + ".png");
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", output);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private int getInt(String str, int def){
