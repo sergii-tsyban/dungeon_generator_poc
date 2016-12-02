@@ -17,6 +17,7 @@ public class TopologyManager {
     {
 //        registerTopologyAdjuster(StairsAdjuster.class);
         registerTopologyAdjuster(SolidZBreakerAdjuster.class);
+        registerTopologyAdjuster(TBreakerAdjuster.class);
         registerTopologyAdjuster(MBreakerAdjuster.class);
         registerTopologyAdjuster(ZBreakerAdjuster.class);
         registerTopologyAdjuster(XBreakerAdjuster.class);

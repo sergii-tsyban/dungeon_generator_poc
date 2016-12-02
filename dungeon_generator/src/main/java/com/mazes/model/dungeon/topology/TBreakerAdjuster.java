@@ -5,21 +5,23 @@ import com.mazes.model.dungeon.utilsl.CellUtils;
 import static com.mazes.model.dungeon.allocator.CellMasks.*;
 
 /**
- * Created by sergii.tsyban on 11/30/2016.
+ * Created by sergii.tsyban on 12/1/2016.
  */
-public class XBreakerAdjuster implements TopologyAdjuster {
+public class TBreakerAdjuster implements TopologyAdjuster {
 
-    private static final int[] X_MASKS = {
-            W_110_1X0_001,
-            W_100_0X1_011,
-            W_011_0X1_100,
-            W_001_1X0_110,
-            W_100_0X0_010,
-            W_001_0X0_101,
-            W_100_0X0_011,
-            W_001_0X0_110,
-            W_001_0X0_011,
-            W_100_0X0_110
+    private static final int[] T_MASKS = {
+            W_100_1X1_100,
+            W_001_1X1_001,
+            W_000_1X1_001,
+            W_001_1X1_000,
+            W_100_1X1_000,
+            W_000_1X1_100,
+            W_010_0X0_111,
+            W_010_0X0_110,
+            W_010_0X0_011,
+            W_111_0X0_010,
+            W_011_0X0_010,
+            W_110_0X0_010,
     };
 
     @Override
@@ -28,7 +30,7 @@ public class XBreakerAdjuster implements TopologyAdjuster {
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 int mask = CellUtils.toMask(cave, i, j);
-                if(CellUtils.hasMask(X_MASKS, mask)){
+                if(CellUtils.hasMask(T_MASKS, mask)){
                     cave[i][j] = 0;
                     wasAdjusted = true;
                 }

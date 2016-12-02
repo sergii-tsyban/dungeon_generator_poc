@@ -16,7 +16,9 @@ public class DotsCleanerAdjuster implements TopologyAdjuster {
             W_000_0X0_100,
             W_000_0X0_001,
             W_100_0X0_001,
-            W_001_0X0_100
+            W_001_0X0_100,
+            W_000_0X0_010,
+            W_010_0X0_000
     };
 
     @Override

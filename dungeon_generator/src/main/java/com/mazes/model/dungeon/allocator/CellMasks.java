@@ -594,4 +594,33 @@ public class CellMasks {
     public static final int W_110_1X0_001 = 0b110_110_001;
 
     public static final int W_011_1X0_100 = 0b011_110_100;
+
+    public static final int W_100_1X1_100 = 0b100_111_100;
+    public static final int W_001_1X1_001 = 0b001_111_001;
+
+    public static final int W_000_1X1_001 = 0b000_111_001;
+    public static final int W_001_1X1_000 = 0b001_111_000;
+
+    public static final int W_100_1X1_000 = 0b100_111_000;
+    public static final int W_000_1X1_100 = 0b000_111_100;
+
+    public static final int W_110_0X1_001 = 0b110_011_001;
+
+    public static final int W_010_0X0_111 = 0b010_010_111;
+    public static final int W_010_0X0_110 = 0b010_010_110;
+    public static final int W_010_0X0_011 = 0b010_010_011;
+    public static final int W_111_0X0_010 = 0b111_010_010;
+    public static final int W_011_0X0_010 = 0b011_010_010;
+    public static final int W_110_0X0_010 = 0b110_010_010;
+
+    public static final int W_100_0X0_010 = 0b100_010_010;
+    public static final int W_001_0X0_101 = 0b001_010_010;
+    public static final int W_100_0X0_011 = 0b100_010_011;
+    public static final int W_001_0X0_110 = 0b001_010_110;
+
+    public static final int W_001_0X0_011 = 0b001_010_011;
+    public static final int W_100_0X0_110 = 0b100_010_110;
+
+    public static final int W_000_0X0_010 = 0b000_010_010;
+    public static final int W_010_0X0_000 = 0b010_010_000;
 }
