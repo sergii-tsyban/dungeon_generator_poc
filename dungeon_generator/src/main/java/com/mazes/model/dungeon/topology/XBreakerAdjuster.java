@@ -1,12 +1,9 @@
 package com.mazes.model.dungeon.topology;
 
-import com.mazes.model.dungeon.utilsl.CellUtils;
+import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.CellMasks.*;
+import static com.mazes.model.dungeon.cell.CellMasks.*;
 
-/**
- * Created by sergii.tsyban on 11/30/2016.
- */
 public class XBreakerAdjuster implements TopologyAdjuster {
 
     private static final int[] X_MASKS = {

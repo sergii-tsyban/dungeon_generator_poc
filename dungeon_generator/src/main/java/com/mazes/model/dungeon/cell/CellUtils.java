@@ -1,6 +1,6 @@
-package com.mazes.model.dungeon.utilsl;
+package com.mazes.model.dungeon.cell;
 
-import static com.mazes.model.dungeon.allocator.TilesIds.FLOOR;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.FLOOR;
 
 public class CellUtils {
 
@@ -18,7 +18,7 @@ public class CellUtils {
                     count++;
                 }
                 //Otherwise, a normal check of the neighbour
-                else if(oldRoom[neighbour_y][neighbour_x] != FLOOR){
+                else if(oldRoom[neighbour_y][neighbour_x] != FLOOR.getId()){
                     count++;
                 }
             }
@@ -47,9 +47,9 @@ public class CellUtils {
         return m >> 1;
     }
 
-    public static boolean hasMask(int[] masks, int maskToSerach){
+    public static boolean hasMask(int[] masks, int maskToSearch){
         for (int mask : masks) {
-            if(mask == maskToSerach){
+            if(mask == maskToSearch){
                 return true;
             }
         }

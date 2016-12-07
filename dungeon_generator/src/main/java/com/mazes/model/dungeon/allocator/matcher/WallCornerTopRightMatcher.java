@@ -1,15 +1,15 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.allocator.TileType;
-import com.mazes.model.dungeon.utilsl.CellUtils;
+import com.mazes.model.dungeon.allocator.TerrainTileMasks;
+import com.mazes.model.dungeon.allocator.TerrainTileType;
+import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.TileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-public class WallCornerTopRightMatcher extends CellMatcher {
+public class WallCornerTopRightMatcher extends TileMatcher {
 
     @Override
-    public TileType[] getTiles() {
+    public TerrainTileType[] getTiles() {
 //        return new int[]{FLOOR, CORNER_TR_MASKS};
         return arr(WALL_CORNER_TOP_RIGHT);
     }
@@ -17,7 +17,7 @@ public class WallCornerTopRightMatcher extends CellMatcher {
     @Override
     public boolean matched(int[][] cave, int i, int j) {
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TileMasks.CORNER_TR_MASKS, mask);
+        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.CORNER_TR_MASKS, mask);
         return hasMask;
     }
 

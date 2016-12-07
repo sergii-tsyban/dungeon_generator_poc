@@ -1,8 +1,5 @@
-package com.mazes.model.dungeon.allocator;
+package com.mazes.model.dungeon.cell;
 
-/**
- * Created by serg on 20/11/2016.
- */
 public class CellMasks {
 
     /**

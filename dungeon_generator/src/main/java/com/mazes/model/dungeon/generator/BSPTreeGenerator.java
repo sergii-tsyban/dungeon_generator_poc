@@ -3,13 +3,13 @@ package com.mazes.model.dungeon.generator;
 import java.util.*;
 import java.util.List;
 
-public class BSPTree {
+public class BSPTreeGenerator {
 
     private int maxLeafSize = 100;
     private List<Node> nodes = new LinkedList<Node>();
     private int[][] cave;
 
-    public BSPTree(int width, int height){
+    public BSPTreeGenerator(int width, int height){
         cave = new int[height][width];
     }
 

@@ -1,18 +1,15 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.allocator.TileType;
+import com.mazes.model.dungeon.allocator.TerrainTileType;
 
-import static com.mazes.model.dungeon.allocator.TileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-/**
- * Created by sergii.tsyban on 11/23/2016.
- */
-public class WallTopWallSideRightMatcher extends CellMatcher {
+public class WallTopWallSideRightMatcher extends TileMatcher {
 
     private WallCornerTopRightMatcher bottomMatcher = new WallCornerTopRightMatcher();
 
     @Override
-    public TileType[] getTiles() {
+    public TerrainTileType[] getTiles() {
         return arr(WALL_TOP_WALL_SIDE_RIGHT);
     }
 

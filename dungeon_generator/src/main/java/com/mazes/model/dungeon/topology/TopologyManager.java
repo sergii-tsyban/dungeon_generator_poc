@@ -3,9 +3,6 @@ package com.mazes.model.dungeon.topology;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by serg on 22/11/2016.
- */
 public class TopologyManager {
 
     public static final int DEFAULT_MAX_ADJUSTMENT_STEPS = 10;

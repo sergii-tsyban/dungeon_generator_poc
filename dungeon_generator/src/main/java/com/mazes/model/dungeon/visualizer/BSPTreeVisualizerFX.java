@@ -1,8 +1,8 @@
 package com.mazes.model.dungeon.visualizer;
 
-import com.mazes.model.dungeon.allocator.TilesIds;
-import com.mazes.model.dungeon.generator.BSPTree;
-import com.mazes.model.dungeon.generator.CellularAutomatonCaveGeneration;
+import com.mazes.model.dungeon.allocator.TerrainTileType;
+import com.mazes.model.dungeon.generator.BSPTreeGenerator;
+import com.mazes.model.dungeon.generator.CellularAutomatonCaveGenerator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,8 +25,8 @@ public class BSPTreeVisualizerFX extends Application{
 
     public static final int CELL_SIDE = 4;
 
-    private BSPTree bspTreeCave;
-    private CellularAutomatonCaveGeneration cacg;
+    private BSPTreeGenerator bspTreeGeneratorCave;
+    private CellularAutomatonCaveGenerator cacg;
     private Group root = new Group();
     private Canvas canvas;
     private Label label;
@@ -47,8 +47,8 @@ public class BSPTreeVisualizerFX extends Application{
         vbox.setSpacing(10);
         vbox.getChildren().addAll(createControlPanel(), canvas, label);
 
-        bspTreeCave = new BSPTree(width, height);
-        cacg = new CellularAutomatonCaveGeneration(width, height);
+        bspTreeGeneratorCave = new BSPTreeGenerator(width, height);
+        cacg = new CellularAutomatonCaveGenerator(width, height);
 
 //        draw(canvas.getGraphicsContext2D());
 
@@ -66,7 +66,7 @@ public class BSPTreeVisualizerFX extends Application{
         generateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bspTreeCave.generateLeafs();
+                bspTreeGeneratorCave.generateLeafs();
                 cacg.clear();
                 drawLeafs(canvas.getGraphicsContext2D());
             }
@@ -75,7 +75,7 @@ public class BSPTreeVisualizerFX extends Application{
         automatonButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                for(BSPTree.Node node: bspTreeCave.getLeafs()){
+                for(BSPTreeGenerator.Node node: bspTreeGeneratorCave.getLeafs()){
                     cacg.addRoom(node.getI(), node.getJ(), node.getWidth(), node.getHeight());
                 }
                 cacg.generateRooms();
@@ -88,8 +88,8 @@ public class BSPTreeVisualizerFX extends Application{
 
     private void drawLeafs(GraphicsContext gc){
         Random r = new Random();
-        List<BSPTree.Node> leafs = bspTreeCave.getLeafs();
-        for(BSPTree.Node leaf: leafs){
+        List<BSPTreeGenerator.Node> leafs = bspTreeGeneratorCave.getLeafs();
+        for(BSPTreeGenerator.Node leaf: leafs){
             int w = leaf.getWidth();
             int h = leaf.getHeight();
             int x = leaf.getJ();
@@ -106,7 +106,7 @@ public class BSPTreeVisualizerFX extends Application{
         int y = 0;
         for (int[] row : cacg.getCave()) {
             for (int cell : row) {
-                gc.setFill(cell == TilesIds.WALL_SOLID ? Color.BROWN : Color.WHITE);
+                gc.setFill(cell == TerrainTileType.WALL_SOLID.getId() ? Color.BROWN : Color.WHITE);
                 gc.fillRect(x,y, CELL_SIDE, CELL_SIDE);
                 x += CELL_SIDE;
             }

@@ -1,15 +1,15 @@
 package com.mazes.model.dungeon.generator;
 
-import com.mazes.model.dungeon.utilsl.CellUtils;
+import com.mazes.model.dungeon.cell.CellUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static com.mazes.model.dungeon.allocator.TilesIds.*;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-public class CellularAutomatonCaveGeneration {
+public class CellularAutomatonCaveGenerator {
 
     public static final int GRID_STEP = 4;
 
@@ -23,9 +23,9 @@ public class CellularAutomatonCaveGeneration {
 
     private List<Room> rooms;
 
-    public CellularAutomatonCaveGeneration(int width, int height) {
+    public CellularAutomatonCaveGenerator(int width, int height) {
         this.cave = new int[height][width];
-        this.rooms = new ArrayList<Room>();
+        this.rooms = new ArrayList<>();
     }
 
     public void addRoom(int i, int j, int w, int h){
@@ -86,7 +86,7 @@ public class CellularAutomatonCaveGeneration {
                     if(i == 0 || j == 0 || i == room.length - 1 || j == room[i].length - 1){
                         room[i][j] = 1;
                     } else {
-                        room[i][j] = r.nextInt(100) <= initWallBirthProb ? WALL_SOLID : FLOOR;
+                        room[i][j] = r.nextInt(100) <= initWallBirthProb ? WALL_SOLID.getId() : FLOOR.getId();
                     }
                 }
             }
@@ -126,9 +126,9 @@ public class CellularAutomatonCaveGeneration {
                 for (int j = 0; j < room[i].length; j++) {
                     if(newRoom[i][j] == MARK){
                         openCellsCount++;
-                        room[i][j] = FLOOR;
+                        room[i][j] = FLOOR.getId();
                     } else {
-                        room[i][j] = WALL_SOLID;
+                        room[i][j] = WALL_SOLID.getId();
                     }
                 }
             }
@@ -136,7 +136,7 @@ public class CellularAutomatonCaveGeneration {
         }
 
         private void fill(int i, int j, int[][] arr){
-            if(arr[i][j] == FLOOR){
+            if(arr[i][j] == FLOOR.getId()){
                 arr[i][j] = MARK;
                 fill(i - 1, j, arr);
                 fill(i, j - 1, arr);
@@ -151,19 +151,19 @@ public class CellularAutomatonCaveGeneration {
                 for (int x = 0; x < oldRoom[y].length; x++) {
                     int aliveNbrs = CellUtils.countWallsAround(oldRoom, y, x);
 
-                    boolean isWall = oldRoom[y][x] == WALL_SOLID;
+                    boolean isWall = oldRoom[y][x] == WALL_SOLID.getId();
                     if(isWall){
                         if(aliveNbrs < deathLimit){
-                            newRoom[y][x] = FLOOR;
+                            newRoom[y][x] = FLOOR.getId();
                         }
                         else {
-                            newRoom[y][x] = WALL_SOLID;
+                            newRoom[y][x] = WALL_SOLID.getId();
                         }
                     } else {
                         if(aliveNbrs > birthLimit){
-                            newRoom[y][x] = WALL_SOLID;
+                            newRoom[y][x] = WALL_SOLID.getId();
                         } else {
-                            newRoom[y][x] = FLOOR;
+                            newRoom[y][x] = FLOOR.getId();
                         }
                     }
                 }

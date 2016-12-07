@@ -5,9 +5,9 @@ import com.mazes.model.dungeon.allocator.matcher.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileIdAllocator {
+public class TerrainTileIdAllocator {
 
-    private List<CellMatcher> matchersChain = new ArrayList<CellMatcher>();
+    private List<TileMatcher> matchersChain = new ArrayList<TileMatcher>();
 
     {
 //        matchersChain.add(new Floor());
@@ -27,25 +27,20 @@ public class TileIdAllocator {
         matchersChain.add(new SideConnectorTopLeftWithWallConn());
         matchersChain.add(new WallConnectorBottomToRightMatcher());
         matchersChain.add(new WallConnectorBottomToLeftMatcher());
-
         matchersChain.add(new SideLeftMatcher());
         matchersChain.add(new SideRightMatcher());
         matchersChain.add(new SideBottomMatcher());
-
         matchersChain.add(new SideConnectorBottomToRightMatcher());
         matchersChain.add(new SideConnectorBottomToLeftMatcher());
-
         matchersChain.add(new SideConnectorTopToRight());
         matchersChain.add(new SideConnectorTopToLeft());
-
         matchersChain.add(new WallSideLeft());
         matchersChain.add(new WallSideRight());
-
         matchersChain.add(new NoTileMatcher());
     }
 
-    public TileType[][][] allocateIds(int[][] cave){
-        TileType[][][] cells = new TileType[cave.length][cave[0].length][];
+    public TerrainTileType[][][] allocateIds(int[][] cave){
+        TerrainTileType[][][] cells = new TerrainTileType[cave.length][cave[0].length][];
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 cells[i][j] = assignIdForCell(cave, i, j);
@@ -55,7 +50,7 @@ public class TileIdAllocator {
     }
 
     public void chooseMatcher(int[][] cave, int i, int j){
-        for (CellMatcher cellMatcher : matchersChain) {
+        for (TileMatcher cellMatcher : matchersChain) {
             if(cellMatcher.matched(cave, i, j)){
                 System.out.println(cellMatcher.getClass().getSimpleName());
                 return;
@@ -64,13 +59,13 @@ public class TileIdAllocator {
         System.out.println("No Matcher found !");
     }
 
-    private TileType[] assignIdForCell(int[][] cave, int i, int j) {
-        for (CellMatcher cellMatcher : matchersChain) {
+    private TerrainTileType[] assignIdForCell(int[][] cave, int i, int j) {
+        for (TileMatcher cellMatcher : matchersChain) {
             if(cellMatcher.matched(cave, i, j)){
                 return cellMatcher.getTiles();
             }
         }
-        return TileType.arr(TileType.fromId(cave[i][j]));
+        return TerrainTileType.arr(TerrainTileType.fromId(cave[i][j]));
     }
 
 }

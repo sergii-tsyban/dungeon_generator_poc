@@ -1,13 +1,13 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.allocator.TileType;
+import com.mazes.model.dungeon.allocator.TerrainTileType;
 
-import static com.mazes.model.dungeon.allocator.TileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-public class Floor extends CellMatcher {
+public class Floor extends TileMatcher {
 
     @Override
-    public TileType[] getTiles() {
+    public TerrainTileType[] getTiles() {
         return arr(FLOOR);
     }
 

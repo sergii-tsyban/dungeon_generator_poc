@@ -1,25 +1,22 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.allocator.TileType;
-import com.mazes.model.dungeon.utilsl.CellUtils;
+import com.mazes.model.dungeon.allocator.TerrainTileMasks;
+import com.mazes.model.dungeon.allocator.TerrainTileType;
+import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.TileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-/**
- * Created by sergii.tsyban on 11/23/2016.
- */
-public class SideConnectorBottomToLeftMatcher extends CellMatcher {
+public class SideConnectorBottomToLeftMatcher extends TileMatcher {
 
     @Override
-    public TileType[] getTiles() {
+    public TerrainTileType[] getTiles() {
         return arr(SIDE_CONNECTOR_BOTTOM_TO_LEFT);
     }
 
     @Override
     public boolean matched(int[][] cave, int i, int j) {
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TileMasks.CONNECTOR_BL_MASKS, mask);
+        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.CONNECTOR_BL_MASKS, mask);
         return hasMask;
     }
 

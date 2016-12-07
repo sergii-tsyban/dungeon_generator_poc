@@ -1,23 +1,19 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.allocator.TileMasks;
-import com.mazes.model.dungeon.allocator.TileType;
-import com.mazes.model.dungeon.utilsl.CellUtils;
+import com.mazes.model.dungeon.allocator.TerrainTileMasks;
+import com.mazes.model.dungeon.allocator.TerrainTileType;
+import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.TileType.SIDE_CONNECTOR_TR_WITH_WALL_CONN;
-import static com.mazes.model.dungeon.allocator.TileType.SIDE_RIGHT_WITH_WALL_CONNECTOR;
-import static com.mazes.model.dungeon.allocator.TileType.arr;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.SIDE_RIGHT_WITH_WALL_CONNECTOR;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.arr;
 
-/**
- * Created by sergii.tsyban on 11/28/2016.
- */
-public class SideRightWithWallConnMatcher extends CellMatcher {
+public class SideRightWithWallConnMatcher extends TileMatcher {
 
     private WallCornerTopRightMatcher wallCornerTopRightMatcher = new WallCornerTopRightMatcher();
     private WallFrontBottomMatcher wallFrontBottomMatcher = new WallFrontBottomMatcher();
 
     @Override
-    public TileType[] getTiles() {
+    public TerrainTileType[] getTiles() {
         return arr(SIDE_RIGHT_WITH_WALL_CONNECTOR);
     }
 
@@ -27,7 +23,7 @@ public class SideRightWithWallConnMatcher extends CellMatcher {
             return false;
         }
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TileMasks.SIDE_RIGHT_WITH_WALL_CONN, mask);
+        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.SIDE_RIGHT_WITH_WALL_CONN, mask);
         return hasMask && (wallFrontBottomMatcher.matched(cave, i + 1, j - 1) || wallCornerTopRightMatcher.matched(cave, i + 1, j - 1));
     }
 }

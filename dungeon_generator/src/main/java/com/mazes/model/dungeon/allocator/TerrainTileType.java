@@ -3,7 +3,7 @@ package com.mazes.model.dungeon.allocator;
 /**
  * Created by serg on 21/11/2016.
  */
-public enum TileType {
+public enum TerrainTileType {
 
     NO_TILE(-1),
     WALL_SOLID(1),
@@ -38,7 +38,7 @@ public enum TileType {
 
     private int id;
 
-    TileType(int id) {
+    TerrainTileType(int id) {
         this.id  = id;
     }
 
@@ -46,12 +46,12 @@ public enum TileType {
         return id;
     }
 
-    public static TileType[] arr(TileType... tiles){
+    public static TerrainTileType[] arr(TerrainTileType... tiles){
         return tiles;
     }
 
-    public static TileType fromId(int id){
-        for(TileType type: TileType.values()){
+    public static TerrainTileType fromId(int id){
+        for(TerrainTileType type: TerrainTileType.values()){
             if(type.getId() == id)
                 return type;
         }

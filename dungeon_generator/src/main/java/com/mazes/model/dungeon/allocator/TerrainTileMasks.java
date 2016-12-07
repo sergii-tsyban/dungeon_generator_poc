@@ -1,6 +1,8 @@
 package com.mazes.model.dungeon.allocator;
 
-public class TileMasks {
+import com.mazes.model.dungeon.cell.CellMasks;
+
+public class TerrainTileMasks {
 
     /**
      1 1 1    0 0 1    1 0 0    1 1 0    0 1 1    0 0 0
