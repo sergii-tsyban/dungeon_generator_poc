@@ -10,8 +10,7 @@ public class WallCornerTopRightMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-//        return new int[]{FLOOR, CORNER_TR_MASKS};
-        return arr(WALL_CORNER_TOP_RIGHT);
+        return arr(FLOOR, WALL_CORNER_TOP_RIGHT);
     }
 
     @Override

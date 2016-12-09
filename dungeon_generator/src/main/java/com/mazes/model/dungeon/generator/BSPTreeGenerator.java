@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BSPTreeGenerator {
 
-    private int maxLeafSize = 100;
+    private int maxLeafSize = 50;
     private List<Node> nodes = new LinkedList<Node>();
     private int[][] cave;
 
@@ -37,7 +37,7 @@ public class BSPTreeGenerator {
     }
 
     public List<Node> getLeafs() {
-        List<Node> leafs = new ArrayList<Node>();
+        List<Node> leafs = new ArrayList<>();
         for(Node node: nodes){
             if(node.leftChild == null && node.rightChild == null){
                 leafs.add(node);

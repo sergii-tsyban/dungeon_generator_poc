@@ -10,7 +10,7 @@ public class WallFrontTopMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(WALL_FRONT_TOP);
+        return arr(WALL_FRONT_TOP, WALL_SOLID);
     }
 
     @Override

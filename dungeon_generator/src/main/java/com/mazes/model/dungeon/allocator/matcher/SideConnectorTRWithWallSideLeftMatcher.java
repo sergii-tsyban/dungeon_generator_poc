@@ -4,14 +4,13 @@ import com.mazes.model.dungeon.allocator.TerrainTileMasks;
 import com.mazes.model.dungeon.allocator.TerrainTileType;
 import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.TerrainTileType.SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT;
-import static com.mazes.model.dungeon.allocator.TerrainTileType.arr;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
 public class SideConnectorTRWithWallSideLeftMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT);
+        return arr(FLOOR, SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT, WALL_SOLID);
     }
 
     @Override

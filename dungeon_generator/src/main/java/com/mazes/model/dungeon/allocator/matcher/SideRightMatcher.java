@@ -10,7 +10,7 @@ public class SideRightMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(SIDE_RIGHT);
+        return arr(FLOOR, SIDE_RIGHT, WALL_SOLID);
     }
 
     @Override

@@ -4,8 +4,7 @@ import com.mazes.model.dungeon.allocator.TerrainTileMasks;
 import com.mazes.model.dungeon.allocator.TerrainTileType;
 import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.TerrainTileType.SIDE_RIGHT_WITH_WALL_CONNECTOR;
-import static com.mazes.model.dungeon.allocator.TerrainTileType.arr;
+import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
 public class SideRightWithWallConnMatcher extends TileMatcher {
 
@@ -14,7 +13,7 @@ public class SideRightWithWallConnMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(SIDE_RIGHT_WITH_WALL_CONNECTOR);
+        return arr(FLOOR, SIDE_RIGHT_WITH_WALL_CONNECTOR, WALL_SOLID);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class SideConnectorTopRightWithWallConn extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(SIDE_CONNECTOR_TR_WITH_WALL_CONN);
+        return arr(FLOOR, SIDE_CONNECTOR_TR_WITH_WALL_CONN, WALL_SOLID);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.mazes.model.dungeon.topology;
 
+import com.mazes.model.dungeon.topology.adjuster.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class TopologyManager {
 
     {
 //        registerTopologyAdjuster(StairsAdjuster.class);
+        registerTopologyAdjuster(IslandBuilderAdjuster.class);
         registerTopologyAdjuster(SolidZBreakerAdjuster.class);
         registerTopologyAdjuster(TBreakerAdjuster.class);
         registerTopologyAdjuster(MBreakerAdjuster.class);

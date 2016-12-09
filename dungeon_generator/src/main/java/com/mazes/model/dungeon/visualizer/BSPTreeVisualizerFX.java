@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class BSPTreeVisualizerFX extends Application{
 
-    public static final int CELL_SIDE = 4;
+    public static final int CELL_SIDE = 2;
 
     private BSPTreeGenerator bspTreeGeneratorCave;
     private CellularAutomatonCaveGenerator cacg;
@@ -36,8 +36,8 @@ public class BSPTreeVisualizerFX extends Application{
     }
 
     public void start(Stage primaryStage) throws Exception {
-        int width = 200;
-        int height = 200;
+        int width = 300;
+        int height = 300;
         canvas = new Canvas(width * CELL_SIDE, height * CELL_SIDE);
         Scene scene = new Scene(root, Color.WHITE);
         label = new Label("Status: ");

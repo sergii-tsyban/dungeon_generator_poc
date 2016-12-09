@@ -6,11 +6,11 @@ import com.mazes.model.dungeon.cell.CellUtils;
 
 import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-public class SideConnectorTopToRight extends TileMatcher {
+public class SideConnectorTopToRightMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(SIDE_CONNECTOR_TOP_TO_RIGHT);
+        return arr(FLOOR, SIDE_CONNECTOR_TOP_TO_RIGHT, WALL_SOLID);
     }
 
     @Override

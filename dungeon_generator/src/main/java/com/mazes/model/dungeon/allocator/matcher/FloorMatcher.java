@@ -4,7 +4,7 @@ import com.mazes.model.dungeon.allocator.TerrainTileType;
 
 import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
 
-public class Floor extends TileMatcher {
+public class FloorMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {

@@ -1,4 +1,4 @@
-package com.mazes.model.dungeon.topology;
+package com.mazes.model.dungeon.topology.adjuster;
 
 public interface TopologyAdjuster {
 

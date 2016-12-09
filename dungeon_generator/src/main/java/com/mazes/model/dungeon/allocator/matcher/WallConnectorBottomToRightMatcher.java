@@ -11,7 +11,7 @@ public class WallConnectorBottomToRightMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(WALL_CONNECTOR_BOTTOM_TO_RIGHT);
+        return arr(WALL_CONNECTOR_BOTTOM_TO_RIGHT, WALL_SOLID);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class DungeonVisualizerFX extends Application {
     private Map<Integer, Image> tileIdToImage = new HashMap<>();
 
     {
-        tileIdToImage.put(NO_TILE.getId(), new Image("terrain/empty.png"));
+//        tileIdToImage.put(NO_TILE.getId(), new Image("terrain/wall_solid.png"));
         tileIdToImage.put(FLOOR.getId(), new Image("terrain/floor.png"));
         tileIdToImage.put(WALL_FRONT_BOTTOM.getId(), new Image("terrain/wall_front_bottom.png"));
         tileIdToImage.put(WALL_FRONT_TOP.getId(), new Image("terrain/wall_front_top.png"));
@@ -81,7 +81,7 @@ public class DungeonVisualizerFX extends Application {
     private static final int DEFAULT_SPACING = 10;
     private static final String DEFAULT_CSS = "-fx-background-color: #66b3ff;";
 
-    private CellularAutomatonCaveGenerator carg;
+    private CellularAutomatonCaveGenerator generator;
     private TerrainTileIdAllocator allocator;
     private TopologyManager topologyManager;
 
@@ -112,7 +112,7 @@ public class DungeonVisualizerFX extends Application {
         scrollPane.setFitToHeight(true);
 
         allocator = new TerrainTileIdAllocator();
-        carg = new CellularAutomatonCaveGenerator(CAVE_WIDTH, CAVE_HEIGHT);
+        generator = new CellularAutomatonCaveGenerator(CAVE_WIDTH, CAVE_HEIGHT);
         topologyManager = new TopologyManager();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -146,18 +146,18 @@ public class DungeonVisualizerFX extends Application {
                 statusLabel.setText("Generate cave ...");
                 long millisBefore = System.currentTimeMillis();
 
-                int initWallBirth = getInt(initWallBirthProb.getText(), carg.getInitWallBirthProb());
-                int bLimit = getInt(birthLimit.getText(), carg.getBirthLimit());
-                int dLimit = getInt(deathLimit.getText(), carg.getDeathLimit());
-                int minOpenPercentage = getInt(minimumOpenPercentage.getText(), carg.getMinimumOpenPercentage());
+                int initWallBirth = getInt(initWallBirthProb.getText(), generator.getInitWallBirthProb());
+                int bLimit = getInt(birthLimit.getText(), generator.getBirthLimit());
+                int dLimit = getInt(deathLimit.getText(), generator.getDeathLimit());
+                int minOpenPercentage = getInt(minimumOpenPercentage.getText(), generator.getMinimumOpenPercentage());
 
-                carg.setBirthLimit(bLimit);
-                carg.setDeathLimit(dLimit);
-                carg.setInitWallBirthProb(initWallBirth);
-                carg.setMinimumOpenPercentage(minOpenPercentage);
+                generator.setBirthLimit(bLimit);
+                generator.setDeathLimit(dLimit);
+                generator.setInitWallBirthProb(initWallBirth);
+                generator.setMinimumOpenPercentage(minOpenPercentage);
 
-                carg.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
-                carg.generateRooms();
+                generator.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
+                generator.generateRooms();
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
                 statusLabel.setText(String.format("Generated in %d millis", generationTime));
@@ -170,7 +170,7 @@ public class DungeonVisualizerFX extends Application {
             public void handle(ActionEvent event) {
                 statusLabel.setText("Status: processing");
                 long millisBefore = System.currentTimeMillis();
-                TerrainTileType[][][] cells = allocator.allocateIds(carg.getCave());
+                TerrainTileType[][][] cells = allocator.allocateIds(generator.getCave());
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
                 drawCells(canvas.getGraphicsContext2D(), cells);
@@ -182,8 +182,8 @@ public class DungeonVisualizerFX extends Application {
         adjustTopology.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                topologyManager.executeAdjustmentStep(carg.getCave());
-                int steps = topologyManager.adjustTopology(carg.getCave());
+//                topologyManager.executeAdjustmentStep(generator.getCave());
+                int steps = topologyManager.adjustTopology(generator.getCave());
                 statusLabel.setText(String.format("Adjusted steps made %d", steps));
                 draw(canvas.getGraphicsContext2D());
             }
@@ -209,10 +209,10 @@ public class DungeonVisualizerFX extends Application {
     }
 
     private WritableImage generateImages(WritableImage wi) {
-        carg.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
-        carg.generateRooms();
-        topologyManager.adjustTopology(carg.getCave());
-        TerrainTileType[][][] cells = allocator.allocateIds(carg.getCave());
+        generator.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
+        generator.generateRooms();
+        topologyManager.adjustTopology(generator.getCave());
+        TerrainTileType[][][] cells = allocator.allocateIds(generator.getCave());
         drawCells(canvas.getGraphicsContext2D(), cells);
         return canvas.snapshot(new SnapshotParameters(), wi);
     }
@@ -246,25 +246,24 @@ public class DungeonVisualizerFX extends Application {
                         int j = (int) (e.getX() / CELL_SIDE_PIXELS);
                         switch (mouseButton) {
                             case PRIMARY:
-                                carg.getCave()[i][j] = 1;
+                                generator.getCave()[i][j] = 1;
                                 draw(gc);
                                 break;
                             case SECONDARY:
-                                carg.getCave()[i][j] = 0;
+                                generator.getCave()[i][j] = 0;
                                 draw(gc);
                                 break;
                             case MIDDLE:
-                                allocator.chooseMatcher(carg.getCave(), i, j);
+                                allocator.chooseMatcher(generator.getCave(), i, j);
                                 gc.setFill(Color.BLUE);
                                 gc.strokeRect(j * CELL_SIDE_PIXELS, i * CELL_SIDE_PIXELS, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
-                                ids.add(carg.getCave()[i][j]);
+                                ids.add(generator.getCave()[i][j]);
                                 if (ids.size() == 9) {
                                     String out = "%d %d %d\n%d %d %d\n%d %d %d";
                                     System.out.println(String.format(out, ids.get(0), ids.get(1), ids.get(2), ids.get(3), ids.get(4), ids.get(5), ids.get(6), ids.get(7), ids.get(8)));
                                     ids.clear();
                                 }
                         }
-
                     }
                 });
     }
@@ -278,19 +277,19 @@ public class DungeonVisualizerFX extends Application {
 
         Label initWallBirthProbLabel = new Label("Init wall birth Prob");
         initWallBirthProbLabel.setFont(LABEL_FONT);
-        initWallBirthProb = new TextField("" + carg.getInitWallBirthProb());
+        initWallBirthProb = new TextField("" + generator.getInitWallBirthProb());
 
         Label birthLimitLabel = new Label("Floor become wall if nbr >");
         birthLimitLabel.setFont(LABEL_FONT);
-        birthLimit = new TextField("" + carg.getBirthLimit());
+        birthLimit = new TextField("" + generator.getBirthLimit());
 
         Label deathLimitLabel = new Label("Wall become floor if nbr <");
         deathLimitLabel.setFont(LABEL_FONT);
-        deathLimit = new TextField("" + carg.getDeathLimit());
+        deathLimit = new TextField("" + generator.getDeathLimit());
 
         Label minimumOpenPercentageLabel = new Label("Skip cave if open percentage <");
         minimumOpenPercentageLabel.setFont(LABEL_FONT);
-        minimumOpenPercentage = new TextField("" + carg.getMinimumOpenPercentage());
+        minimumOpenPercentage = new TextField("" + generator.getMinimumOpenPercentage());
 
         grid.addRow(0, initWallBirthProbLabel, initWallBirthProb, minimumOpenPercentageLabel, minimumOpenPercentage);
         grid.addRow(1, deathLimitLabel, deathLimit, birthLimitLabel, birthLimit);
@@ -302,14 +301,18 @@ public class DungeonVisualizerFX extends Application {
         int y = 0;
         for (TerrainTileType[][] row : cells) {
             for (TerrainTileType[] tiles : row) {
-                Image i = tileIdToImage.get(tiles[0].getId());
-                if (i != null) {
-                    gc.drawImage(i, x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
-                } else {
+                if (TerrainTileType.NO_TILE == tiles[0]) {
                     gc.setFill(Color.RED);
                     gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
-                }
+                } else {
 
+                    for (TerrainTileType tile : tiles) {
+                        if (TerrainTileType.WALL_SOLID == tile) {
+                            continue;
+                        }
+                        drawTile(gc, tile, x, y);
+                    }
+                }
                 x += CELL_SIDE_PIXELS;
             }
             x = 0;
@@ -317,11 +320,21 @@ public class DungeonVisualizerFX extends Application {
         }
     }
 
+    private void drawTile(GraphicsContext gc, TerrainTileType tile, int x, int y) {
+        Image i = tileIdToImage.get(tile.getId());
+        if (i != null) {
+            gc.drawImage(i, x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+        } else {
+            gc.setFill(Color.BLACK);
+            gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+        }
+    }
+
     private void draw(GraphicsContext gc) {
         int x = 0;
         int y = 0;
 
-        for (int[] row : carg.getCave()) {
+        for (int[] row : generator.getCave()) {
             for (int cell : row) {
                 gc.setFill(cell == TerrainTileType.FLOOR.getId() ? Color.WHITE : Color.BROWN);
                 gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
@@ -332,7 +345,4 @@ public class DungeonVisualizerFX extends Application {
         }
     }
 
-    private static final class Stat {
-//        int
-    }
 }

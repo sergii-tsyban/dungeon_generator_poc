@@ -11,7 +11,7 @@ public class WallSideLeft extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(WALL_SIDE_LEFT);
+        return arr(WALL_SIDE_LEFT, WALL_SOLID);
     }
 
     @Override

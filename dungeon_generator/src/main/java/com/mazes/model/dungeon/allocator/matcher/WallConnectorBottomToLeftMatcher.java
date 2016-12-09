@@ -11,7 +11,7 @@ public class WallConnectorBottomToLeftMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(WALL_CONNECTOR_BOTTOM_TO_LEFT);
+        return arr(WALL_CONNECTOR_BOTTOM_TO_LEFT, WALL_SOLID);
     }
 
     @Override
@@ -22,5 +22,4 @@ public class WallConnectorBottomToLeftMatcher extends TileMatcher {
         return wallSideLeft.matched(cave, i + 1, j) ||
                 wallTopWallSideRightMatcher.matched(cave, i + 1, j);
     }
-
 }

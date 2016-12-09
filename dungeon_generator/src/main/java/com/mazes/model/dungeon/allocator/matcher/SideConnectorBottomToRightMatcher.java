@@ -10,7 +10,7 @@ public class SideConnectorBottomToRightMatcher extends TileMatcher {
 
     @Override
     public TerrainTileType[] getTiles() {
-        return arr(SIDE_CONNECTOR_BOTTOM_TO_RIGHT);
+        return arr(FLOOR, SIDE_CONNECTOR_BOTTOM_TO_RIGHT);
     }
 
     @Override

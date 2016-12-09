@@ -10,7 +10,6 @@ public class TerrainTileIdAllocator {
     private List<TileMatcher> matchersChain = new ArrayList<TileMatcher>();
 
     {
-//        matchersChain.add(new Floor());
         matchersChain.add(new WallFrontBottomMatcher());
         matchersChain.add(new WallFrontTopMatcher());
         matchersChain.add(new WallCornerTopLeftMatcher());
@@ -32,11 +31,12 @@ public class TerrainTileIdAllocator {
         matchersChain.add(new SideBottomMatcher());
         matchersChain.add(new SideConnectorBottomToRightMatcher());
         matchersChain.add(new SideConnectorBottomToLeftMatcher());
-        matchersChain.add(new SideConnectorTopToRight());
-        matchersChain.add(new SideConnectorTopToLeft());
+        matchersChain.add(new SideConnectorTopToRightMatcher());
+        matchersChain.add(new SideConnectorTopToLeftMatcher());
         matchersChain.add(new WallSideLeft());
         matchersChain.add(new WallSideRight());
-        matchersChain.add(new NoTileMatcher());
+//        matchersChain.add(new NoTileMatcher());
+        matchersChain.add(new FloorMatcher());
     }
 
     public TerrainTileType[][][] allocateIds(int[][] cave){
@@ -65,7 +65,7 @@ public class TerrainTileIdAllocator {
                 return cellMatcher.getTiles();
             }
         }
-        return TerrainTileType.arr(TerrainTileType.fromId(cave[i][j]));
+        return TerrainTileType.arr(TerrainTileType.NO_TILE);
     }
 
 }
