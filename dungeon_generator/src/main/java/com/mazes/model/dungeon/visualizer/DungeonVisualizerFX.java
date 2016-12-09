@@ -70,7 +70,7 @@ public class DungeonVisualizerFX extends Application {
         tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT.getId(), new Image("terrain/side_connector_tr_with_wall_side_left.png"));
     }
 
-    public static final int CELL_SIDE_PIXELS = 16;
+    public static final int CELL_SIDE_PIXELS = 8;
 
     public static final int CAVE_WIDTH = 200;
     public static final int CAVE_HEIGHT = 100;
