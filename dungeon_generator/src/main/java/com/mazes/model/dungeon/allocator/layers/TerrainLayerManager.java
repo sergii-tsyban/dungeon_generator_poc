@@ -1,17 +1,17 @@
 package com.mazes.model.dungeon.allocator.layers;
 
-import com.mazes.model.dungeon.allocator.TerrainTileType;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.*;
+
 public final class TerrainLayerManager {
 
-    private Map<TerrainLayer, List<TerrainTileType>> tileLayerToTileType = new HashMap<>();
+    private Map<TerrainLayer, List<Integer>> tileLayerToTileType = new HashMap<>();
 
-    private Map<TerrainTileType, TerrainLayer> tileTypeToTileLayer = new HashMap<>();
+    private Map<Integer, TerrainLayer> tileTypeToTileLayer = new HashMap<>();
 
     private TerrainLayer defaultLayer = TerrainLayer.CEIL;
 
@@ -19,24 +19,24 @@ public final class TerrainLayerManager {
 
     private TerrainLayerManager(){
         addLayer(TerrainLayer.FLOOR,
-                TerrainTileType.FLOOR,
-                TerrainTileType.WALL_CORNER_TOP_LEFT,
-                TerrainTileType.WALL_CORNER_TOP_RIGHT,
-                TerrainTileType.WALL_FRONT_BOTTOM);
+                FLOOR,
+                WALL_CORNER_TOP_LEFT,
+                WALL_CORNER_TOP_RIGHT,
+                WALL_FRONT_BOTTOM);
     }
 
-    public void addLayer(TerrainLayer layer, TerrainTileType ... tiles){
+    public void addLayer(TerrainLayer layer, Integer ... tiles){
         tileLayerToTileType.put(layer, Arrays.asList(tiles));
-        for (TerrainTileType tile : tiles) {
+        for (int tile : tiles) {
             tileTypeToTileLayer.put(tile, layer);
         }
     }
 
-    public boolean contains(TerrainLayer layer, TerrainTileType tileType){
+    public boolean contains(TerrainLayer layer, int tileType){
         return tileLayerToTileType.get(layer).contains(tileType);
     }
 
-    public TerrainLayer getLayer(TerrainTileType tileType){
+    public TerrainLayer getLayer(int tileType){
         if(tileTypeToTileLayer.containsKey(tileType)){
             tileTypeToTileLayer.get(tileType);
         }

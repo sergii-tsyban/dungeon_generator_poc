@@ -1,10 +1,11 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
 import com.mazes.model.dungeon.allocator.TerrainTileMasks;
-import com.mazes.model.dungeon.allocator.TerrainTileType;
 import com.mazes.model.dungeon.cell.CellUtils;
 
-import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.SIDE_LEFT_WITH_WALL_CONNECTOR;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class SideLeftWithWallConnMatcher extends TileMatcher {
 
@@ -12,8 +13,8 @@ public class SideLeftWithWallConnMatcher extends TileMatcher {
     private WallFrontBottomMatcher wallFrontBottomMatcher = new WallFrontBottomMatcher();
 
     @Override
-    public TerrainTileType[] getTiles() {
-        return arr(FLOOR, SIDE_LEFT_WITH_WALL_CONNECTOR, WALL_SOLID);
+    public int[] getTiles() {
+        return new int[]{FLOOR, SIDE_LEFT_WITH_WALL_CONNECTOR, WALL_SOLID};
     }
 
     @Override

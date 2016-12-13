@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.cell;
 
-import static com.mazes.model.dungeon.allocator.TerrainTileType.FLOOR;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 
 public class CellUtils {
 
@@ -18,7 +18,7 @@ public class CellUtils {
                     count++;
                 }
                 //Otherwise, a normal check of the neighbour
-                else if(oldRoom[neighbour_y][neighbour_x] != FLOOR.getId()){
+                else if(oldRoom[neighbour_y][neighbour_x] != FLOOR){
                     count++;
                 }
             }

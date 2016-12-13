@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.topology.adjuster;
 
-import static com.mazes.model.dungeon.allocator.TerrainTileType.WALL_SOLID;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class IslandBuilderAdjuster implements TopologyAdjuster {
 
@@ -73,7 +73,7 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
     private boolean isSuitable(int[][] cave, int h, int w) {
         for (int i = h; i < h + STEP; i++) {
             for (int j = w; j < w + STEP; j++) {
-                if (cave[i][j] == WALL_SOLID.getId()) {
+                if (cave[i][j] == WALL_SOLID) {
                     return false;
                 }
             }

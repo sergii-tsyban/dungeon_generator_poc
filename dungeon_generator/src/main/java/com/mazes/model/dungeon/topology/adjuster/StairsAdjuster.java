@@ -1,8 +1,8 @@
 package com.mazes.model.dungeon.topology.adjuster;
 
-import com.mazes.model.dungeon.allocator.TerrainTileType;
 import com.mazes.model.dungeon.cell.CellUtils;
 
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 import static com.mazes.model.dungeon.cell.CellMasks.*;
 
 public class StairsAdjuster implements TopologyAdjuster {
@@ -35,7 +35,7 @@ public class StairsAdjuster implements TopologyAdjuster {
 
     private boolean tryMakeEmpty(int[][] cave, int i, int j){
         if(Math.random() < removeStepProb){
-            cave[i][j] = TerrainTileType.FLOOR.getId();
+            cave[i][j] = FLOOR;
             return true;
         }
         return false;

@@ -1,8 +1,7 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
-import com.mazes.model.dungeon.allocator.TerrainTileType;
-
-import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SIDE_RIGHT;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class WallSideRight extends TileMatcher {
 
@@ -10,8 +9,8 @@ public class WallSideRight extends TileMatcher {
     private WallCornerTopLeftMatcher cornerMatcher = new WallCornerTopLeftMatcher();
 
     @Override
-    public TerrainTileType[] getTiles() {
-        return arr(WALL_SIDE_RIGHT, WALL_SOLID);
+    public int[] getTiles() {
+        return new int[]{WALL_SIDE_RIGHT, WALL_SOLID};
     }
 
     @Override

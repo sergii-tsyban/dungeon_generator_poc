@@ -1,7 +1,6 @@
 package com.mazes.model.dungeon.visualizer;
 
-import com.mazes.model.dungeon.allocator.TerrainTileIdAllocator;
-import com.mazes.model.dungeon.allocator.TerrainTileType;
+import com.mazes.model.dungeon.allocator.TerrainTileAllocator;
 import com.mazes.model.dungeon.generator.CellularAutomatonCaveGenerator;
 import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
@@ -34,40 +33,40 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static com.mazes.model.dungeon.allocator.TerrainTileType.*;
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.*;
 
 public class DungeonVisualizerFX extends Application {
 
     private Map<Integer, Image> tileIdToImage = new HashMap<>();
 
     {
-//        tileIdToImage.put(NO_TILE.getId(), new Image("terrain/wall_solid.png"));
-        tileIdToImage.put(FLOOR.getId(), new Image("terrain/floor.png"));
-        tileIdToImage.put(WALL_FRONT_BOTTOM.getId(), new Image("terrain/wall_front_bottom.png"));
-        tileIdToImage.put(WALL_FRONT_TOP.getId(), new Image("terrain/wall_front_top.png"));
-        tileIdToImage.put(WALL_SIDE_RIGHT.getId(), new Image("terrain/wall_side_right.png"));
-        tileIdToImage.put(WALL_SIDE_LEFT.getId(), new Image("terrain/wall_side_left.png"));
-        tileIdToImage.put(WALL_CORNER_TOP_RIGHT.getId(), new Image("terrain/wall_corner_tr.png"));
-        tileIdToImage.put(WALL_CORNER_TOP_LEFT.getId(), new Image("terrain/wall_corner_tl.png"));
-        tileIdToImage.put(WALL_TOP_WALL_SIDE_RIGHT.getId(), new Image("terrain/wall_top_wall_side_right.png"));
-        tileIdToImage.put(WALL_TOP_WALL_SIDE_LEFT.getId(), new Image("terrain/wall_top_wall_side_left.png"));
-        tileIdToImage.put(WALL_TOP_SIDE_LEFT.getId(), new Image("terrain/wall_top_left_side.png"));
-        tileIdToImage.put(WALL_TOP_SIDE_RIGHT.getId(), new Image("terrain/wall_top_right_side.png"));
-        tileIdToImage.put(WALL_CONNECTOR_BOTTOM_TO_RIGHT.getId(), new Image("terrain/wall_connector_bottom_to_right.png"));
-        tileIdToImage.put(WALL_CONNECTOR_BOTTOM_TO_LEFT.getId(), new Image("terrain/wall_connector_bottom_to_left.png"));
-        tileIdToImage.put(SIDE_LEFT.getId(), new Image("terrain/side_left.png"));
-        tileIdToImage.put(SIDE_RIGHT.getId(), new Image("terrain/side_right.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_TOP_TO_LEFT.getId(), new Image("terrain/side_connector_top_to_left.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_TOP_TO_RIGHT.getId(), new Image("terrain/side_connector_top_to_right.png"));
-        tileIdToImage.put(SIDE_BOTTOM.getId(), new Image("terrain/side_bottom.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_LEFT.getId(), new Image("terrain/side_connector_bottom_to_left.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_RIGHT.getId(), new Image("terrain/side_connector_bottom_to_right.png"));
-        tileIdToImage.put(SIDE_LEFT_WITH_WALL_CONNECTOR.getId(), new Image("terrain/side_right_with_wall_connector.png"));
-        tileIdToImage.put(SIDE_RIGHT_WITH_WALL_CONNECTOR.getId(), new Image("terrain/side_left_with_wall_connector.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_CONN.getId(), new Image("terrain/side_connector_tr_with_wall_conn.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_CONN.getId(), new Image("terrain/side_connector_tl_with_wall_conn.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT.getId(), new Image("terrain/side_connector_tl_with_wall_side_right.png"));
-        tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT.getId(), new Image("terrain/side_connector_tr_with_wall_side_left.png"));
+//        tileIdToImage.put(NO_TILE, new Image("terrain/wall_solid.png"));
+        tileIdToImage.put(FLOOR, new Image("terrain/floor.png"));
+        tileIdToImage.put(WALL_FRONT_BOTTOM, new Image("terrain/wall_front_bottom.png"));
+        tileIdToImage.put(WALL_FRONT_TOP, new Image("terrain/wall_front_top.png"));
+        tileIdToImage.put(WALL_SIDE_RIGHT, new Image("terrain/wall_side_right.png"));
+        tileIdToImage.put(WALL_SIDE_LEFT, new Image("terrain/wall_side_left.png"));
+        tileIdToImage.put(WALL_CORNER_TOP_RIGHT, new Image("terrain/wall_corner_tr.png"));
+        tileIdToImage.put(WALL_CORNER_TOP_LEFT, new Image("terrain/wall_corner_tl.png"));
+        tileIdToImage.put(WALL_TOP_WALL_SIDE_RIGHT, new Image("terrain/wall_top_wall_side_right.png"));
+        tileIdToImage.put(WALL_TOP_WALL_SIDE_LEFT, new Image("terrain/wall_top_wall_side_left.png"));
+        tileIdToImage.put(WALL_TOP_SIDE_LEFT, new Image("terrain/wall_top_left_side.png"));
+        tileIdToImage.put(WALL_TOP_SIDE_RIGHT, new Image("terrain/wall_top_right_side.png"));
+        tileIdToImage.put(WALL_CONNECTOR_BOTTOM_TO_RIGHT, new Image("terrain/wall_connector_bottom_to_right.png"));
+        tileIdToImage.put(WALL_CONNECTOR_BOTTOM_TO_LEFT, new Image("terrain/wall_connector_bottom_to_left.png"));
+        tileIdToImage.put(SIDE_LEFT, new Image("terrain/side_left.png"));
+        tileIdToImage.put(SIDE_RIGHT, new Image("terrain/side_right.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TOP_TO_LEFT, new Image("terrain/side_connector_top_to_left.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TOP_TO_RIGHT, new Image("terrain/side_connector_top_to_right.png"));
+        tileIdToImage.put(SIDE_BOTTOM, new Image("terrain/side_bottom.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_LEFT, new Image("terrain/side_connector_bottom_to_left.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_BOTTOM_TO_RIGHT, new Image("terrain/side_connector_bottom_to_right.png"));
+        tileIdToImage.put(SIDE_LEFT_WITH_WALL_CONNECTOR, new Image("terrain/side_right_with_wall_connector.png"));
+        tileIdToImage.put(SIDE_RIGHT_WITH_WALL_CONNECTOR, new Image("terrain/side_left_with_wall_connector.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_CONN, new Image("terrain/side_connector_tr_with_wall_conn.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_CONN, new Image("terrain/side_connector_tl_with_wall_conn.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT, new Image("terrain/side_connector_tl_with_wall_side_right.png"));
+        tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT, new Image("terrain/side_connector_tr_with_wall_side_left.png"));
     }
 
     public static final int CELL_SIDE_PIXELS = 8;
@@ -82,7 +81,7 @@ public class DungeonVisualizerFX extends Application {
     private static final String DEFAULT_CSS = "-fx-background-color: #66b3ff;";
 
     private CellularAutomatonCaveGenerator generator;
-    private TerrainTileIdAllocator allocator;
+    private TerrainTileAllocator allocator;
     private TopologyManager topologyManager;
 
     private Group root;
@@ -111,7 +110,7 @@ public class DungeonVisualizerFX extends Application {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        allocator = new TerrainTileIdAllocator();
+        allocator = new TerrainTileAllocator();
         generator = new CellularAutomatonCaveGenerator(CAVE_WIDTH, CAVE_HEIGHT);
         topologyManager = new TopologyManager();
 
@@ -170,7 +169,7 @@ public class DungeonVisualizerFX extends Application {
             public void handle(ActionEvent event) {
                 statusLabel.setText("Status: processing");
                 long millisBefore = System.currentTimeMillis();
-                TerrainTileType[][][] cells = allocator.allocateIds(generator.getCave());
+                int[][][] cells = allocator.allocateIds(generator.getCave());
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
                 drawCells(canvas.getGraphicsContext2D(), cells);
@@ -212,7 +211,7 @@ public class DungeonVisualizerFX extends Application {
         generator.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
         generator.generateRooms();
         topologyManager.adjustTopology(generator.getCave());
-        TerrainTileType[][][] cells = allocator.allocateIds(generator.getCave());
+        int[][][] cells = allocator.allocateIds(generator.getCave());
         drawCells(canvas.getGraphicsContext2D(), cells);
         return canvas.snapshot(new SnapshotParameters(), wi);
     }
@@ -296,18 +295,17 @@ public class DungeonVisualizerFX extends Application {
         return grid;
     }
 
-    private void drawCells(GraphicsContext gc, TerrainTileType[][][] cells) {
+    private void drawCells(GraphicsContext gc, int[][][] cells) {
         int x = 0;
         int y = 0;
-        for (TerrainTileType[][] row : cells) {
-            for (TerrainTileType[] tiles : row) {
-                if (TerrainTileType.NO_TILE == tiles[0]) {
+        for (int[][] row : cells) {
+            for (int[] tiles : row) {
+                if (NO_TILE == tiles[0]) {
                     gc.setFill(Color.RED);
                     gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
                 } else {
-
-                    for (TerrainTileType tile : tiles) {
-                        if (TerrainTileType.WALL_SOLID == tile) {
+                    for (int tile : tiles) {
+                        if (WALL_SOLID == tile) {
                             continue;
                         }
                         drawTile(gc, tile, x, y);
@@ -320,8 +318,8 @@ public class DungeonVisualizerFX extends Application {
         }
     }
 
-    private void drawTile(GraphicsContext gc, TerrainTileType tile, int x, int y) {
-        Image i = tileIdToImage.get(tile.getId());
+    private void drawTile(GraphicsContext gc, int tile, int x, int y) {
+        Image i = tileIdToImage.get(tile);
         if (i != null) {
             gc.drawImage(i, x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
         } else {
@@ -336,7 +334,7 @@ public class DungeonVisualizerFX extends Application {
 
         for (int[] row : generator.getCave()) {
             for (int cell : row) {
-                gc.setFill(cell == TerrainTileType.FLOOR.getId() ? Color.WHITE : Color.BROWN);
+                gc.setFill(cell == FLOOR ? Color.WHITE : Color.BROWN);
                 gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
                 x += CELL_SIDE_PIXELS;
             }

@@ -5,7 +5,9 @@ import com.mazes.model.dungeon.allocator.matcher.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TerrainTileIdAllocator {
+import static com.mazes.model.dungeon.allocator.TerrainTilesIds.NO_TILE;
+
+public class TerrainTileAllocator {
 
     private List<TileMatcher> matchersChain = new ArrayList<TileMatcher>();
 
@@ -39,8 +41,8 @@ public class TerrainTileIdAllocator {
         matchersChain.add(new FloorMatcher());
     }
 
-    public TerrainTileType[][][] allocateIds(int[][] cave){
-        TerrainTileType[][][] cells = new TerrainTileType[cave.length][cave[0].length][];
+    public int[][][] allocateIds(int[][] cave){
+        int[][][] cells = new int[cave.length][cave[0].length][];
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 cells[i][j] = assignIdForCell(cave, i, j);
@@ -59,13 +61,13 @@ public class TerrainTileIdAllocator {
         System.out.println("No Matcher found !");
     }
 
-    private TerrainTileType[] assignIdForCell(int[][] cave, int i, int j) {
+    private int[] assignIdForCell(int[][] cave, int i, int j) {
         for (TileMatcher cellMatcher : matchersChain) {
             if(cellMatcher.matched(cave, i, j)){
                 return cellMatcher.getTiles();
             }
         }
-        return TerrainTileType.arr(TerrainTileType.NO_TILE);
+        return new int[]{NO_TILE};
     }
 
 }
