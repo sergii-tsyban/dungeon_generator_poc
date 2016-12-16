@@ -1,5 +1,7 @@
 package com.mazes.model.dungeon.cell;
 
+import java.util.Arrays;
+
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 
 public class CellUtils {
@@ -54,5 +56,45 @@ public class CellUtils {
             }
         }
         return false;
+    }
+
+    public static int[][] rotateCW(int[][] arr){
+        int[][] res = new int[arr.length][arr[0].length];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                res[i][j] = arr[(arr.length-1) - j][i];
+            }
+        }
+        return res;
+    }
+
+    public static int[][] rotateCCW(int[][] arr){
+        int[][] res = new int[arr.length][arr[0].length];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                res[i][j] = arr[j][(arr[i].length - 1) - i];
+            }
+        }
+        return res;
+    }
+
+    public static void flipHorizontal(int[][] arr){
+        int temp;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0,k = arr[i].length - 1; j < arr[i].length / 2 && k > arr[i].length / 2; j++, k--) {
+                temp = arr[i][j];
+                arr[i][j] = arr[i][k];
+                arr[i][k] = temp;
+            }
+        }
+    }
+
+    public static void flipVertical(int[][] arr){
+        int[] temp;
+        for (int i = 0,k = arr.length - 1; i < arr.length / 2 && k > arr.length / 2; i++, k--) {
+            temp = Arrays.copyOf(arr[i], arr.length);
+            arr[i] = arr[k];
+            arr[k] = temp;
+        }
     }
 }

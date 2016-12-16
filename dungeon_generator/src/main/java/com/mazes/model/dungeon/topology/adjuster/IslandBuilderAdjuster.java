@@ -1,60 +1,58 @@
 package com.mazes.model.dungeon.topology.adjuster;
 
+import com.mazes.model.dungeon.cell.CellUtils;
+
+import java.util.Random;
+
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class IslandBuilderAdjuster implements TopologyAdjuster {
 
     private static final int STEP = 10;
-    private static final double APPEARANCE_PROB = 0.15;
+    private static final double APPEARANCE_PROB = 0.3;
 
-    private int[][][] islandPattern ={
+    private Random r = new Random();
+
+    private int[][][] islandPattern = {
             {
-                    {0,1,1,0},
-                    {1,1,1,1},
-                    {1,1,1,1},
-                    {0,1,1,0},
+                    {0,0,1,1,0,0,0,0},
+                    {0,0,1,1,1,0,0,0},
+                    {0,1,1,1,1,1,0,0},
+                    {1,1,1,1,1,1,1,0},
+                    {1,1,1,1,1,1,1,0},
+                    {0,1,1,1,1,1,1,0},
+                    {0,0,1,1,1,1,0,0},
+                    {0,0,0,1,1,0,0,0},
             },
             {
-                    {0,0,1,1},
-                    {1,1,1,1},
-                    {1,1,1,1},
-                    {1,1,0,0},
+                    {0,0,0,0,1,1,0,0},
+                    {0,0,0,1,1,1,0,0},
+                    {0,0,1,1,1,0,0,0},
+                    {0,1,1,1,1,0,0,0},
+                    {0,1,1,1,1,1,0,0},
+                    {0,0,1,1,1,1,1,0},
+                    {0,0,0,1,1,1,1,0},
+                    {0,0,0,0,1,1,0,0},
             },
             {
-                    {1,1,0,0},
-                    {1,1,1,1},
-                    {1,1,1,1},
-                    {0,0,1,1},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,1,1,1,0},
+                    {0,0,0,1,1,1,1,1},
+                    {0,0,1,1,1,1,1,1},
+                    {1,1,1,1,1,1,1,0},
+                    {1,1,1,1,1,1,0,0},
+                    {0,1,1,1,1,0,0,0},
+                    {0,0,1,1,0,0,0,0},
             },
             {
-                    {0,1,1,1},
-                    {0,1,1,1},
-                    {1,1,1,0},
-                    {1,1,1,0},
-            },
-            {
-                    {1,1,1,0},
-                    {1,1,1,0},
-                    {0,1,1,1},
-                    {0,1,1,1},
-            },
-            {
-                    {0,1,1,0},
-                    {1,1,1,0},
-                    {1,1,1,1},
-                    {0,0,1,1},
-            },
-            {
-                    {0,0,1,1},
-                    {1,1,1,1},
-                    {1,1,1,0},
-                    {1,1,0,0},
-            },
-            {
-                    {0,1,1,0},
-                    {1,1,1,1},
-                    {1,1,1,1},
-                    {0,0,1,1},
+                    {0,0,1,1,1,1,0,0},
+                    {0,1,1,1,1,1,1,0},
+                    {1,1,1,0,0,1,1,1},
+                    {1,1,0,0,0,0,1,1},
+                    {1,1,1,0,0,0,0,0},
+                    {0,1,1,1,0,0,1,1},
+                    {0,0,1,1,1,1,1,1},
+                    {0,0,0,1,1,1,1,0},
             },
     };
 
@@ -83,9 +81,9 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
 
     private void tryToAllocateIsland(int[][] cave, int h, int w){
         if (Math.random() <= APPEARANCE_PROB){
-            int startI = 3;
-            int startJ = 3;
-            int[][] selectedIsland = islandPattern[(int)(Math.random()*10) % islandPattern.length];
+            int[][] selectedIsland = transformRandomly(islandPattern[r.nextInt(100) % islandPattern.length]);
+            int startI = (STEP - selectedIsland.length) / 2;
+            int startJ = (STEP - selectedIsland[0].length) / 2;
             for (int i = 0; i < selectedIsland.length; i++) {
                 for (int j = 0; j < selectedIsland[0].length; j++) {
                     cave[h + startI + i][w + startJ + j] = selectedIsland[i][j];
@@ -93,6 +91,27 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
             }
 
         }
+    }
+
+    private int[][] transformRandomly(int[][] arr){
+        //TODO : fix flip
+//        if(r.nextInt(100) < 50){
+//            CellUtils.flipHorizontal(arr);
+//        } else {
+//            CellUtils.flipVertical(arr);
+//        }
+        int rand = r.nextInt(100);
+        boolean rotCW = rand < 50;
+        int iter = 0;
+        while(iter < rand % 5) {
+            if(rotCW){
+                arr = CellUtils.rotateCW(arr);
+            } else {
+                arr = CellUtils.rotateCCW(arr);
+            }
+            iter++;
+        }
+        return arr;
     }
 
 }

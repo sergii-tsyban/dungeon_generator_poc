@@ -184,17 +184,6 @@ public class CellularAutomatonCaveGenerator {
         }
     }
 
-    public static void main(String[] args) {
-        int[][] dest = {{1,2,3},{1,2,3},{1,2,3}};
-        for (int[] ints : dest) {
-            System.out.println(Arrays.toString(ints));
-        }
-        int[][] src = {{0,0},{0,0}};
-        for (int[] ints : dest) {
-            System.out.println(Arrays.toString(ints));
-        }
-    }
-
     public int[][] getCave() {
         return cave;
     }

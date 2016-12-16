@@ -24,7 +24,7 @@ import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class BSPTreeVisualizerFX extends Application{
 
-    public static final int CELL_SIDE = 2;
+    public static final int CELL_SIDE = 1;
 
     private BSPTreeGenerator bspTreeGeneratorCave;
     private CellularAutomatonCaveGenerator cacg;
@@ -37,8 +37,8 @@ public class BSPTreeVisualizerFX extends Application{
     }
 
     public void start(Stage primaryStage) throws Exception {
-        int width = 300;
-        int height = 300;
+        int width = 1000;
+        int height = 700;
         canvas = new Canvas(width * CELL_SIDE, height * CELL_SIDE);
         Scene scene = new Scene(root, Color.WHITE);
         label = new Label("Status: ");
