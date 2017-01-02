@@ -14,7 +14,7 @@ public class SideRightWithWallConnMatcher extends TileMatcher {
 
     @Override
     public int[] getTiles() {
-        return new int[]{FLOOR, SIDE_RIGHT_WITH_WALL_CONNECTOR, WALL_SOLID};
+        return new int[]{FLOOR, SIDE_RIGHT_WITH_WALL_CONNECTOR};
     }
 
     @Override

@@ -11,7 +11,7 @@ public class SideConnectorTopToLeftMatcher extends TileMatcher {
 
     @Override
     public int[] getTiles() {
-        return new int[]{FLOOR, SIDE_CONNECTOR_TOP_TO_LEFT, WALL_SOLID};
+        return new int[]{FLOOR, SIDE_CONNECTOR_TOP_TO_LEFT};
     }
 
     @Override

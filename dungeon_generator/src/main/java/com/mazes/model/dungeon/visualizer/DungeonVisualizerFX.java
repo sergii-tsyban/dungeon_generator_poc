@@ -69,7 +69,7 @@ public class DungeonVisualizerFX extends Application {
         tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT, new Image("terrain/side_connector_tr_with_wall_side_left.png"));
     }
 
-    public static final int CELL_SIDE_PIXELS = 8;
+    public static final int CELL_SIDE_PIXELS = 16;
 
     public static final int CAVE_WIDTH = 250;
     public static final int CAVE_HEIGHT = 100;
@@ -262,6 +262,7 @@ public class DungeonVisualizerFX extends Application {
                                     System.out.println(String.format(out, ids.get(0), ids.get(1), ids.get(2), ids.get(3), ids.get(4), ids.get(5), ids.get(6), ids.get(7), ids.get(8)));
                                     ids.clear();
                                 }
+                                System.out.println("y = " + e.getY() + ", x = " + e.getX());
                         }
                     }
                 });

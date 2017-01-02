@@ -10,7 +10,7 @@ public class WallConnectorBottomToLeftMatcher extends TileMatcher {
 
     @Override
     public int[] getTiles() {
-        return new int[]{WALL_CONNECTOR_BOTTOM_TO_LEFT, WALL_SOLID};
+        return new int[]{WALL_CONNECTOR_BOTTOM_TO_LEFT};
     }
 
     @Override

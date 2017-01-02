@@ -18,6 +18,7 @@ public class TerrainMapGeneratorFacade {
     }
 
     public int[][][] generateTerrainMap(){
+        cacg.generateRooms();
         int[][] cave = cacg.getCave();
         topologyManager.adjustTopology(cave);
         return tileAllocator.allocateIds(cave);

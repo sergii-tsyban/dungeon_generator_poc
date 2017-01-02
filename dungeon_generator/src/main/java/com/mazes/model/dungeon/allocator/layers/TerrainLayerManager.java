@@ -19,10 +19,7 @@ public final class TerrainLayerManager {
 
     private TerrainLayerManager(){
         addLayer(TerrainLayer.FLOOR,
-                FLOOR,
-                WALL_CORNER_TOP_LEFT,
-                WALL_CORNER_TOP_RIGHT,
-                WALL_FRONT_BOTTOM);
+                FLOOR);
     }
 
     public void addLayer(TerrainLayer layer, Integer ... tiles){
@@ -38,7 +35,7 @@ public final class TerrainLayerManager {
 
     public TerrainLayer getLayer(int tileType){
         if(tileTypeToTileLayer.containsKey(tileType)){
-            tileTypeToTileLayer.get(tileType);
+            return tileTypeToTileLayer.get(tileType);
         }
         return defaultLayer;
     }

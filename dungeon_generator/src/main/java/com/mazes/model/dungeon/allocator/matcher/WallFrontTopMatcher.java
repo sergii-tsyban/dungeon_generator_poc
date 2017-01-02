@@ -9,7 +9,7 @@ public class WallFrontTopMatcher extends TileMatcher {
 
     @Override
     public int[] getTiles() {
-        return new int[]{WALL_FRONT_TOP, WALL_SOLID};
+        return new int[]{WALL_FRONT_TOP};
     }
 
     @Override

@@ -11,7 +11,7 @@ public class SideConnectorTRWithWallSideLeftMatcher extends TileMatcher {
 
     @Override
     public int[] getTiles() {
-        return new int[]{FLOOR, SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT, WALL_SOLID};
+        return new int[]{FLOOR, SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT};
     }
 
     @Override

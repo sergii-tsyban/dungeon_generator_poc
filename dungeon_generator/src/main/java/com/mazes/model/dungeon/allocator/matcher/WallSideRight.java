@@ -10,7 +10,7 @@ public class WallSideRight extends TileMatcher {
 
     @Override
     public int[] getTiles() {
-        return new int[]{WALL_SIDE_RIGHT, WALL_SOLID};
+        return new int[]{WALL_SIDE_RIGHT};
     }
 
     @Override
