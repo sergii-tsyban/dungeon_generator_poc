@@ -13,13 +13,23 @@ public final class TerrainLayerManager {
 
     private Map<Integer, TerrainLayer> tileTypeToTileLayer = new HashMap<>();
 
-    private TerrainLayer defaultLayer = TerrainLayer.CEIL;
+    private TerrainLayer defaultLayer = TerrainLayer.PERSPECTIVE;
 
     private static TerrainLayerManager instance = new TerrainLayerManager();
 
     private TerrainLayerManager(){
-        addLayer(TerrainLayer.FLOOR,
-                FLOOR);
+        addLayer(TerrainLayer.FLOOR, FLOOR);
+        addLayer(TerrainLayer.WALLS,
+                WALL_FRONT_BOTTOM,
+                WALL_CORNER_TOP_LEFT,
+                WALL_CORNER_TOP_RIGHT,
+                SIDE_CONNECTOR_TL_WITH_WALL_CONN,
+                SIDE_CONNECTOR_TR_WITH_WALL_CONN,
+                SIDE_LEFT_WITH_WALL_CONNECTOR,
+                SIDE_RIGHT_WITH_WALL_CONNECTOR,
+                WALL_FRONT_TOP,
+                SIDE_CONNECTOR_TL_WITH_WALL_SIDE_RIGHT,
+                SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT);
     }
 
     public void addLayer(TerrainLayer layer, Integer ... tiles){
