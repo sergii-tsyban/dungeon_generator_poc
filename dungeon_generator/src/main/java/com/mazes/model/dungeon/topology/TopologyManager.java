@@ -15,7 +15,7 @@ public class TopologyManager {
 
     {
 //        registerTopologyAdjuster(StairsAdjuster.class);
-        registerTopologyAdjuster(IslandBuilderAdjuster.class);
+//        registerTopologyAdjuster(IslandBuilderAdjuster.class);
         registerTopologyAdjuster(SolidZBreakerAdjuster.class);
         registerTopologyAdjuster(TBreakerAdjuster.class);
         registerTopologyAdjuster(MBreakerAdjuster.class);
@@ -24,6 +24,7 @@ public class TopologyManager {
         registerTopologyAdjuster(DotsCleanerAdjuster.class);
         registerTopologyAdjuster(TeethAdjuster.class);
         registerTopologyAdjuster(HolesAdjuster.class);
+//        registerTopologyAdjuster(WBreakerAdjuster.class);
     }
 
     public <T extends TopologyAdjuster> void registerTopologyAdjuster(Class<T> adjusterClass){

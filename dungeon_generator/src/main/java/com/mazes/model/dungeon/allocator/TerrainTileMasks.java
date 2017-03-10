@@ -126,7 +126,8 @@ public class TerrainTileMasks {
             CellMasks.E_011_0X0_110,
             CellMasks.E_001_0X0_110,
             CellMasks.E_110_1X0_110,
-            CellMasks.E_001_1X0_110
+            CellMasks.E_001_1X0_110,
+            CellMasks.E_101_1X0_110
     };
 
     /**
@@ -144,7 +145,8 @@ public class TerrainTileMasks {
             CellMasks.E_011_0X0_011,
             CellMasks.E_001_0X0_011,
             CellMasks.E_011_0X1_011,
-            CellMasks.E_100_0X1_011
+            CellMasks.E_100_0X1_011,
+            CellMasks.E_101_0X1_011
     };
 
     /**
@@ -164,6 +166,10 @@ public class TerrainTileMasks {
             CellMasks.E_001_0X0_111,
             CellMasks.E_100_0X0_111,
             CellMasks.E_110_0X0_111,
+            CellMasks.E_101_0X1_111,
+            CellMasks.E_101_1X0_111,
+            CellMasks.E_100_0X1_111,
+            CellMasks.E_001_1X0_111
     };
 
     //----------------------------------------

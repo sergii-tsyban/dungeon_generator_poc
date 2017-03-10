@@ -10,7 +10,7 @@ import java.util.Random;
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
-public class CellularAutomatonCaveGenerator {
+public class CellularAutomatonCaveGenerator{
 
     public static final int GRID_STEP = 4;
 

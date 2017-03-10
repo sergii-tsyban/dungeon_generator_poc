@@ -59,9 +59,13 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
     @Override
     public boolean adjust(int[][] cave) {
         for (int i = 0; i < cave.length - STEP; i++) {
-            for (int j = 0; j < cave[0].length  - STEP; j++) {
+            for (int j = 0; j < cave[0].length  - STEP;) {
                 if(isSuitable(cave, i, j)){
-                    tryToAllocateIsland(cave, i, j);
+                    if(tryToAllocateIsland(cave, i, j)){
+                        j += STEP;
+                    } else {
+                        j++;
+                    }
                 }
             }
         }
@@ -79,7 +83,7 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
         return true;
     }
 
-    private void tryToAllocateIsland(int[][] cave, int h, int w){
+    private boolean tryToAllocateIsland(int[][] cave, int h, int w){
         if (Math.random() <= APPEARANCE_PROB){
             int[][] selectedIsland = transformRandomly(islandPattern[r.nextInt(100) % islandPattern.length]);
             int startI = (STEP - selectedIsland.length) / 2;
@@ -89,8 +93,9 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
                     cave[h + startI + i][w + startJ + j] = selectedIsland[i][j];
                 }
             }
-
+            return true;
         }
+        return false;
     }
 
     private int[][] transformRandomly(int[][] arr){

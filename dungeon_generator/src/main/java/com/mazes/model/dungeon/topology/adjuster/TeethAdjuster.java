@@ -30,7 +30,9 @@ public class TeethAdjuster implements TopologyAdjuster {
             W_100_1X0_000,
             W_001_0X1_000,
             W_000_0X0_110,
-            W_000_0X0_011
+            W_000_0X0_011,
+            W_000_1X0_000,
+            W_000_0X1_000
     };
 
     @Override

@@ -51,7 +51,7 @@ public class BSPTreeVisualizerFX extends Application{
         bspTreeGeneratorCave = new BSPTreeGenerator(width, height);
         cacg = new CellularAutomatonCaveGenerator(width, height);
 
-//        draw(canvas.getGraphicsContext2D());
+        draw(canvas.getGraphicsContext2D());
 
         root.getChildren().add(vbox);
         primaryStage.setScene(scene);
