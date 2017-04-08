@@ -5,8 +5,8 @@ import java.util.*;
 public class RoomsGenerator implements TopologyGenerator {
 
     public static final int ATTEMPTS_PER_ROOM = 10000;
-    public static final int DEFAULT_X_PADDING = 2;
-    public static final int DEFAULT_Y_PADDING = 2;
+    public static final int DEFAULT_X_PADDING = 3;
+    public static final int DEFAULT_Y_PADDING = 3;
 
     public static final int ROOM_MAX_SIDE= 8;
     public static final int ROOM_MIN_SIDE= 4;
