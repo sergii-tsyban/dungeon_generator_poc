@@ -1,6 +1,7 @@
 package com.mazes.model.dungeon.allocator;
 
 import com.mazes.model.dungeon.allocator.matcher.*;
+import com.mazes.model.dungeon.allocator.matcher.shadowmap.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,16 @@ import static com.mazes.model.dungeon.allocator.TerrainTilesIds.NO_TILE;
 public class TerrainTileAllocator {
 
     private List<TileMatcher> matchersChain = new ArrayList<TileMatcher>();
+    private List<TileMatcher> shadowMatchersChain = new ArrayList<TileMatcher>();
 
     {
+        shadowMatchersChain.add(new ShadowBottomWallCornerMatcher());
+        shadowMatchersChain.add(new ShadowInnerCornerMatcher());
+        shadowMatchersChain.add(new ShadowOuterCornerMatcher());
+        shadowMatchersChain.add(new ShadowSideBottomMatcher());
+        shadowMatchersChain.add(new ShadowLeftSideMatcher());
+        shadowMatchersChain.add(new ShadowTopSideCornerMatcher());
+
         matchersChain.add(new WallFrontBottomMatcher());
         matchersChain.add(new WallFrontTopMatcher());
         matchersChain.add(new WallCornerTopLeftMatcher());
@@ -49,6 +58,25 @@ public class TerrainTileAllocator {
             }
         }
         return cells;
+    }
+
+    public int[][][] allocateShadowIds(int[][] cave){
+        int[][][] cells = new int[cave.length][cave[0].length][];
+        for (int i = 0; i < cave.length; i++) {
+            for (int j = 0; j < cave[0].length; j++) {
+                cells[i][j] = assignShadowIdForCell(cave, i, j);
+            }
+        }
+        return cells;
+    }
+
+    private int[] assignShadowIdForCell(int[][] cave, int i, int j) {
+        for (TileMatcher cellMatcher : shadowMatchersChain) {
+            if(cellMatcher.matched(cave, i, j)){
+                return cellMatcher.getTiles();
+            }
+        }
+        return new int[]{0};
     }
 
     public void chooseMatcher(int[][] cave, int i, int j){

@@ -5,7 +5,6 @@ import com.mazes.model.dungeon.cell.CellUtils;
 
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.SIDE_LEFT;
-import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class SideLeftMatcher extends TileMatcher {
 
@@ -17,7 +16,7 @@ public class SideLeftMatcher extends TileMatcher {
     @Override
     public boolean matched(int[][] cave, int i, int j) {
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.SIDE_L_MASKS, mask);
+        boolean hasMask = CellUtils.maskMatched(TerrainTileMasks.SIDE_L_MASKS, mask);
         return hasMask;
     }
 }

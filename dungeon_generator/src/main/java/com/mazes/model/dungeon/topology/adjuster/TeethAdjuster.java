@@ -41,7 +41,7 @@ public class TeethAdjuster implements TopologyAdjuster {
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 int mask = CellUtils.toMask(cave, i, j);
-                if(CellUtils.hasMask(TEETH_MASKS, mask)){
+                if(CellUtils.maskMatched(TEETH_MASKS, mask)){
                     cave[i][j] = 0;
                     wasAdjusted = true;
                 }

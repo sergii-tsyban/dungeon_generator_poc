@@ -16,7 +16,7 @@ public class WallFrontBottomMatcher extends TileMatcher {
     @Override
     public boolean matched(int[][] cave, int i, int j) {
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.WALL_FRONT_BOTTOM_MASKS, mask);
+        boolean hasMask = CellUtils.maskMatched(TerrainTileMasks.WALL_FRONT_BOTTOM_MASKS, mask);
         return hasMask;
     }
 

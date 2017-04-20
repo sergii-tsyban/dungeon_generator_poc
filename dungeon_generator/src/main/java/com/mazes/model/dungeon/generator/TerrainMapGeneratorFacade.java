@@ -15,10 +15,18 @@ public class TerrainMapGeneratorFacade {
         this.topologyManager = new TopologyManager();
     }
 
-    public int[][][] generateCave(){
+    public int[][][] allocateTerrainIds(int[][] topology){
+        return tileAllocator.allocateIds(topology);
+    }
+
+    public int[][][] allocateShadowIds(int[][] topology){
+        return tileAllocator.allocateShadowIds(topology);
+    }
+
+    public int[][] generateTopology(){
         int[][] dungeon = dungeonGenerator.generate();
         topologyManager.adjustTopology(dungeon);
-        return tileAllocator.allocateIds(dungeon);
+        return dungeon;
     }
 
 }

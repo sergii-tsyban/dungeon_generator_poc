@@ -5,7 +5,6 @@ import com.mazes.model.dungeon.cell.CellUtils;
 
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.SIDE_RIGHT_WITH_WALL_CONNECTOR;
-import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class SideRightWithWallConnMatcher extends TileMatcher {
 
@@ -23,7 +22,7 @@ public class SideRightWithWallConnMatcher extends TileMatcher {
             return false;
         }
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.SIDE_RIGHT_WITH_WALL_CONN, mask);
+        boolean hasMask = CellUtils.maskMatched(TerrainTileMasks.SIDE_RIGHT_WITH_WALL_CONN, mask);
         return hasMask && (wallFrontBottomMatcher.matched(cave, i + 1, j - 1) || wallCornerTopRightMatcher.matched(cave, i + 1, j - 1));
     }
 }

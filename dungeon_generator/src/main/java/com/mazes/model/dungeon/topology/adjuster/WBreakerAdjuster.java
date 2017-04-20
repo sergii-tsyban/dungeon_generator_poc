@@ -17,7 +17,7 @@ public class WBreakerAdjuster implements TopologyAdjuster {
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 int mask = CellUtils.toMask(cave, i, j);
-                if(CellUtils.hasMask(W_MASKS, mask)){
+                if(CellUtils.maskMatched(W_MASKS, mask)){
                     cave[i+1][j+1] = 1;
                     wasAdjusted = true;
                 }

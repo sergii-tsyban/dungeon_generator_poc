@@ -632,4 +632,53 @@ public class CellMasks {
 
     public static final int W_001_0X1_110 = 0b001_011_110;
     public static final int W_100_1X0_011 = 0b100_110_011;
+
+    //shadow
+    public static final int E_000_0X0_100 = 0b000_000_100;
+    public static final int E_000_0X0_101 = 0b000_000_101;
+    public static final int E_000_0X1_100 = 0b000_001_100;
+    public static final int E_001_0X0_100 = 0b001_000_100;
+    public static final int E_010_0X0_100 = 0b010_000_100;
+    public static final int E_100_0X0_100 = 0b100_000_100;
+    public static final int E_110_0X0_100 = 0b110_000_100;
+    public static final int E_111_0X0_100 = 0b111_000_100;
+    public static final int E_011_0X0_100 = 0b011_000_100;
+    public static final int E_000_0X1_101 = 0b000_001_101;
+    public static final int E_001_0X1_101 = 0b001_001_101;
+    public static final int E_001_0X1_100 = 0b001_001_100;
+    public static final int E_011_0X1_100 = 0b011_001_100;
+    public static final int E_100_0X0_101 = 0b100_000_101;
+
+    public static final int E_100_1X0_100 = 0b100_100_100;
+    public static final int E_101_1X0_100 = 0b101_100_100;
+    public static final int E_100_1X0_101 = 0b100_100_101;
+    public static final int E_100_1X1_100 = 0b100_101_100;
+    public static final int E_100_1X1_101 = 0b100_101_101;
+    public static final int E_101_1X1_100 = 0b101_101_100;
+    public static final int E_101_1X1_101 = 0b101_101_101;
+    public static final int E_111_1X0_100 = 0b111_100_100;
+    public static final int E_110_1X0_100 = 0b110_100_100;
+    public static final int E_000_1X0_100 = 0b000_100_100;
+    public static final int E_000_1X0_101 = 0b000_100_101;
+    public static final int E_000_1X1_101 = 0b000_101_101;
+    public static final int E_001_1X1_101 = 0b001_101_101;
+    public static final int E_001_1X1_100 = 0b001_101_100;
+
+    public static final int E_100_1X0_000 = 0b100_100_000;
+    public static final int E_101_1X0_000 = 0b101_100_000;
+    public static final int E_101_1X1_000 = 0b101_101_000;
+    public static final int E_100_1X1_001 = 0b100_101_001;
+    public static final int E_110_1X0_000 = 0b110_100_000;
+    public static final int E_111_1X0_000 = 0b111_100_000;
+    public static final int E_111_1X0_001 = 0b111_100_001;
+    public static final int E_101_1X0_001 = 0b101_100_001;
+    public static final int E_111_0X1_100 = 0b111_001_100;
+    public static final int E_011_0X1_101 = 0b011_001_101;
+    public static final int E_001_1X0_100 = 0b001_100_100;
+    public static final int E_101_1X1_001 = 0b101_101_001;
+    public static final int E_111_0X1_101 = 0b111_001_101;
+    public static final int E_100_1X0_001 = 0b100_100_001;
+    public static final int E_111_1X0_101 = 0b111_100_101;
+    public static final int E_110_1X0_101 = 0b110_100_101;
+    public static final int E_110_1X0_001 = 0b110_100_001;
 }

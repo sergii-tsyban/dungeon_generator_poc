@@ -30,7 +30,7 @@ public class StairsAdjuster implements TopologyAdjuster {
 
     private boolean isStair(int[][] cave, int i, int j){
         int mask = CellUtils.toMask(cave, i, j);
-        return CellUtils.hasMask(STAIRS_MASKS, mask);
+        return CellUtils.maskMatched(STAIRS_MASKS, mask);
     }
 
     private boolean tryMakeEmpty(int[][] cave, int i, int j){

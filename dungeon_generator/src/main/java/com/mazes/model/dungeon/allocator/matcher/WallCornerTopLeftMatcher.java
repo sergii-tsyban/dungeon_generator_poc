@@ -17,7 +17,7 @@ public class WallCornerTopLeftMatcher extends TileMatcher {
     @Override
     public boolean matched(int[][] cave, int i, int j) {
         int mask = CellUtils.toMask(cave, i, j);
-        boolean hasMask = CellUtils.hasMask(TerrainTileMasks.CORNER_TL_MASKS, mask);
+        boolean hasMask = CellUtils.maskMatched(TerrainTileMasks.CORNER_TL_MASKS, mask);
         return hasMask;
     }
 

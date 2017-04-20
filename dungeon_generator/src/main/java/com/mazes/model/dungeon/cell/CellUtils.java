@@ -49,7 +49,7 @@ public class CellUtils {
         return m >> 1;
     }
 
-    public static boolean hasMask(int[] masks, int maskToSearch){
+    public static boolean maskMatched(int[] masks, int maskToSearch){
         for (int mask : masks) {
             if(mask == maskToSearch){
                 return true;

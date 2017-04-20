@@ -23,7 +23,7 @@ public class HolesAdjuster implements TopologyAdjuster {
         for (int i = 0; i < cave.length; i++) {
             for (int j = 0; j < cave[0].length; j++) {
                 int mask = CellUtils.toMask(cave, i, j);
-                if(CellUtils.hasMask(HOLES_MASKS, mask)){
+                if(CellUtils.maskMatched(HOLES_MASKS, mask)){
                     cave[i][j] = 1;
                     wasAdjusted = true;
                 }
