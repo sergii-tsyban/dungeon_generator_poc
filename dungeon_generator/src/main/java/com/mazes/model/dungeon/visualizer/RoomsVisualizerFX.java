@@ -73,8 +73,8 @@ public class RoomsVisualizerFX extends Application {
 
     public static final int CELL_SIDE_PIXELS = 16;
 
-    public static final int CAVE_WIDTH = 100;
-    public static final int CAVE_HEIGHT = 100;
+    public static final int CAVE_WIDTH = 70;
+    public static final int CAVE_HEIGHT = 70;
 
     private static final Font LABEL_FONT = new Font("Verdana", 15);
     private static final Font TILE_ID_FONT = new Font("Verdana", 10);
@@ -106,7 +106,7 @@ public class RoomsVisualizerFX extends Application {
         Scene scene = new Scene(root, Color.WHITE);
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(1500, 600);
+        scrollPane.setPrefSize(1500, 900);
         scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);

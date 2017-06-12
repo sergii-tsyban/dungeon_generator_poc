@@ -71,7 +71,7 @@ public class DungeonVisualizerFX extends Application {
 
     public static final int CELL_SIDE_PIXELS = 16;
 
-    public static final int CAVE_WIDTH = 250;
+    public static final int CAVE_WIDTH = 100;
     public static final int CAVE_HEIGHT = 100;
 
     private static final Font LABEL_FONT = new Font("Verdana", 15);
