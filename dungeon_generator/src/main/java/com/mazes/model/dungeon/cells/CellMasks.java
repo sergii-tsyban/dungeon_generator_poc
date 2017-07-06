@@ -1,4 +1,4 @@
-package com.mazes.model.dungeon.cell;
+package com.mazes.model.dungeon.cells;
 
 public class CellMasks {
 

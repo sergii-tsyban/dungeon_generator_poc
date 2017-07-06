@@ -1,7 +1,7 @@
 package com.mazes.model.dungeon.allocator.matcher;
 
 import com.mazes.model.dungeon.allocator.TerrainTileMasks;
-import com.mazes.model.dungeon.cell.CellUtils;
+import com.mazes.model.dungeon.cells.CellUtils;
 
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.FLOOR;
 import static com.mazes.model.dungeon.allocator.TerrainTilesIds.SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT;

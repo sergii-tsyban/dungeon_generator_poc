@@ -1,7 +1,7 @@
 package com.mazes.model.dungeon.visualizer;
 
 import com.mazes.model.dungeon.allocator.TerrainTileAllocator;
-import com.mazes.model.dungeon.generator.CellularAutomatonCaveGenerator;
+import com.mazes.model.dungeon.generator.automaton.CellularAutomatonCaveGenerator;
 import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
@@ -111,7 +111,7 @@ public class DungeonVisualizerFX extends Application {
         scrollPane.setFitToHeight(true);
 
         allocator = new TerrainTileAllocator();
-        generator = new CellularAutomatonCaveGenerator(CAVE_WIDTH, CAVE_HEIGHT);
+        generator = new CellularAutomatonCaveGenerator();
         topologyManager = new TopologyManager();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -156,7 +156,7 @@ public class DungeonVisualizerFX extends Application {
                 generator.setMinimumOpenPercentage(minOpenPercentage);
 
                 generator.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
-                generator.generateRooms();
+//                generator.generateRooms();
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
                 statusLabel.setText(String.format("Generated in %d millis", generationTime));
@@ -169,10 +169,10 @@ public class DungeonVisualizerFX extends Application {
             public void handle(ActionEvent event) {
                 statusLabel.setText("Status: processing");
                 long millisBefore = System.currentTimeMillis();
-                int[][][] cells = allocator.allocateIds(generator.getCave());
+//                int[][][] cells = allocator.allocateIds(generator.getCave());
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
-                drawCells(canvas.getGraphicsContext2D(), cells);
+//                drawCells(canvas.getGraphicsContext2D(), cells);
                 statusLabel.setText(String.format("Allocated in in %d millis", generationTime));
             }
         });
@@ -181,9 +181,9 @@ public class DungeonVisualizerFX extends Application {
         adjustTopology.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                topologyManager.executeAdjustmentStep(generator.generate());
-                int steps = topologyManager.adjustTopology(generator.getCave());
-                statusLabel.setText(String.format("Adjusted steps made %d", steps));
+//                topologyManager.executeAdjustmentStep(generator.treeLeafs());
+//                int steps = topologyManager.adjustTopology(generator.getCave());
+//                statusLabel.setText(String.format("Adjusted steps made %d", steps));
                 draw(canvas.getGraphicsContext2D());
             }
         });
@@ -209,10 +209,10 @@ public class DungeonVisualizerFX extends Application {
 
     private WritableImage generateImages(WritableImage wi) {
         generator.addRoom(0, 0, CAVE_WIDTH, CAVE_HEIGHT);
-        generator.generateRooms();
-        topologyManager.adjustTopology(generator.getCave());
-        int[][][] cells = allocator.allocateIds(generator.getCave());
-        drawCells(canvas.getGraphicsContext2D(), cells);
+//        generator.generateRooms();
+//        topologyManager.adjustTopology(generator.getCave());
+//        int[][][] cells = allocator.allocateIds(generator.getCave());
+//        drawCells(canvas.getGraphicsContext2D(), cells);
         return canvas.snapshot(new SnapshotParameters(), wi);
     }
 
@@ -245,18 +245,18 @@ public class DungeonVisualizerFX extends Application {
                         int j = (int) (e.getX() / CELL_SIDE_PIXELS);
                         switch (mouseButton) {
                             case PRIMARY:
-                                generator.getCave()[i][j] = 1;
+//                                generator.getCave()[i][j] = 1;
                                 draw(gc);
                                 break;
                             case SECONDARY:
-                                generator.getCave()[i][j] = 0;
+//                                generator.getCave()[i][j] = 0;
                                 draw(gc);
                                 break;
                             case MIDDLE:
-                                allocator.chooseMatcher(generator.getCave(), i, j);
+//                                allocator.chooseMatcher(generator.getCave(), i, j);
                                 gc.setFill(Color.BLUE);
                                 gc.strokeRect(j * CELL_SIDE_PIXELS, i * CELL_SIDE_PIXELS, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
-                                ids.add(generator.getCave()[i][j]);
+//                                ids.add(generator.getCave()[i][j]);
                                 if (ids.size() == 9) {
                                     String out = "%d %d %d\n%d %d %d\n%d %d %d";
                                     System.out.println(String.format(out, ids.get(0), ids.get(1), ids.get(2), ids.get(3), ids.get(4), ids.get(5), ids.get(6), ids.get(7), ids.get(8)));
@@ -333,15 +333,15 @@ public class DungeonVisualizerFX extends Application {
         int x = 0;
         int y = 0;
 
-        for (int[] row : generator.getCave()) {
-            for (int cell : row) {
-                gc.setFill(cell == FLOOR ? Color.WHITE : Color.BROWN);
-                gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
-                x += CELL_SIDE_PIXELS;
-            }
-            x = 0;
-            y += CELL_SIDE_PIXELS;
-        }
+//        for (int[] row : generator.getCave()) {
+//            for (int cells : row) {
+//                gc.setFill(cells == FLOOR ? Color.WHITE : Color.BROWN);
+//                gc.fillRect(x, y, CELL_SIDE_PIXELS, CELL_SIDE_PIXELS);
+//                x += CELL_SIDE_PIXELS;
+//            }
+//            x = 0;
+//            y += CELL_SIDE_PIXELS;
+//        }
     }
 
 }

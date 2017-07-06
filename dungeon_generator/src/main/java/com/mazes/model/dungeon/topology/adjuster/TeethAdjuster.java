@@ -1,8 +1,8 @@
 package com.mazes.model.dungeon.topology.adjuster;
 
-import com.mazes.model.dungeon.cell.CellUtils;
+import com.mazes.model.dungeon.cells.CellUtils;
 
-import static com.mazes.model.dungeon.cell.CellMasks.*;
+import static com.mazes.model.dungeon.cells.CellMasks.*;
 
 public class TeethAdjuster implements TopologyAdjuster {
 

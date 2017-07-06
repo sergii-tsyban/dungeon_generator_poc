@@ -1,8 +1,6 @@
 package com.mazes.model.dungeon.visualizer;
 
 import com.mazes.model.dungeon.allocator.TerrainTileAllocator;
-import com.mazes.model.dungeon.generator.RoomsGenerator;
-import com.mazes.model.dungeon.generator.TopologyGenerator;
 import com.mazes.model.dungeon.topology.TopologyManager;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
@@ -82,7 +80,7 @@ public class RoomsVisualizerFX extends Application {
     private static final int DEFAULT_SPACING = 10;
     private static final String DEFAULT_CSS = "-fx-background-color: #66b3ff;";
 
-    private TopologyGenerator generator;
+//    private TopologyGenerator generator;
     private TerrainTileAllocator allocator;
     private TopologyManager topologyManager;
 
@@ -112,13 +110,13 @@ public class RoomsVisualizerFX extends Application {
         scrollPane.setFitToHeight(true);
 
         allocator = new TerrainTileAllocator();
-        generator = new RoomsGenerator(CAVE_WIDTH, CAVE_HEIGHT);
+//        generator = new RoomsGenerator();
         topologyManager = new TopologyManager();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFont(TILE_ID_FONT);
 
-        cave = generator.generate();
+//        cave = generator.treeLeafs(CAVE_WIDTH, CAVE_HEIGHT);
 
         draw(gc);
 
@@ -149,7 +147,7 @@ public class RoomsVisualizerFX extends Application {
                 statusLabel.setText("Generate cave ...");
                 long millisBefore = System.currentTimeMillis();
 
-                cave = generator.generate();
+//                cave = generator.treeLeafs(CAVE_WIDTH, CAVE_HEIGHT);
 
                 long generationTime = System.currentTimeMillis() - millisBefore;
                 draw(canvas.getGraphicsContext2D());
@@ -201,10 +199,10 @@ public class RoomsVisualizerFX extends Application {
     }
 
     private WritableImage generateImages(WritableImage wi) {
-        int[][] c = generator.generate();
-        topologyManager.adjustTopology(c);
-        int[][][] cells = allocator.allocateIds(c);
-        drawCells(canvas.getGraphicsContext2D(), cells);
+//        int[][] c = generator.treeLeafs(CAVE_WIDTH, CAVE_HEIGHT);
+//        topologyManager.adjustTopology(c);
+//        int[][][] cells = allocator.allocateIds(c);
+//        drawCells(canvas.getGraphicsContext2D(), cells);
         return canvas.snapshot(new SnapshotParameters(), wi);
     }
 

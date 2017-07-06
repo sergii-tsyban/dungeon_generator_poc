@@ -1,9 +1,9 @@
 package com.mazes.model.dungeon.topology.adjuster;
 
-import com.mazes.model.dungeon.cell.CellUtils;
+import com.mazes.model.dungeon.cells.CellUtils;
 
-import static com.mazes.model.dungeon.cell.CellMasks.W_001_1X1_110;
-import static com.mazes.model.dungeon.cell.CellMasks.W_100_1X1_011;
+import static com.mazes.model.dungeon.cells.CellMasks.W_001_1X1_110;
+import static com.mazes.model.dungeon.cells.CellMasks.W_100_1X1_011;
 
 public class SolidZBreakerAdjuster implements TopologyAdjuster {
 

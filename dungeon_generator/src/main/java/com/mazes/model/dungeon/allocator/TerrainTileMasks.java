@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.allocator;
 
-import com.mazes.model.dungeon.cell.CellMasks;
+import com.mazes.model.dungeon.cells.CellMasks;
 
 public class TerrainTileMasks {
 

@@ -1,6 +1,6 @@
-package com.mazes.model.dungeon.generator;
+package com.mazes.model.dungeon.generator.automaton;
 
-import com.mazes.model.dungeon.cell.CellUtils;
+import com.mazes.model.dungeon.cells.CellUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,32 +20,32 @@ public class CellularAutomatonCaveGenerator{
     private int initWallBirthProb = 52;
     private int birthLimit = 4;
     private int deathLimit = 4;
-    private int[][] cave;
 
     private List<Room> rooms = new ArrayList<>();
 
-    public CellularAutomatonCaveGenerator(int width, int height) {
-        this.cave = new int[height][width];
+    public CellularAutomatonCaveGenerator() {
     }
 
-    public void addRoom(int i, int j, int w, int h){
-        rooms.add(new Room(i, j ,w, h));
+
+    public void addRoom(int x, int y, int w, int h){
+        rooms.add(new Room(y, x ,w, h));
     }
 
     public void clear(){
         rooms.clear();
     }
 
-    public void generateRooms(){
+    public void updateTopology(int[][] topology){
         for(Room r: rooms){
             r.generateCave();
             int[][] room = r.getRoom();
             for (int i = 0; i < room.length; i++) {
                 for (int j = 0; j < room[0].length; j++) {
-                    cave[r.getI() + i][r.getJ() + j] = room[i][j];
+                    topology[r.getI() + i][r.getJ() + j] = room[i][j];
                 }
             }
         }
+        clear();
     }
 
     private class Room {
@@ -182,10 +182,6 @@ public class CellularAutomatonCaveGenerator{
         public int getJ() {
             return j;
         }
-    }
-
-    public int[][] getCave() {
-        return cave;
     }
 
     public void setInitWallBirthProb(int initWallBirthProb) {

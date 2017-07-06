@@ -1,6 +1,6 @@
 package com.mazes.model.dungeon.topology.adjuster;
 
-import com.mazes.model.dungeon.cell.CellUtils;
+import com.mazes.model.dungeon.cells.CellUtils;
 
 import java.util.Random;
 
