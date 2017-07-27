@@ -7,8 +7,9 @@ import java.util.Random;
 public class BSPNode implements RNGNode {
 
     private static int ID_SEQUENCE;
-    private static final int MIN_LEAF_SIZE = 30;
     private static final Random RAND = new Random();
+
+    private int minLeafSize = 30;
 
     private final int id;
     public int i;
@@ -39,10 +40,10 @@ public class BSPNode implements RNGNode {
             splitH = false;
         else
             splitH = true;
-        int max = (splitH ? height : width) - MIN_LEAF_SIZE;
-        if (max <= MIN_LEAF_SIZE)
+        int max = (splitH ? height : width) - minLeafSize;
+        if (max <= minLeafSize)
             return false;
-        int split = RAND.nextInt(max - MIN_LEAF_SIZE) + MIN_LEAF_SIZE;
+        int split = RAND.nextInt(max - minLeafSize) + minLeafSize;
         if (splitH) {
             leftChild = new BSPNode(j, i, width, split);
             rightChild = new BSPNode(j, i + split, width, height - split);
@@ -51,6 +52,10 @@ public class BSPNode implements RNGNode {
             rightChild = new BSPNode(j + split, i, width - split, height);
         }
         return true;
+    }
+
+    public void setMinLeafSize(int minLeafSize) {
+        this.minLeafSize = minLeafSize;
     }
 
     @Override

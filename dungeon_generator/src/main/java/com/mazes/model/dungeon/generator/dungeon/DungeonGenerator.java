@@ -8,12 +8,12 @@ import java.util.*;
 
 public class DungeonGenerator {
 
-    public static final int ATTEMPTS_PER_ROOM = 10000;
+    public static final int ATTEMPTS_PER_ROOM = 1000;
     public static final int DEFAULT_X_PADDING = 3;
     public static final int DEFAULT_Y_PADDING = 3;
 
-    public static final int ROOM_MAX_SIDE= 8;
-    public static final int ROOM_MIN_SIDE= 4;
+    public static final int ROOM_MAX_SIDE= 7;
+    public static final int ROOM_MIN_SIDE= 3;
 
     public static float calculateDistanceBetween(DRoom from, DRoom to) {
         int dx = from.getCenterX() - to.getCenterX();

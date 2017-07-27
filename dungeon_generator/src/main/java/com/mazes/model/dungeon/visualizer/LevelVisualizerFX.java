@@ -27,7 +27,7 @@ import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class LevelVisualizerFX extends Application{
 
-    public static final int CELL_SIDE = 3;
+    public static final int CELL_SIDE = 5;
 
     private DungeonConstructionFlow dungeonConstructionFlow;
 
@@ -47,8 +47,8 @@ public class LevelVisualizerFX extends Application{
         //init fields
         dungeonConstructionFlow = new DungeonConstructionFlow();
 
-        width = 130;
-        height = 130;
+        width = 100;
+        height = 100;
         root = new Group();
         canvas = new Canvas(width * CELL_SIDE + 2, width * CELL_SIDE + 2);
         label = new Label("Status: ");
