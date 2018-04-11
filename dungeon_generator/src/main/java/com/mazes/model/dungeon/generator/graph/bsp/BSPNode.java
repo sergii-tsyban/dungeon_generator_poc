@@ -9,7 +9,7 @@ public class BSPNode implements RNGNode {
     private static int ID_SEQUENCE;
     private static final Random RAND = new Random();
 
-    private int minLeafSize = 30;
+    private int minLeafSize = 7;
 
     private final int id;
     public int i;

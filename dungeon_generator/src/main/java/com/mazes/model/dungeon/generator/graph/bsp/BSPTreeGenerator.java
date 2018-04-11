@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BSPTreeGenerator {
 
-    private int sizeToSplit = 80;
+    private int sizeToSplit = 15;
 
     public List<BSPNode> treeLeafs(int width, int height){
         List<BSPNode> nodes = new LinkedList<>();

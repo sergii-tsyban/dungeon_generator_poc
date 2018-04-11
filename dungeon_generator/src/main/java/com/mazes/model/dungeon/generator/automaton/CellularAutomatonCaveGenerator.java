@@ -19,8 +19,8 @@ public class CellularAutomatonCaveGenerator{
     private int minimumOpenPercentage = 35;
     private int initWallBirthProb = 52;
     private int birthLimit = 4;
-    private int deathLimit = 4;
-
+    private int deathLimit = 3;
+    private Random r = new Random();
     private List<Room> rooms = new ArrayList<>();
 
     public CellularAutomatonCaveGenerator() {
@@ -67,7 +67,7 @@ public class CellularAutomatonCaveGenerator{
         public int generateCave(){
             int skippedCavesCount = 0;
             boolean sizeReached = false;
-            while(!sizeReached && skippedCavesCount < 100){
+            while(!sizeReached && skippedCavesCount < 200){
                 initRoomState();
                 placeGrid();
                 makeGenerationSteps();
@@ -80,7 +80,6 @@ public class CellularAutomatonCaveGenerator{
         }
 
         private void initRoomState(){
-            Random r = new Random();
             for (int i = 0; i < room.length; i++) {
                 for (int j = 0; j < room[i].length; j++) {
                     if(i == 0 || j == 0 || i == room.length - 1 || j == room[i].length - 1){
@@ -94,23 +93,21 @@ public class CellularAutomatonCaveGenerator{
 
         private void placeGrid(){
             for (int i = 1; i < room.length - 1; i++) {
-                room[i][gridHStep + 1] = 0;
-                room[i][gridHStep * (GRID_STEP - 1) + 1] = 0;
+                    room[i][gridHStep + 1] = 0;
+                    room[i][gridHStep * (GRID_STEP - 1) + 1] = 0;
             }
             for (int i = 1; i < room[0].length - 1; i++) {
-                room[gridVStep + 1][i] = 0;
-                room[gridVStep * (GRID_STEP - 1) + 1][i] = 0;
+                    room[gridVStep + 1][i] = 0;
+                    room[gridVStep * (GRID_STEP - 1) + 1][i] = 0;
             }
         }
 
         private int makeGenerationSteps(){
             int generationsCount = 0;
-            boolean stateChanged = true;
-            int maxGenerationsSteps = 30;
-            while (stateChanged && generationsCount < maxGenerationsSteps) {
+            int maxGenerationsSteps = 2;
+            while (generationsCount < maxGenerationsSteps) {
                 int[][] old = room;
                 room = produceGeneration(old);
-                stateChanged = !Arrays.deepEquals(old, room);
                 generationsCount++;
             }
             return generationsCount;

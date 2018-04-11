@@ -16,7 +16,11 @@ public class XBreakerAdjuster implements TopologyAdjuster {
             W_100_0X0_011,
             W_001_0X0_110,
             W_001_0X0_011,
-            W_100_0X0_110
+            W_100_0X0_110,
+            W_001_1X0_111,
+            W_100_0X1_111,
+            W_111_1X0_001,
+            W_111_0X1_100
     };
 
     @Override

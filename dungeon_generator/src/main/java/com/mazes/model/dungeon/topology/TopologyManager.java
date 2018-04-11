@@ -7,15 +7,15 @@ import java.util.List;
 
 public class TopologyManager {
 
-    public static final int DEFAULT_MAX_ADJUSTMENT_STEPS = 10;
+    public static final int DEFAULT_MAX_ADJUSTMENT_STEPS = 100;
 
     private int maxAdjustmentSteps = DEFAULT_MAX_ADJUSTMENT_STEPS;
 
+    private IslandBuilderAdjuster islandBuilder = new IslandBuilderAdjuster();
     private List<TopologyAdjuster> adjusters = new ArrayList<>();
 
     {
 //        registerTopologyAdjuster(StairsAdjuster.class);
-//        registerTopologyAdjuster(IslandBuilderAdjuster.class);
         registerTopologyAdjuster(SolidZBreakerAdjuster.class);
         registerTopologyAdjuster(TBreakerAdjuster.class);
         registerTopologyAdjuster(MBreakerAdjuster.class);
@@ -43,6 +43,11 @@ public class TopologyManager {
             }
         }
         return wasAdjusted;
+    }
+
+    public int adjustTopologyAddIslands(int[][] cave){
+        islandBuilder.adjust(cave);
+        return adjustTopology(cave);
     }
 
     public int adjustTopology(int[][] cave){

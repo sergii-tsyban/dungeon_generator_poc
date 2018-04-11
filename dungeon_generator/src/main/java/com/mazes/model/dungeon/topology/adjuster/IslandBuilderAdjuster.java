@@ -8,73 +8,135 @@ import static com.mazes.model.dungeon.allocator.TerrainTilesIds.WALL_SOLID;
 
 public class IslandBuilderAdjuster implements TopologyAdjuster {
 
-    private static final int STEP = 10;
-    private static final double APPEARANCE_PROB = 0.3;
-
     private Random r = new Random();
 
-    private int[][][] islandPattern = {
+    private int[][][] smallIslandsPatterns = {
             {
-                    {0,0,1,1,0,0,0,0},
-                    {0,0,1,1,1,0,0,0},
-                    {0,1,1,1,1,1,0,0},
-                    {1,1,1,1,1,1,1,0},
-                    {1,1,1,1,1,1,1,0},
-                    {0,1,1,1,1,1,1,0},
-                    {0,0,1,1,1,1,0,0},
-                    {0,0,0,1,1,0,0,0},
+                    {0, 1, 1},
+                    {1, 1, 1},
+                    {1, 1, 0},
             },
             {
-                    {0,0,0,0,1,1,0,0},
-                    {0,0,0,1,1,1,0,0},
-                    {0,0,1,1,1,0,0,0},
-                    {0,1,1,1,1,0,0,0},
-                    {0,1,1,1,1,1,0,0},
-                    {0,0,1,1,1,1,1,0},
-                    {0,0,0,1,1,1,1,0},
-                    {0,0,0,0,1,1,0,0},
+                    {1, 1, 1},
+                    {1, 1, 1},
+                    {0, 1, 1},
             },
             {
-                    {0,0,0,0,0,0,0,0},
-                    {0,0,0,0,1,1,1,0},
-                    {0,0,0,1,1,1,1,1},
-                    {0,0,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,0},
-                    {1,1,1,1,1,1,0,0},
-                    {0,1,1,1,1,0,0,0},
-                    {0,0,1,1,0,0,0,0},
+                    {1, 1, 0},
+                    {1, 1, 0},
+                    {1, 1, 0},
             },
             {
-                    {0,0,1,1,1,1,0,0},
-                    {0,1,1,1,1,1,1,0},
-                    {1,1,1,0,0,1,1,1},
-                    {1,1,0,0,0,0,1,1},
-                    {1,1,1,0,0,0,0,0},
-                    {0,1,1,1,0,0,1,1},
-                    {0,0,1,1,1,1,1,1},
-                    {0,0,0,1,1,1,1,0},
+                    {0, 1, 1},
+                    {1, 1, 1},
+                    {1, 1, 0},
+            }
+    };
+
+    private int[][][] mediumIslandsPatterns = {
+            {
+                    {0, 0, 0, 0},
+                    {0, 1, 1, 0},
+                    {1, 1, 1, 0},
+                    {1, 1, 0, 0},
+            },
+            {
+                    {1, 1, 1, 0},
+                    {1, 1, 1, 1},
+                    {0, 0, 1, 1},
+                    {0, 0, 1, 1},
+            },
+            {
+                    {0, 0, 1, 1},
+                    {0, 1, 1, 1},
+                    {1, 1, 1, 0},
+                    {1, 1, 0, 0},
+            },
+            {
+                    {0, 0, 0, 0},
+                    {0, 1, 1, 1},
+                    {0, 1, 1, 1},
+                    {0, 0, 1, 1},
+            },
+            {
+                    {0, 1, 1, 0},
+                    {1, 1, 1, 0},
+                    {1, 1, 0, 0},
+                    {1, 1, 0, 0},
+            },
+            {
+                    {0, 0, 0, 0},
+                    {0, 0, 1, 1},
+                    {0, 1, 1, 1},
+                    {0, 1, 1, 0},
+            },
+    };
+
+    private int[][][] largeIslandsPatterns = {
+            {
+                    {1, 1, 0, 1, 1, 0},
+                    {1, 1, 0, 1, 1, 0},
+                    {0, 0, 0, 1, 1, 1},
+                    {0, 1, 1, 1, 1, 1},
+                    {1, 1, 1, 1, 0, 0},
+                    {1, 1, 1, 0, 0, 0},
+            },
+            {
+                    {0, 0, 1, 1, 1, 0},
+                    {0, 1, 1, 1, 1, 0},
+                    {1, 1, 1, 0, 0, 0},
+                    {1, 1, 1, 0, 0, 0},
+                    {0, 1, 1, 1, 1, 1},
+                    {0, 0, 1, 1, 1, 1},
+            },
+            {
+                    {0, 0, 1, 1, 1, 0},
+                    {0, 0, 1, 1, 1, 1},
+                    {0, 0, 0, 0, 1, 1},
+                    {1, 1, 0, 0, 0, 0},
+                    {1, 1, 1, 1, 0, 0},
+                    {0, 1, 1, 1, 0, 0},
+            },
+            {
+                    {0, 1, 1, 1, 1, 0},
+                    {0, 1, 1, 1, 1, 1},
+                    {1, 1, 0, 0, 1, 1},
+                    {1, 1, 0, 0, 0, 0},
+                    {0, 1, 1, 1, 1, 1},
+                    {0, 1, 1, 1, 1, 1},
             },
     };
 
     @Override
     public boolean adjust(int[][] cave) {
-        for (int i = 0; i < cave.length - STEP; i++) {
-            for (int j = 0; j < cave[0].length  - STEP;) {
-                if(isSuitable(cave, i, j)){
-                    if(tryToAllocateIsland(cave, i, j)){
-                        j += STEP;
+        boolean large = adjust(cave, largeIslandsPatterns, 1);
+        boolean medium = adjust(cave, mediumIslandsPatterns, 1);
+        boolean small = adjust(cave, smallIslandsPatterns, 1);
+        return large || medium || small;
+    }
+
+    private boolean adjust(int[][] cave, int[][][] islandPattern, double prob) {
+        int step = islandPattern[0].length + 2;
+        for (int i = 1; i < cave.length - 1 - step; i++) {
+            for (int j = 1; j < cave[0].length - 1 - step; ) {
+                if (isSuitable(cave, i, j, step)) {
+                    if (Math.random() <= prob) {
+                        allocateIsland(cave, islandPattern, i, j, step);
+                        j += step;
                     } else {
                         j++;
                     }
+                } else {
+                    j++;
                 }
             }
         }
         return false;
     }
 
-    private boolean isSuitable(int[][] cave, int h, int w) {
-        for (int i = h; i < h + STEP; i++) {
-            for (int j = w; j < w + STEP; j++) {
+    private boolean isSuitable(int[][] cave, int h, int w, int step) {
+        for (int i = h; i < h + step; i++) {
+            for (int j = w; j < w + step; j++) {
                 if (cave[i][j] == WALL_SOLID) {
                     return false;
                 }
@@ -83,22 +145,18 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
         return true;
     }
 
-    private boolean tryToAllocateIsland(int[][] cave, int h, int w){
-        if (Math.random() <= APPEARANCE_PROB){
-            int[][] selectedIsland = transformRandomly(islandPattern[r.nextInt(100) % islandPattern.length]);
-            int startI = (STEP - selectedIsland.length) / 2;
-            int startJ = (STEP - selectedIsland[0].length) / 2;
-            for (int i = 0; i < selectedIsland.length; i++) {
-                for (int j = 0; j < selectedIsland[0].length; j++) {
-                    cave[h + startI + i][w + startJ + j] = selectedIsland[i][j];
-                }
+    private void allocateIsland(int[][] cave, int[][][] islandPatterns, int h, int w, int step) {
+        int[][] selectedIsland = transformRandomly(islandPatterns[r.nextInt(100) % islandPatterns.length]);
+        int startI = (step - selectedIsland.length) / 2;
+        int startJ = (step - selectedIsland[0].length) / 2;
+        for (int i = 0; i < selectedIsland.length; i++) {
+            for (int j = 0; j < selectedIsland[0].length; j++) {
+                cave[h + startI + i][w + startJ + j] = selectedIsland[i][j];
             }
-            return true;
         }
-        return false;
     }
 
-    private int[][] transformRandomly(int[][] arr){
+    private int[][] transformRandomly(int[][] arr) {
         //TODO : fix flip
 //        if(r.nextInt(100) < 50){
 //            CellUtils.flipHorizontal(arr);
@@ -108,8 +166,8 @@ public class IslandBuilderAdjuster implements TopologyAdjuster {
         int rand = r.nextInt(100);
         boolean rotCW = rand < 50;
         int iter = 0;
-        while(iter < rand % 5) {
-            if(rotCW){
+        while (iter < rand % 3) {
+            if (rotCW) {
                 arr = CellUtils.rotateCW(arr);
             } else {
                 arr = CellUtils.rotateCCW(arr);

@@ -46,7 +46,7 @@ public class TerrainTileAllocator {
         matchersChain.add(new SideConnectorTopToLeftMatcher());
         matchersChain.add(new WallSideLeft());
         matchersChain.add(new WallSideRight());
-//        matchersChain.add(new NoTileMatcher());
+        matchersChain.add(new NoTileMatcher());
         matchersChain.add(new FloorMatcher());
     }
 

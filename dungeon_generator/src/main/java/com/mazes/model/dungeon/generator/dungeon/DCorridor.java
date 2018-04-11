@@ -15,4 +15,12 @@ public class DCorridor {
         return cells;
     }
 
+    public boolean containCell(DCell doorCell) {
+        for (DCell cell : cells) {
+            if(cell.equals(doorCell)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -8,13 +8,24 @@ public class HolesAdjuster implements TopologyAdjuster {
 
     private static final int[] HOLES_MASKS = {
             E_111_1X1_000,
+            E_111_1X1_101,
+            E_111_1X1_001,
+            E_111_1X1_100,
+
             E_000_1X1_111,
-            E_011_0X1_011,
-            E_110_1X0_110,
-            E_100_1X1_111,
             E_001_1X1_111,
+            E_100_1X1_111,
+            E_101_1X1_111,
+
+            E_011_0X1_011,
+            E_111_0X1_011,
+            E_011_0X1_111,
+            E_111_0X1_111,
+
+            E_110_1X0_110,
             E_111_1X0_110,
-            E_110_1X0_111
+            E_110_1X0_111,
+            E_111_1X0_111,
     };
 
     @Override
