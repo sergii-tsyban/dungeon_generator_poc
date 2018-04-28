@@ -190,6 +190,8 @@ public class LevelVisualizerFX extends Application {
             for (int j = 0; j < dungeon.getTopology()[i].length; j++) {
                 gc.setFill(dungeon.getTopology()[i][j] == WALL_SOLID ? Color.BROWN : Color.GRAY);
                 gc.fillRect(x, y, CELL_SIDE, CELL_SIDE);
+                gc.setFill(Color.LIGHTGREY);
+                gc.strokeRect(x, y, CELL_SIDE, CELL_SIDE);
                 x += CELL_SIDE;
             }
             x = 0;

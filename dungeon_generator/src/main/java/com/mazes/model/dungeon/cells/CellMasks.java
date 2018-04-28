@@ -706,4 +706,6 @@ public class CellMasks {
     public static final int E_110_1X0_001 = 0b110_100_001;
     public static final int E_101_0X0_110 = 0b101_000_110;
     public static final int E_101_0X0_011 = 0b101_000_011;
+    public static final int E_101_0X0_111 = 0b101_000_111;
+
 }

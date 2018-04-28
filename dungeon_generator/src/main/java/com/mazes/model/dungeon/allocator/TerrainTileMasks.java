@@ -171,7 +171,8 @@ public class TerrainTileMasks {
             CellMasks.E_101_0X1_111,
             CellMasks.E_101_1X0_111,
             CellMasks.E_100_0X1_111,
-            CellMasks.E_001_1X0_111
+            CellMasks.E_001_1X0_111,
+            CellMasks.E_101_0X0_111
     };
 
     //----------------------------------------

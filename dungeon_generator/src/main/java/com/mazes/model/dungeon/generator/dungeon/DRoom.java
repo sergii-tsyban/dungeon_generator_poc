@@ -12,7 +12,7 @@ public class DRoom implements RNGNode {
         LEAF, CORRIDOR, PASS_ROOM, CAVE
     }
 
-    private final int id;
+    private int id;
 
     private int x;
     private int y;
@@ -23,6 +23,9 @@ public class DRoom implements RNGNode {
     private List<DCorridor> corridors;
 
     private Type type;
+
+    public DRoom() {
+    }
 
     public DRoom(int x, int y, int w, int h) {
         this.x = x;
