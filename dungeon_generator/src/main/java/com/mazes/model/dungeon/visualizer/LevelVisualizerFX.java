@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -59,7 +61,7 @@ public class LevelVisualizerFX extends Application {
         tileIdToImage.put(SIDE_CONNECTOR_TR_WITH_WALL_SIDE_LEFT, new Image("terrain/side_connector_tr_with_wall_side_left.png"));
     }
 
-    public static final int CELL_SIDE = 10;
+    public static final int CELL_SIDE = 15;
 
     private DungeonConstructionFlow dungeonConstructionFlow;
 
@@ -97,6 +99,7 @@ public class LevelVisualizerFX extends Application {
         vbox.getChildren().addAll(createDungeonPanel(),
                 createCavePanel(),
                 createInputPanel(), canvas, label);
+        addCanvasMouseListener(canvas.getGraphicsContext2D());
         root.getChildren().add(vbox);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -251,14 +254,6 @@ public class LevelVisualizerFX extends Application {
         gc.fillRect(0, 0, width * CELL_SIDE, height * CELL_SIDE);
     }
 
-    private int getInt(String str, int def) {
-        try {
-            return Integer.parseInt(str);
-        } catch (Exception e) {
-            return def;
-        }
-    }
-
     private void drawCells(GraphicsContext gc, int[][][] cells) {
         int x = 0;
         int y = 0;
@@ -291,5 +286,29 @@ public class LevelVisualizerFX extends Application {
             gc.setFill(Color.RED);
             gc.fillRect(x, y, CELL_SIDE, CELL_SIDE);
         }
+    }
+
+    private void addCanvasMouseListener(final GraphicsContext gc) {
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        MouseButton mouseButton = e.getButton();
+                        int i = (int) (e.getY() / CELL_SIDE);
+                        int j = (int) (e.getX() / CELL_SIDE);
+                        switch (mouseButton) {
+                            case PRIMARY:
+                                dungeon.getTopology()[i][j] = 1;
+                                drawTopology(gc);
+                                break;
+                            case SECONDARY:
+                                dungeon.getTopology()[i][j] = 0;
+                                drawTopology(gc);
+                                break;
+                            case MIDDLE:
+                                break;
+                        }
+                    }
+                });
     }
 }
